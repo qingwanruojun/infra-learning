@@ -26,7 +26,7 @@ day3/   手写 Vector 算子（abs、rmsnorm）
 |---|---|---|---|---|
 | D1 | 10/26 | Codex/Agent 原理、申请机器、读三个仓库 README | `day1/day1学习指标.md` | ✅ |
 | D2 | 10/27 | 编译 TileLang、跑通 L2、TileLang DSL 全量速读 | `day2/day2学习指标.md` | ✅ |
-| D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | `day3/day3学习指标.md`、`day3/code/` | ✅ |
+| D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标-融合版.md`](day3/note/day3学习指标-融合版.md)、`day3/code/` | ✅ |
 | D4 | 10/29 | Cube 算子（GEMM） | — | 未开始 |
 | D5 | 10/30 | MixCV / FlashAttention、第一周收口 | — | 未开始 |
 | D6 | 11/02 | MLIR 与 AscendNPU-IR 入门 | — | 未开始 |
@@ -88,7 +88,7 @@ abs 参数实验（N=1048576，`logs/abs_bench_final.log`）：
 
 rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e-02，比 `sqrt+reciprocal` 的 1.9e-06 差 4 个数量级，超出对齐 torch 的容差；加一步 Newton 后回到 5.9e-05。耗时数据见下面的口径说明。
 
-> **⚠ 测量口径事故**：上表的时间数据后来被证明不可靠——N=1M 下固定开销（≈178 µs）占 75%，跨 run 漂 10–30%，tile/对齐/buffer 的差异全在噪声内。正确性与精度结论不受影响；性能结论已降级，改法与重测计划见 [day3 笔记](day3/day3学习指标.md) 第 4 节。16M 上 block_N 变大 4 倍提速的趋势仍然成立，主因是块数而非带宽。
+> **⚠ 测量口径复盘**：绝对耗时与“快 11% / 慢 29%”这类幅度不可引用——N=1M 下固定开销（≈178 µs）占约 75%，且每轮配置的测量顺序固定，暖机效应与参数效应同向。方向性结论（4096 略优、ub 略优、对齐无稳定悬崖）多次 run 一致，但仍需 v2 协议复测；16M 上 block_N 4 倍提速成立，主因是块数而非带宽。正确性、精度与 DSL 结论不受影响。完整取舍与重测计划见 [day3 笔记](day3/note/day3学习指标-融合版.md) 第 4、6 节。
 
 ## 环境
 
