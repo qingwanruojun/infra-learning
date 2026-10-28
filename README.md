@@ -88,7 +88,7 @@ abs 参数实验（N=1048576，`logs/abs_bench_final.log`）：
 
 rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e-02，比 `sqrt+reciprocal` 的 1.9e-06 差 4 个数量级，超出对齐 torch 的容差；加一步 Newton 后回到 5.9e-05。耗时数据见下面的口径说明。
 
-> **⚠ 测量口径复盘（v1.4）**：v1.3 用 profiler + 同进程交替对拍确认——N=1M 的耗时由 **host 提交**主导（256 块时 host 239 µs / device 13 µs）；kernel 在 HBM 尺度（≥128 MiB）与 torch 打平（0.93–0.94x，双方 1.24–1.32 TB/s），此前“慢 3.7 倍”是小尺寸缓存内现象。绝对耗时与“快 11% / 慢 29%”这类幅度仍不可引用，tile / buffer 结论需在 device 时间域复测。正确性、精度与 DSL 结论不受影响。完整修正对照与重测计划见 [day3 笔记](day3/note/day3学习指标-融合版.md) 第 4.4、6 节与附录 D。
+> **⚠ 测量口径复盘（v1.5）**：用 profiler + ABBA ×10 轮 + 五点 host 探针关闭了早期的三个待核点。① N=1M 的耗时由 **host 提交**主导，且是两段式（1–256 块平坦 216–232 µs，到 1024 为 0.04 µs/块，到 4096 为 0.26 µs/块）；② device 时长域中位 torch 185.67 µs vs 我们 200.02 µs = **1.070x（慢约 7%）**，1.45 vs 1.34 TB/s——此前“打平 0.93–0.94x”是 round 0 暖机样本；③ “快 11% / 慢 29%”这类幅度仍不可引用，tile / buffer 结论需在 device 时间域复测。正确性、精度与 DSL 结论不受影响。完整修正对照见 [day3 笔记](day3/note/day3学习指标-融合版.md) 4.4 节与附录 D。
 
 ## 环境
 
