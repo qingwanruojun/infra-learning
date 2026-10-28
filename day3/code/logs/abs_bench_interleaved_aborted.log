@@ -1,0 +1,30 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 11:53:41  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 11:53:41  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 11:53:41  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+== abs: tile ==
+  tile/block_N=1024        332.51 us    25.2 GB/s  [min 287.2, max 336.6]
+  tile/block_N=2048        321.68 us    26.1 GB/s  [min 264.4, max 328.6]
+  tile/block_N=4096        320.32 us    26.2 GB/s  [min 258.8, max 331.9]
+== abs: align ==
+Traceback (most recent call last):
+  File "/mnt/workspace/learn/tilelang-ascend/own_ops/abs.py", line 322, in <module>
+    main()
+  File "/mnt/workspace/learn/tilelang-ascend/own_ops/abs.py", line 312, in main
+    r = results[label]
+        ~~~~~~~^^^^^^^
+KeyError: 'align/N=1048576'
+[ERROR] 2026-10-28-11:57:47 (PID:26284, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception

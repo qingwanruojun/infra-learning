@@ -1,0 +1,29 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 11:58:27  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 11:58:27  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 11:58:27  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float32 weight=False rstd=sqrt_rec   318.03 us [min 312.6, max 339.5]   26.4 GB/s  max_abs=7.153e-07
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float32 weight=False rstd=rsqrt      255.64 us [min 252.7, max 263.3]   32.8 GB/s  max_abs=1.285e-02
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float32 weight=True  rstd=sqrt_rec   235.18 us [min 234.4, max 251.1]   35.7 GB/s  max_abs=1.907e-06
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float32 weight=True  rstd=rsqrt      253.40 us [min 247.8, max 316.4]   33.1 GB/s  max_abs=2.525e-02
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float16 weight=False rstd=sqrt_rec   273.49 us [min 266.8, max 291.6]   15.3 GB/s  max_abs=1.953e-03
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float16 weight=False rstd=rsqrt      267.54 us [min 251.4, max 308.6]   15.7 GB/s  max_abs=9.766e-03
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float16 weight=True  rstd=sqrt_rec   268.77 us [min 254.6, max 292.4]   15.6 GB/s  max_abs=3.906e-03
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+dtype=float16 weight=True  rstd=rsqrt      255.85 us [min 250.8, max 260.4]   16.4 GB/s  max_abs=2.344e-02

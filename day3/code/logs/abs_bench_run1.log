@@ -1,0 +1,25 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 11:41:26  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 11:41:26  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 11:41:26  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+== abs: tile size (N=1048576, alloc_ub) ==
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N= 1024     278.12 us     30.2 GB/s
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N= 2048     247.94 us     33.8 GB/s
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N= 4096     252.45 us     33.2 GB/s
+== abs: alignment (block_N=4096, alloc_ub) ==
+  N= 1048576     238.76 us     35.1 GB/s
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  N= 1048575     248.05 us     33.8 GB/s
+== abs: buffer strategy (N=1048576, block_N=4096) ==
+  memory=ub         243.21 us     34.5 GB/s
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  memory=shared     245.22 us     34.2 GB/s
