@@ -42,7 +42,7 @@ cp -r skills/* ~/.claude/skills/
 每条规则背后都有一次真实返工，案例编号在
 [`ascend-npuir-bench-guardrails/references/day3-failure-cases.md`](ascend-npuir-bench-guardrails/references/day3-failure-cases.md)。
 
-配套笔记：[`day3/note/day3学习指标-融合版-v1.6-修订版.md`](../day3/note/day3学习指标-融合版-v1.6-修订版.md)
+配套笔记：[`day3/note/day3学习指标.md`](../day3/note/day3学习指标.md)
 （第 7 节列出全部产出与证据）。
 
 ## 约定

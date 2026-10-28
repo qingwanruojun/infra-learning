@@ -6,6 +6,17 @@ spread over 10 ABBA rounds instead (A=torch, B=ours, order A B B A per round so
 slow drift cancels within a round).
 
 Device duration from CANN op_summary, as in the other probes.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_abba_hbm.py 67108864    # 256 MiB tensor
+    python experiments/probe_abba_hbm.py 134217728   # 512 MiB tensor
+    python experiments/probe_abba_hbm.py 33554432    # 128 MiB -- retired point
+
+Archived log(s): logs/abba_hbm_256MiB.log, logs/abba_hbm_512MiB.log,
+                   logs/abba_hbm.log (128 MiB, retired)
+Status: primary evidence for the final numbers (§3.2, §4.4).
+    Device duration comes from op_summary; 10 rounds, round 0 discarded.
 """
 
 import collections

@@ -17,6 +17,14 @@ typed extent and the per-core loop trip count are that size's), and torch runs
 on the matching slice a[:n] / b[:n].  v1 of this probe got both wrong.
 
 Device duration from CANN op_summary, as in the other probes.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_ladder_bidir.py
+
+Archived log(s): logs/ladder_bidir_v2.log;
+                   logs/ladder_bidir_v1_invalid.log (order not randomised -- invalid)
+Status: primary evidence (size vs clock effect across the HBM ladder).
 """
 
 import collections

@@ -12,6 +12,13 @@ the frames sum to the measured wall time:
 
 Block counts come from N/block_N on one plain-grid kernel shape, plus the
 16M/4096 config used before.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_hostbudget.py
+
+Archived log(s): logs/hostbudget.log
+Status: primary evidence -- the five-point host budget table (§4.4a).
 """
 
 import cProfile

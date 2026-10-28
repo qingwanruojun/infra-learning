@@ -3,6 +3,14 @@
 The knobs table had 128 MiB = 1.2 TB/s and 512 MiB = 1.25 TB/s from Event-timed
 runs, but the profiler says the 128 MiB kernel is 166.9 us (1.6 TB/s).  Re-measure
 all three sizes with the op_summary device duration so the ladder has one clock.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_hbm_peak.py
+
+Archived log(s): logs/hbm_peak.log
+Status: partly current: the torch size ladder still stands, the 128 MiB point
+    is retired as a comparison point (§3.2).
 """
 
 import collections

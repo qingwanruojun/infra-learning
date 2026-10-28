@@ -14,6 +14,13 @@ This probe separates the two:
 * host wall clock    -> end-to-end including host
 
 Run: python notes/day2/experiments/probe_launch_overhead.py
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_launch_overhead.py
+
+Archived log(s): logs/launch_overhead.log
+Status: superseded by probe_host_vs_blockcost.py + probe_profiler_kernel_time.py.
 """
 
 import time

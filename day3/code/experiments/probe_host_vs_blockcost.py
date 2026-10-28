@@ -11,6 +11,13 @@ B) Is the 16M block_N effect "per-block cost" or "chunk size"?
    chunk size (block_N=4096), same total DMA count, different block count.
    If block count were the driver, the fixed grid would be ~4x faster; if
    chunk size is the driver, both stay ~1120 us.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_host_vs_blockcost.py
+
+Archived log(s): logs/host_vs_blockcost.log
+Status: primary evidence (enqueue-only vs sync-per-call, §4.2c).
 """
 
 import time

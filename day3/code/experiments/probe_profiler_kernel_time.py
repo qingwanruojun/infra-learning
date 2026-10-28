@@ -9,6 +9,14 @@ device duration, which settles:
 * torch.abs, N=1M and a 128 MiB tensor -- reference points.
 
 Run: python notes/day2/experiments/probe_profiler_kernel_time.py
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_profiler_kernel_time.py
+
+Archived log(s): logs/profiler_kernel_time.log, logs/profiler_summary.log,
+                   logs/profiler_raw/op_summary_*.csv
+Status: primary evidence -- where the device-duration numbers come from.
 """
 
 import sys

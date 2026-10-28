@@ -13,6 +13,14 @@ bandwidth.  This probe establishes:
 
 If the 8 MiB point is mostly intercept, then relative differences measured at
 240 us are differences between two mostly-constant quantities.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_bw_floor.py
+
+Archived log(s): logs/bw_floor.log
+Status: superseded by probe_host_vs_blockcost.py; its ~41 us reading was also
+    corrected by probe_timing_crosscheck.py.
 """
 
 import torch

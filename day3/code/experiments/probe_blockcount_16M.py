@@ -3,6 +3,13 @@ at N=16M, device-side.  Docs so far said "4095-block version is ~800 us by
 subtracting 270 us of host from the 1095 us Event number" -- that was inferred,
 not measured.  Same block_N=4096 in both variants, so the only difference is
 the grid size.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_blockcount_16M.py
+
+Archived log(s): logs/blockcount_16M.log
+Status: primary evidence (4096-block grid vs 40-block serial, §4.4b).
 """
 
 import collections

@@ -6,6 +6,14 @@ the cache, so both should be HBM-bound.  Compares device durations from CANN's
 op_summary (see probe_profiler_kernel_time.py for why not chrome trace).
 
 Kernel: 40 blocks (one per vector core) x block_N=8192, serial over tiles.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_hbm_compare.py
+
+Archived log(s): logs/hbm_compare.log
+Status: superseded by probe_hbm_interleaved.py, then probe_abba_hbm.py.
+    Its 166.93 us torch 'peak' was an outlier; probe_hbm_peak.py re-measured 214 us.
 """
 
 import collections

@@ -10,6 +10,15 @@ fixed host cost.  Measure all three:
 
 Also checks that replay produces the right output (the kernel's tail handling
 depends on a runtime `shape` scalar, which the graph freezes).
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_npugraph.py
+
+Archived log(s): logs/npugraph.log, logs/npugraph_capture.log,
+                   logs/npugraph_capture_noqueue.log, logs/npugraph_direct.log
+Status: primary evidence -- the negative result: capture aborts, or replay is a
+    silent no-op (§4.3 kernel layer 3). CEILING = device time, not 50 us.
 """
 
 import collections

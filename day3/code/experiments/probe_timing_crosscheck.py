@@ -5,6 +5,14 @@ The previous probe reported ~41 us for 1 MiB / 8 MiB / 64 MiB *and* for a
 1024-element tensor, which would imply 3.2 TB/s at 64 MiB -- impossible, so
 either the event timing is not seeing device work, or the `out=` call is not
 doing the work.  This checks both.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_timing_crosscheck.py
+
+Archived log(s): logs/timing_crosscheck.log
+Status: evidence -- corrects an earlier wrong reading and validates the torch
+    reference used in probe_bw_floor.py.
 """
 
 import time

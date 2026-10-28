@@ -7,6 +7,13 @@ Auto multi-buffering is switched off for the 16384 cells because 2 buffers x
 to isolate the effect of that flag.
 
 Device duration from CANN op_summary, as in the other probes.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_config_sweep.py
+
+Archived log(s): logs/config_sweep_128MiB.log
+Status: primary evidence (block_N x NCORE sweep at 128 MiB).
 """
 
 import collections

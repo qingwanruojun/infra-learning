@@ -5,6 +5,13 @@ the block-start alignment experiment (block_N=1023/1024/1025).  Run from the
 repository root::
 
     python notes/day2/experiments/probe_vector_width.py
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_vector_width.py
+
+Archived log(s): logs/vector_width_ir.log
+Status: evidence -- IR side-note for the block-start alignment experiment.
 """
 
 import contextlib

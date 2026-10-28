@@ -9,6 +9,14 @@ Decompose it three ways on the same kernel:
   enqueue-only : 200 calls back-to-back, no sync inside  -> host submission cost
   sync-per-call: sync after every call                   -> host + device, serial
   event-window : 1 Event pair around 10 calls (abs.py)   -> reproduces the table
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_hostcost_4096blocks.py
+
+Archived log(s): logs/hostcost_4096blocks.log;
+                   logs/hostcost_1M.log (earlier run, the script now pins N=16M)
+Status: primary evidence (splits the 1095 us Event number three ways).
 """
 
 import sys

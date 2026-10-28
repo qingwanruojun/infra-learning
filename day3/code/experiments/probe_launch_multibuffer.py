@@ -6,6 +6,13 @@ tile loop is also what triggers auto multi-buffering, and the launcher template
 allocates a sync-lock block per call when lock_num > 0.  Compare the same
 kernel with NPUIR_ENABLE_AUTO_MULTI_BUFFER on and off: host wall (5 x 200
 enqueues) and device median in one process.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_launch_multibuffer.py
+
+Archived log(s): logs/launch_multibuffer.log
+Status: primary evidence (does auto multi-buffering change the host cost?).
 """
 
 import collections

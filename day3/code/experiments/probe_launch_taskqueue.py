@@ -12,6 +12,14 @@ Run twice:
   TILELANG_ENABLE_TASKQUEUE=0 python probe_launch_taskqueue.py
 Use a fresh TILELANG_CACHE_DIR for the second one: the launcher source is baked
 into the cached .so, so the env var only takes effect on a cache miss.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_launch_taskqueue.py
+
+Archived log(s): logs/launch_taskqueue_on.log,
+                   logs/launch_taskqueue_off.log
+Status: primary evidence (per-launch host cost, taskqueue on vs off).
 """
 
 import os

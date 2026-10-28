@@ -6,6 +6,14 @@ intercept gives the per-launch cost.
 
 Same block_N=4096 for every N, so the grid grows with N exactly as it does in
 the knob table.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_bandwidth_scaling.py
+
+Archived log(s): logs/bandwidth_scaling.log
+Status: superseded by probe_host_vs_blockcost.py + probe_hostbudget.py:
+    the flat-in-N answer turned out to be host submission, not bandwidth.
 """
 
 import sys

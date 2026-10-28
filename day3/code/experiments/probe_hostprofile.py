@@ -6,6 +6,13 @@ per-block host loop and no syncBlockLock / rtMalloc in this kernel's wrapper, so
 cProfile the Python call path and compare the two grid sizes: whichever frame
 grows by ~4x is the culprit (or the cost is inside the compiled stub, which
 cProfile will show as one opaque frame).
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_hostprofile.py
+
+Archived log(s): logs/hostprofile.log
+Status: primary evidence (which host function scales with block count).
 """
 
 import cProfile

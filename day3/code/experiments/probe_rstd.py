@@ -1,3 +1,24 @@
+"""Isolate the rstd error from the rest of RMSNorm (feeds §1.3 and §2.4).
+
+One kernel computes the same row statistics three ways and writes all three
+into separate outputs, so the comparison uses identical inputs:
+
+  R1 : hardware ``vrsqrt``            -- the fast approximation
+  R2 : ``vsqrt`` then ``vrec``        -- accurate, two instructions
+  R3 : ``vrsqrt`` + one Newton step   -- r0 * (1.5 - 0.5 * s * r0^2)
+
+The reference is CPU ``torch.rsqrt`` on fp32.  Measured max relative error:
+2.8e-3 / ~1e-7 / 1.2e-5.  This is a *rstd-only* probe -- the end-to-end y
+error in §1.2 is larger because ``max_abs`` scales with ``|x|``.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_rstd.py
+
+Archived log: none -- the three numbers are quoted in §1.3.
+Status: evidence for the report (precision knob, not a timing probe).
+"""
+
 import torch
 import torch_npu  # noqa: F401
 import tilelang

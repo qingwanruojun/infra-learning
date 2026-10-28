@@ -6,6 +6,14 @@ a 28% swing that looks like clock/thermal state rather than kernel differences.
 So measure both in ONE process, alternating: torch, ours, torch, ours.  If the
 two torch measurements agree, the ratio is trustworthy; if they don't, the gap
 is smaller than the run-to-run noise and should not be quoted as a speedup.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_hbm_interleaved.py
+
+Archived log(s): logs/hbm_interleaved.log
+Status: superseded by probe_abba_hbm.py (2 rounds -> 10 rounds ABBA;
+    the 0.93x it reported was the round-0 warm-up sample).
 """
 
 import collections

@@ -12,6 +12,13 @@ short here):
 * static : extent = block_N, no min, no runtime shape
 
 Both produce correct results; only the addressing differs.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_static_vs_dynamic_tail.py
+
+Archived log(s): logs/static_vs_dynamic_tail.log
+Status: primary evidence (does a runtime slice extent cost bandwidth?).
 """
 
 import sys

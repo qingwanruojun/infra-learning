@@ -15,7 +15,8 @@ Agent（Codex 式循环） → CANNBot Skills → TileLang(npuir) 生成 kernel
 day1/   Agent 原理 / 三个仓库地图 / 全链路梳理
 day2/   环境搭建、TileLang 编译、L2 冒烟、DSL 全量速读
 day3/   手写 Vector 算子（abs、rmsnorm）
-  note/               学习指标（v1.7-重构版 = 当前口径；v1.6 / v1.5 保留）
+  note/               学习指标（当前版 day3学习指标.md，v1.7 口径；旧版本见 git 历史）
+  code/README.md      代码索引与冗余审计（24 个探针逐一标注用途 / 状态 / 归档日志）
   code/own_ops/        abs.py、rmsnorm.py（含 pytest 用例与 benchmark）
   code/experiments/    24 个运行时探针（host 预算、ABBA 对拍、device 阶梯、rstd 精度…）
   code/logs/           43 份实测日志 + 61 份 op_summary CSV
@@ -28,8 +29,8 @@ skills/ 4 个 Claude Code skill：算子 guardrails / 对拍协议 / TileLang �
 |---|---|---|---|---|
 | D1 | 10/26 | Codex/Agent 原理、申请机器、读三个仓库 README | `day1/day1学习指标.md` | ✅ |
 | D2 | 10/27 | 编译 TileLang、跑通 L2、TileLang DSL 全量速读 | `day2/day2学习指标.md` | ✅ |
-| D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标-融合版-v1.7-重构版.md`](day3/note/day3学习指标-融合版-v1.7-重构版.md)、`day3/code/`、`skills/` | ✅ |
-| D4 | 10/29 | Cube 算子（GEMM） | — | 未开始 |
+| D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标.md`](day3/note/day3学习指标.md)、`day3/code/`、`skills/` | ✅ |
+| D4 | 10/29 | **TileOPs 5 算子迁移**（Agent 框架 `migration-harness`）：BitwiseNot / Erf / Expm1 / Elu / LeakyRelu → 910B；CUBE 顺带 | `day4/`（待建） | 未开始 |
 | D5 | 10/30 | MixCV / FlashAttention、第一周收口 | — | 未开始 |
 | D6 | 11/02 | MLIR 与 AscendNPU-IR 入门 | — | 未开始 |
 | D7 | 11/03 | 编译链路追踪（TVM IR → TileLangIR → HIVM） | — | 未开始 |
@@ -98,7 +99,7 @@ rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e
 > ② **≥256 MiB 张量与 torch 打平**：256 MiB 1.000x（422.57 vs 422.37 µs）、512 MiB 1.008x（845.21 vs 838.46 µs），双方 1.27–1.28 TB/s。
 > ③ **128 MiB 的 1.070x 不可外推**：该尺寸 torch 自己跨进程就漂 167–214 µs（27%），比值会落到 0.96–1.09x，因此不作对拍点；4 / 64 MiB 的 3.66x / 1.21x 来自块调度与缓存，不是 HBM kernel 质量。
 > ④ “快 11% / 慢 29%”这类幅度仍不可引用，tile / buffer 结论需在 device 时间域复测。正确性、精度与 DSL 结论不受影响。
-> 完整重构版见 [day3 笔记 v1.7](day3/note/day3学习指标-融合版-v1.7-重构版.md)，结论沿革见其附录 C。
+> 完整版见 [day3 学习指标](day3/note/day3学习指标.md)，结论沿革见其附录 C。
 
 ## Skills（可被 Claude Code 直接加载）
 

@@ -13,6 +13,14 @@ Protocol: measure ours cold, measure torch cold, then 60 s of load with OUR
 kernel only, then measure both again.  If both implementations speed up by the
 same factor, it is the clock; if only the one that ran last speeds up, it is L2.
 Then repeat the same protocol at 512 MiB (pure HBM) as a control.
+
+Run (from ``day3/code/`` on the NPU machine)::
+
+    python experiments/probe_clock_state.py
+
+Archived log(s): logs/clock_state.log
+Status: primary evidence -- the confounder that makes 128 MiB unusable as a
+    comparison point (cold vs post-load).
 """
 
 import collections
