@@ -103,8 +103,8 @@ rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e
 
 ## Skills（可被 Claude Code 直接加载）
 
-`skills/` 下的四个 skill 是把 Day3 的返工固化成检查表，不是总结文档。复制到
-`~/.claude/skills/`（全局）或项目的 `.claude/skills/`（推荐，随仓库走）即可使用，
+`skills/` 下的五个 skill 是把 Day3 的返工与 Day4 的迁移框架固化成检查表，不是总结文档。
+复制到 `~/.claude/skills/`（全局）或项目的 `.claude/skills/`（推荐，随仓库走）即可使用，
 `SKILL.md` 的 `description` 决定触发时机。
 
 | Skill | 何时触发 | 核心内容 |
@@ -112,9 +112,11 @@ rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e
 | `ascend-npuir-bench-guardrails` | 写/改 npuir kernel、要给"快/慢多少"的结论 | 10 条铁律、形状矩阵、三栏计时、ABBA、证据分级 E0–E4；附 7 个 A 类 + 10 个 B 类失败案例 |
 | `ascend-npu-benchmark` | 要证明"比 torch 快还是慢" | host / device / e2e 三时钟分离、`op_summary`、≥256 MiB、IQR/MAD |
 | `tilelang-npuir` | 在 910B 上新增/修改 TileLang 算子 | UB 预算与多缓冲、Expert/Developer、动态 shape 尾部、launcher 陷阱 |
-| `study-notes-daily` | 一天收尾、写汇报、结论被推翻要同步多处 | logs/worklog/report 三层结构、笔记版本化与修正对照表 |
+| `study-notes-daily` | 一天收尾、写汇报、结论被推翻要同步多处 | `dayN/note` + `dayN/code` 结构、笔记版本化与修正对照表 |
+| `ascend-tileops-migration` | 用 conductor 框架把 GPU / TileOPs 算子迁移到 910B（D4 主线） | 场景路由（plain/harness）、Stage 0–5 门禁、GPU 线程模型 → 40 核/UB 重写表、5 个算子的落地路径、`INTEGRATE_COMPLETED` 验收 |
 
-有冲突时以 `ascend-npuir-bench-guardrails` 为准（它是 Day3 复盘的最终版）。
+有冲突时以 `ascend-npuir-bench-guardrails` 为准（它是 Day3 复盘的最终版；迁移任务里的
+性能数字同样受它约束）。
 详见 [`skills/README.md`](skills/README.md)。
 
 ## 环境

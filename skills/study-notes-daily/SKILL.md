@@ -1,6 +1,6 @@
 ---
 name: study-notes-daily
-description: 按日产出可复现的学习/实验交付物：notes/dayN 下的 logs + worklog + learning-report，权威笔记按 v1.x 版本化并维护"修正对照表"。当一天的工作要收尾、要写汇报、或某个结论被推翻需要同步更新多处文档时使用。
+description: 按日产出可复现的学习/实验交付物：dayN/note 下的权威笔记 + dayN/code 下的实验资产（logs / experiments / 索引 README），结论按 v1.x 版本化并维护"修正对照表"。当一天的工作要收尾、要写汇报、或某个结论被推翻需要同步更新多处文档时使用。
 ---
 
 # 每日实验笔记与汇报
@@ -8,15 +8,19 @@ description: 按日产出可复现的学习/实验交付物：notes/dayN 下的 
 ## 1. 目录结构（一天一套）
 
 ```
-notes/dayN/
-├── worklog.md            # 时间线 + 错误清单 + 翻转序列
-├── learning-report.md    # 给人读的结论 + 依据
-├── STATUS.md             # 一句话状态、当前结论、待办
-├── optimization-knobs.md # 权威技术文档（按 v1.x 版本化）
-├── README.md             # 怎么复现
-├── logs/                 # 每个探针一份 .log；原始 CSV 放 logs/profiler_raw/ + 清单
-└── experiments/          # probe_*.py，日志里写清运行命令
+dayN/
+├── note/
+│   ├── dayN学习指标.md    # 权威笔记（当天只留一份当前版；同时导出 PDF）
+│   └── worklog.md         # 可选：多轮返工时才写（时间线 + 错误清单 + 翻转序列）
+└── code/
+    ├── README.md          # 索引：每个文件干什么、跑法、归档日志、哪些被取代
+    ├── own_ops/           # 算子 + pytest 用例 + benchmark
+    ├── experiments/       # probe_*.py，每个 docstring 写清问题/跑法/日志/状态
+    └── logs/              # 每个探针一份 .log；原始 CSV 放 logs/profiler_raw/ + 清单
 ```
+
+没有返工的一天不要造 `worklog.md` / `STATUS.md` 空壳；有多轮推翻时才补，
+并把翻转序列写进笔记的"结论沿革"附录。
 
 ## 2. 每个数字都要能指到一份日志
 
@@ -24,6 +28,8 @@ notes/dayN/
 - **跑废的日志不删**：改名加 `_invalid`，文件头写清为什么废（例：`ladder_bidir_v1_invalid.log` —— torch 作用在 512 MiB 全量张量上、我们复用单一二进制）。
 - 每个探针脚本入库到 `experiments/`，日志顶部写运行命令，别人能一键重跑。
 - 收尾时报计数（N 个探针 / N 份日志 / N 份 CSV），便于自查有没有漏。
+- 迁移类任务额外记六列：op → 提取函数数 → 终态（`INTEGRATE_COMPLETED` / `BLOCKED_*`）→
+  report 路径 → bench 状态 → 失败原因（见 `ascend-tileops-migration` §6–7）。
 
 ## 3. 权威笔记版本化
 
@@ -61,7 +67,7 @@ v1.2 慢 1.27 倍 → v1.3 打平略快 → v1.4 慢约 7%（尺寸选错）→ 
 
 ```bash
 tar -czf dayN.tar.gz --exclude='__pycache__' --exclude='*.pyc' \
-    --exclude='export_only_prof_dir' notes/dayN own_ops dayN/note
+    --exclude='export_only_prof_dir' --exclude='.git' dayN
 ```
 
 排除：CANN 原始导出（几十 MB，可由探针重跑）、`__pycache__`、构建产物（`build/`、`*.so`、`install.log`）。

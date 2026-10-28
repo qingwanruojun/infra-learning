@@ -8,7 +8,8 @@ description: 写/编译/调试 TileLang Ascend NPU kernel（target="npuir"）的
 ## 1. 从现成例子起步，不要从零写
 
 - 官方：`examples/elementwise/vec_add_1d.py`（结构最干净）。
-- 本项目：`own_ops/abs.py`（对拍 torch、含两种模式）、`own_ops/rmsnorm.py`、`day4/code/own_ops/gemm.py`。
+- 本项目：`day3/code/own_ops/abs.py`（对拍 torch、含两种模式）、`day3/code/own_ops/rmsnorm.py`；
+  其余探针见 `day3/code/README.md`。
 - 约定见仓库 `AGENTS.md`：优先 `T.vabs`/v 前缀向量 API，保留 `npuir_xxx` 兼容名，改动后 `bash format.sh --files <files>`。
 
 ## 2. 最小可跑 kernel（固定 grid + 串行 tile）
@@ -93,11 +94,18 @@ assert torch.equal(b, torch.abs(a))
 
 - 先验正确性，再测性能。
 - 尾部处理是最大错误源：`T.min(block_N, shape - off)`，且 `t * block_N < shape` 的块要跳过。
-- 需要的话用 `TILELANG_PROBE_CAPTURE` 之类的开关把危险实验挡住（见 `notes/day2/experiments/probe_npugraph.py`）。
+- 需要的话用 `TILELANG_PROBE_CAPTURE` 之类的开关把危险实验挡住（见 `day3/code/experiments/probe_npugraph.py`）。
 
 ## 8. 已知无收益的旋钮
 
 - block_N ∈ {4096, 8192, 16384}：带宽型 kernel 差 <1%。
 - 核数 40 → 20：只慢 5–7%。
 - 自动多缓冲：<1%。
-- 结论：HBM 带宽型算子，先把尺寸选对（≥256 MiB 对拍），再谈调参。详见 `notes/day2/optimization-knobs.md`。
+- 结论：HBM 带宽型算子，先把尺寸选对（≥256 MiB 对拍），再谈调参。详见 `day3/note/day3学习指标.md` §3.2 / §4。
+
+## 9. 迁移其他 GPU 算子
+
+如果任务是"把已有的 GPU TileLang / TileOPs 算子搬过来"，先读
+[`ascend-tileops-migration`](../ascend-tileops-migration/SKILL.md)：那里有
+GPU 线程模型 → 40 核/UB 的对照表、conductor 的 Stage 0–5 门禁和验收口径。
+本 skill 只提供"重写之后怎么写对"（UB 预算、模式、tail）。

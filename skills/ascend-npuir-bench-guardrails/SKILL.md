@@ -209,10 +209,19 @@ Day3 的交错脚本因去重标签 `KeyError` 失败；修好后持续满负载
 ## 7. 参考
 
 - 详细反例与修复过程：`references/day3-failure-cases.md`
-- Day3 融合版（v1.5）：`infra-learning/day3/note/day3学习指标-融合版.md`
-- Day3 实证复核修订版（数字对到日志、按尺寸分区）：`notes/day3/day3学习笔记-复核修订版-20261028.md`
-- 实验日志：`notes/day3/experiment-log.md`
-- 代码范式：`infra-learning/day3/code/own_ops/abs.py`、
-  `infra-learning/day3/code/own_ops/rmsnorm.py`
-- 精度探针：`infra-learning/day3/code/experiments/probe_rstd.py`、
-  `probe_copy_cast.py`
+- Day3 笔记（当前口径）：[`day3/note/day3学习指标.md`](../../day3/note/day3学习指标.md)
+- 代码索引与冗余审计（24 个探针的状态与归档日志）：[`day3/code/README.md`](../../day3/code/README.md)
+- 代码范式：[`day3/code/own_ops/abs.py`](../../day3/code/own_ops/abs.py)、
+  [`day3/code/own_ops/rmsnorm.py`](../../day3/code/own_ops/rmsnorm.py)
+- 精度探针：[`day3/code/experiments/probe_rstd.py`](../../day3/code/experiments/probe_rstd.py)、
+  [`probe_copy_cast.py`](../../day3/code/experiments/probe_copy_cast.py)
+- 迁移 GPU 算子时的流程与重写映射：[`ascend-tileops-migration`](../ascend-tileops-migration/SKILL.md)
+  ——本 skill 仍然管其中的测量口径与措辞。
+
+## 8. 迁移任务的特别约定
+
+用 conductor 框架迁移 TileOPs / GPU 算子时（见 `ascend-tileops-migration`）：
+
+- 迁移只承诺"精度过 + 能集成"，**不写快慢**；Stage 5 report 的 bench 不满足铁律 5–7。
+- 迁移的精度门禁是 Stage 3 内嵌 L0/L1，不等于本 skill §2.1 的形状矩阵——
+  非整除形状、fp16、尾块仍要自己补测。

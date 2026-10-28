@@ -79,7 +79,7 @@ csvs = glob.glob(os.path.join(new[-1], "PROF_*",
 
 ## 5. 现成探针（本仓库）
 
-`notes/day2/experiments/` 下可直接改参数复用：
+`day3/code/experiments/` 下可直接改参数复用（每个探针的 docstring 写了用途/跑法/归档日志/状态）：
 
 - `probe_abba_hbm.py <N>` — 单尺寸 10 轮 ABBA（入口最常用）
 - `probe_ladder_bidir.py` — 多尺寸升序+降序，检查尺寸依赖
@@ -87,4 +87,11 @@ csvs = glob.glob(os.path.join(new[-1], "PROF_*",
 - `probe_hostbudget.py` / `probe_launch_taskqueue.py` — host 口径
 - `probe_npugraph.py` — 图捕获天花板（本 build 不可用）
 
-结论与日志索引见 `notes/day2/optimization-knobs.md` §2.6–2.8、`notes/day2/logs/profiler_summary.log`。
+结论与日志索引见 [`day3/note/day3学习指标.md`](../../day3/note/day3学习指标.md) §3.2 / §4.4、
+`day3/code/logs/profiler_summary.log`；探针清单见 [`day3/code/README.md`](../../day3/code/README.md)。
+
+## 6. 不适用范围
+
+迁移任务（conductor 的 Stage 5 TileOPs report）跑的是默认配置 + 占位 bench，
+**不是**本 skill 的对拍：只说明"能集成"，不能拿来写快慢。要对拍另起 `optimize` 场景，
+或按本 skill 重测。流程见 [`ascend-tileops-migration`](../ascend-tileops-migration/SKILL.md) §6。
