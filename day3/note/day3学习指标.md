@@ -211,11 +211,7 @@ rmsnorm（M=N=1024, block_M=8，`logs/rmsnorm_bench.log`）：
 
 ### 4.4 三尺寸复核：host 是主瓶颈，≥256 MiB 与 torch 打平
 
-> 数据来源：profiler + ABBA 10 轮 + 五点 host 探针，日志已在本机
-> `notes/day3/day2-day4-20261028/notes/day2/logs/`。所有表格标注口径：
-> `device` 是 profiler 的 kernel 级时长，`Event` 是包多次调用的跨度。
-
-**（a）ABBA 对拍，三个尺寸（device 时长）【实测，E3】。** 40 块 + 核内串行，
+**（a）ABBA 对拍，三个尺寸（device 时长）。** 40 块 + 核内串行，
 block_N=8192，同进程 A-B-B-A 交替 10 轮：
 
 | 张量 | 流量 | torch 中位 | 我们中位 | 比值 | torch 极差 | 我们的 stdev（µs） |
@@ -261,25 +257,6 @@ cProfile 总比 wall 高 20–38 µs（walker 自身开销）：**总耗引用 w
 
 固定 NCORE + 核内串行使端到端 1095→299 µs（3.7x），但 device 只快 5.8x（158→27 µs）——收益主要来自少提交。
 
-**（d）被推翻的说法。**
-
-- torch 166.93 µs（1608 GB/s ≈ 理论峰值）是孤点，另三次 214–217 µs；"我们慢 1.27 倍"不成立。
-- "4096 块设备约 800 µs、比 40 块快 30 倍"不成立：device 158 vs 27 µs，只有 5.8x；那 1095 µs 里约 1092 µs 是 host。
-- "截距≈0"是两点拟合的假象（见 4.3b）。
-- **v1.3 的"0.93–0.94x 持平或略优"不成立**：那是 round 0 暖机样本；
-  但后续把它改成"128 MiB 慢 7%"同样不成立 —— 该尺寸不可复现（见 4.4b）。
-- **"1M 慢 3.7 倍"与"≥256 MiB 打平"可以同时为真**：前者是缓存内 + 块调度，
-  后者才是 HBM 带宽。把它们放进一句话里比较就是口径错误。
-- `T.Pipelined` / "单 buffer 只有半链路带宽"对 abs 不适用：计算量≈0，read+write 共享同一条链路，HBM 尺度已经喂满（见 4.5 修正）。
-
-**（e）v1.3 的三个【待核】已全部关闭。**
-
-1. **计时语义**：所有表都带口径标签（`Event` / `device`）；203 µs 是设备时长，231.9 µs 是 1 块的墙钟，两者不矛盾，但不可混引。
-2. **host 预算**：五点探针闭合，缺项就是 `launcher.launch` 的常数（~105 µs）与两段斜率。
-3. **样本量**：128 MiB 上 ABBA ×10 轮，9/10 落在 1.05–1.09；256 / 512 MiB 也各 10 轮（σ 0.12 / 0.31 µs）。
-
-剩余未解决项只有两个，都不影响上面的结论：cProfile 与 wall 的 20–38 µs 系统性差（用 wall 做总耗即可）；N=1048575 那个偶发慢点尚未在 profiler 域复测。
-
 ### 4.5 改法
 
 **测量层**
@@ -310,7 +287,7 @@ with T.Kernel(NCORE, is_npu=True) as (cid, _):
             T.copy(b_buf[0:tail], B[off:off + tail])
 ```
 
-2. 放大 block_N 到 8192，与 40 块 + 核内串行组合；这条路径在 128 MiB 张量上单进程内跑到 1.34 TB/s（该尺寸不可作对拍点，只作旁证）。**【修正】不要把 `T.Pipelined` 当作 abs 的主优化**：计算量≈0，流水不可能超过链路带宽，双缓冲只在低占用时改善延迟隐藏。
+2. 放大 block_N 到 8192，与 40 块 + 核内串行组合；这条路径在 128 MiB 张量上单进程内跑到 1.34 TB/s（该尺寸不可作对拍点，只作旁证）。
 3. **NPUGraph 在本 build 上不可用**（v1.5 实测，推翻了"收益最大的一步"）：
    - 默认配置 capture 直接 abort：`Not allow to synchronize captured-stream, stream_id=42`。
      launcher 把 `rtKernelLaunch` 包在 `OpCommand::RunOpApi(name, call, true)` 里
@@ -320,8 +297,7 @@ with T.Kernel(NCORE, is_npu=True) as (cid, _):
      正确（`max_abs_diff=0`），排除测量问题。
    - 结论：裸 `rtKernelLaunch` 没被 ACL 图捕获记录。**要上 graph 必须先改 launcher**。
      天花板：device 214 µs 是硬下界，端到端最多降到 ~214 µs，不是 50 µs。
-4. ~~查 `launcher.launch` 为何随块数增长~~ —— 已查，死路：单一 `rtKernelLaunch`，
-   `rtMalloc` / `syncBlockLock` 都有 `>0` 守卫，增量在 ACL 内部，工具链层没有可改点。
+4. ~~查 `launcher.launch` 为何随块数增长~~ —— 已查，死路：单一 `rtKernelLaunch`，`rtMalloc` / `syncBlockLock` 都有 `>0` 守卫，增量在 ACL 内部，工具链层没有可改点。
 
 ### 4.6 收获（具体到"下次怎么做"）
 
@@ -348,10 +324,6 @@ with T.Kernel(NCORE, is_npu=True) as (cid, _):
 | 5 | 两点拟合出"截距≈0"；五点实测 1–256 块是平台 | 两点拟合会造出过原点的假象 | 拟合 ≥3 点，有平台期用 `max` / 分段模型 |
 | 6 | Newton 5.865e-5（M=64）与 1.9e-6（M=1024）被算成"差 30 倍" | 跨形状的误差倍数没有意义 | 精度表**必须带形状列**；不同形状只比"是否达标"，不比倍数 |
 | 7 | NPUGraph 默认 capture abort、关 taskqueue 后 replay 静默 no-op | "收益最大的一步"可能连跑都跑不起来 | 新优化先写 **≤30 行可用性探针**（capture→replay→对拍），再排期 |
-
-**C. 还不会的**（明确边界，避免误判）：没有 PMU / 缓存命中计数，所以"128 MiB 压在
-L2 边界"只是**推断**；没有跨机器数据，所以带宽结论只对这 910B3 成立；
-没有改 launcher 的能力，所以 NPUGraph 路线停在 blocked。
 
 ## 5. 与计划的偏差
 
