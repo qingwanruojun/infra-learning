@@ -1,3 +1,5 @@
+> 本文与远端仓库的 `notes/day2/optimization-knobs.md`（§0.2）内容重叠；数字如有出入，**以远端为准**，本文是学习笔记视角的整理版。
+
 ### 今天学习总结
 
 1. 完成 abs 与 RMSNorm 两个手写 npuir kernel，11 个测试全部通过（`11 passed in 473.63s`），fp32 RMSNorm 对 torch 参考达到 `max_abs=1.9e-6`。
