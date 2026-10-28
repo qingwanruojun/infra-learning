@@ -15,9 +15,11 @@ Agent（Codex 式循环） → CANNBot Skills → TileLang(npuir) 生成 kernel
 day1/   Agent 原理 / 三个仓库地图 / 全链路梳理
 day2/   环境搭建、TileLang 编译、L2 冒烟、DSL 全量速读
 day3/   手写 Vector 算子（abs、rmsnorm）
+  note/               学习指标（v1.7-重构版 = 当前口径；v1.6 / v1.5 保留）
   code/own_ops/        abs.py、rmsnorm.py（含 pytest 用例与 benchmark）
-  code/experiments/    运行时探针（copy dtype 转换、rstd 算法对比）
-  code/logs/           原始实测日志
+  code/experiments/    24 个运行时探针（host 预算、ABBA 对拍、device 阶梯、rstd 精度…）
+  code/logs/           43 份实测日志 + 61 份 op_summary CSV
+skills/ 4 个 Claude Code skill：算子 guardrails / 对拍协议 / TileLang 套路 / 每日笔记
 ```
 
 ## 进度
@@ -26,7 +28,7 @@ day3/   手写 Vector 算子（abs、rmsnorm）
 |---|---|---|---|---|
 | D1 | 10/26 | Codex/Agent 原理、申请机器、读三个仓库 README | `day1/day1学习指标.md` | ✅ |
 | D2 | 10/27 | 编译 TileLang、跑通 L2、TileLang DSL 全量速读 | `day2/day2学习指标.md` | ✅ |
-| D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标-融合版.md`](day3/note/day3学习指标-融合版.md)、`day3/code/` | ✅ |
+| D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标-融合版-v1.7-重构版.md`](day3/note/day3学习指标-融合版-v1.7-重构版.md)、`day3/code/`、`skills/` | ✅ |
 | D4 | 10/29 | Cube 算子（GEMM） | — | 未开始 |
 | D5 | 10/30 | MixCV / FlashAttention、第一周收口 | — | 未开始 |
 | D6 | 11/02 | MLIR 与 AscendNPU-IR 入门 | — | 未开始 |
@@ -69,14 +71,17 @@ DSL 速读中的几个关键发现（细节见 `day2/day2学习指标.md`）：
 
 `day3/code/own_ops/abs.py` 和 `rmsnorm.py`：按 `vec_add_1d` 的结构重写，并修正了示例里 `N // block_N` 会丢尾块的问题（改为 `T.ceildiv` + 运行时 `shape` 驱动的 tail）。两个算子都支持 `alloc_ub`（Expert）与 `alloc_shared`（Developer）两种 buffer 策略做对比。
 
-测试（`logs/pytest_all.log`）：
+测试（`logs/pytest_all_v2.log`，12 个用例含 fp16 + `sqrt_rec`）：
 
 ```
-11 passed in 473.63s
-fp32 abs   max_abs=1.907e-06  max_rel=3.503e-07
-fp16 abs/输出 max_abs=2.344e-02 max_rel=3.030e-02
-newton 法 rstd max_abs=5.865e-05 max_rel=8.586e-06
+12 passed in 502.22s
+fp32 rmsnorm sqrt_rec        max_abs=1.907e-06  max_rel=3.455e-07
+fp32 rmsnorm rsqrt+Newton    max_abs=9.441e-05  max_rel=1.249e-05   （M=1024，余量 6%）
+fp16 rmsnorm rsqrt           max_abs=2.344e-02  max_rel=3.448e-02
 ```
+
+更早的 `11 passed in 473.63s`（`logs/pytest_all.log`）是加 `fp16+sqrt_rec` 之前的快照；
+里面的 Newton `5.865e-05` 是 **M=64** 的形状，与上表 M=1024 不可比。
 
 abs 参数实验（N=1048576，`logs/abs_bench_final.log`）：
 
@@ -86,9 +91,30 @@ abs 参数实验（N=1048576，`logs/abs_bench_final.log`）：
 | 非整除形状 | N=1048575 / 1048577 | 269 / 265 µs | 31.2 / 31.7 GB/s（与整除持平，尾块逻辑有效） |
 | buffer 策略 | alloc_ub / alloc_shared | 264 / 342 µs | 31.8 / 24.5 GB/s |
 
-rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e-02，比 `sqrt+reciprocal` 的 1.9e-06 差 4 个数量级，超出对齐 torch 的容差；加一步 Newton 后回到 5.9e-05。耗时数据见下面的口径说明。
+rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e-02，比 `sqrt+reciprocal` 的 1.9e-06 差 4 个数量级，超出对齐 torch 的容差；加一步 Newton 后（M=1024）回到 9.4e-05。耗时数据见下面的口径说明。
 
-> **⚠ 测量口径复盘（v1.5）**：用 profiler + ABBA ×10 轮 + 五点 host 探针关闭了早期的三个待核点。① N=1M 的耗时由 **host 提交**主导，且是两段式（1–256 块平坦 216–232 µs，到 1024 为 0.04 µs/块，到 4096 为 0.26 µs/块）；② device 时长域中位 torch 185.67 µs vs 我们 200.02 µs = **1.070x（慢约 7%）**，1.45 vs 1.34 TB/s——此前“打平 0.93–0.94x”是 round 0 暖机样本；③ “快 11% / 慢 29%”这类幅度仍不可引用，tile / buffer 结论需在 device 时间域复测。正确性、精度与 DSL 结论不受影响。完整修正对照见 [day3 笔记](day3/note/day3学习指标-融合版.md) 4.4 节与附录 D。
+> **⚠ 测量口径复盘（v1.7）**：用 profiler + ABBA ×10 轮 + 五点 host 探针关闭了早期的三个待核点。
+> ① N=1M 的耗时由 **host 提交**主导，且是两段式（1–256 块平坦 216–232 µs，到 1024 为 0.04 µs/块，到 4096 为 0.26 µs/块）。
+> ② **≥256 MiB 张量与 torch 打平**：256 MiB 1.000x（422.57 vs 422.37 µs）、512 MiB 1.008x（845.21 vs 838.46 µs），双方 1.27–1.28 TB/s。
+> ③ **128 MiB 的 1.070x 不可外推**：该尺寸 torch 自己跨进程就漂 167–214 µs（27%），比值会落到 0.96–1.09x，因此不作对拍点；4 / 64 MiB 的 3.66x / 1.21x 来自块调度与缓存，不是 HBM kernel 质量。
+> ④ “快 11% / 慢 29%”这类幅度仍不可引用，tile / buffer 结论需在 device 时间域复测。正确性、精度与 DSL 结论不受影响。
+> 完整重构版见 [day3 笔记 v1.7](day3/note/day3学习指标-融合版-v1.7-重构版.md)，结论沿革见其附录 C。
+
+## Skills（可被 Claude Code 直接加载）
+
+`skills/` 下的四个 skill 是把 Day3 的返工固化成检查表，不是总结文档。复制到
+`~/.claude/skills/`（全局）或项目的 `.claude/skills/`（推荐，随仓库走）即可使用，
+`SKILL.md` 的 `description` 决定触发时机。
+
+| Skill | 何时触发 | 核心内容 |
+|---|---|---|
+| `ascend-npuir-bench-guardrails` | 写/改 npuir kernel、要给"快/慢多少"的结论 | 10 条铁律、形状矩阵、三栏计时、ABBA、证据分级 E0–E4；附 7 个 A 类 + 10 个 B 类失败案例 |
+| `ascend-npu-benchmark` | 要证明"比 torch 快还是慢" | host / device / e2e 三时钟分离、`op_summary`、≥256 MiB、IQR/MAD |
+| `tilelang-npuir` | 在 910B 上新增/修改 TileLang 算子 | UB 预算与多缓冲、Expert/Developer、动态 shape 尾部、launcher 陷阱 |
+| `study-notes-daily` | 一天收尾、写汇报、结论被推翻要同步多处 | logs/worklog/report 三层结构、笔记版本化与修正对照表 |
+
+有冲突时以 `ascend-npuir-bench-guardrails` 为准（它是 Day3 复盘的最终版）。
+详见 [`skills/README.md`](skills/README.md)。
 
 ## 环境
 
@@ -106,10 +132,20 @@ rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e
 在已装好 tilelang-ascend 的 NPU 机器上，于 `day3/code/` 目录：
 
 ```bash
-python -m pytest own_ops/abs.py -s -q     # 精度测试
-python own_ops/abs.py                     # tile 尺寸 / 对齐 / buffer 策略实验
-python own_ops/rmsnorm.py                 # dtype × weight × rstd 算法实验
+python -m pytest own_ops/abs.py own_ops/rmsnorm.py -s -q   # 12 个用例，约 8.5 min（编译占大头）
+python own_ops/abs.py                     # 第一版旋钮表（Event 口径，耗时列不可引用）
+python own_ops/rmsnorm.py                 # dtype × weight × rstd；只有 max_abs 可引用
+
+# device 域复核（笔记 §3.2 / §4.4 的数据来源）
+python experiments/probe_hostbudget.py            # 五点 host 预算闭合
+python experiments/probe_profiler_kernel_time.py  # device 尺寸阶梯
+python experiments/probe_blockcount_16M.py        # 16M：4096 块 vs 40 块串行
+python experiments/probe_abba_hbm.py 67108864     # 256 MiB，ABBA×10
+python experiments/probe_abba_hbm.py 134217728    # 512 MiB，ABBA×10
 ```
+
+`probe_abba_hbm.py` 的 `BLOCK, NCORE, ROUNDS` 写死在文件头，改配置要改源码重编译；
+`NCORE=40` 是 910B3 的实测值，换卡先查接口。
 
 ## 外部资料
 

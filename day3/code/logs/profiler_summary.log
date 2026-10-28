@@ -1,0 +1,193 @@
+Device-side kernel duration from CANN op_summary (torch_npu.profiler, 20 calls each).
+Chrome trace had no kernel events; used the op_summary CSV under export_only_prof_dir/.
+
+case                                         calls   device_us  harness_us
+tilelang abs, 4096 blocks, N=1M                 20       12.99       239.2
+tilelang abs, 40 blocks serial, N=16M           20       26.86       299.1
+torch.abs, N=1M (8 MiB)                         20        3.55         ~18
+torch.abs, N=16M (64 MiB)                       20       22.13         ~34
+
+harness_us = per-call latency reported by the Event-wrapped loop (own_ops/abs.py benchmark).
+Host gap per call: ~225 us (tilelang), ~12-15 us (torch).
+
+op names: tilelang kernels appear as 'main', torch as 'aclnnAbs_AbsAiCore_Abs'.
+Raw source: export_only_prof_dir/*/PROF_*/mindstudio_profiler_output/op_summary_*.csv
+
+Run-to-run check: an independent second run measured 13.68 / 28.02 / 3.57 / 22.17 us
+(~5% higher), so treat these as +-5%.  Raw per-run output: logs/profiler_kernel_time.log.
+Reproduce: python notes/day2/experiments/probe_profiler_kernel_time.py
+
+--- 16:35+ device-side HBM ladder and same-size cross-check ---
+
+torch.abs bandwidth ladder (probe_hbm_peak.py, 20 calls each, op_summary):
+  128 MiB tensor (256 MiB traffic)  214.37 us  1252 GB/s
+  256 MiB tensor (512 MiB traffic)  421.90 us  1273 GB/s
+  512 MiB tensor (1 GiB traffic)    841.76 us  1276 GB/s
+  => steady HBM ~1.25-1.28 TB/s; working sets >=128 MiB are fully out of cache.
+
+Same-size interleaved comparison, N=32M (probe_hbm_interleaved.py, one process,
+torch and tilelang alternated):
+  round0  torch 217.26  tilelang 203.09   ratio 0.93x
+  round1  torch 217.30  tilelang 204.36   ratio 0.94x
+  => parity (ours marginally faster); both at 1.24-1.32 TB/s.
+
+Correction: probe_hbm_compare.py measured torch at 166.93 us (1608 GB/s) in a
+single unordered run and that produced a bogus "1.27x slower" claim.  torch
+repeats at 214-217 us in two other runs; 166.93 is an outlier of unknown cause.
+Cross-implementation ratios must come from interleaved repeats (worklog error 12).
+
+--- 16:39+ block count: device vs host ---
+
+Device time (op_summary) at N=16M, block_N=4096 in both variants
+(probe_blockcount_16M.py, two interleaved rounds):
+  plain 4096-block grid   158.73 / 155.96 us
+  fixed 40-block serial    27.25 /  26.98 us      ratio 5.8x
+
+Host submission only, 200 calls no sync (probe_hostcost_4096blocks.py):
+  4096 blocks (block_N=4096)     1091.8 us/call   (device 158 us)
+  1024 blocks (block_N=16384)     269.0 us/call
+
+=> host ~= max(~240 us, ~0.27 us * blocks).  cProfile breakdown at 4096 blocks:
+   launcher.launch 939.5 us | load_kernel_binary 65.0 | grid eval 40.3 |
+   wrapper 27.4  (1024 blocks: 138.2 / 61.0 / 35.9 / 24.8).
+   The generated wrapper has no per-block loop and no syncBlockLock/rtMalloc,
+   so the per-block term lives inside the ACL launch call.  Worklog error 13.
+
+--- 16:55 十轮 ABBA 同尺寸对拍（推翻 16:36 的“打平略快”）---
+
+probe_abba_hbm.py, N=32M, 40 blocks x block_N=8192, device time per call
+(20 calls -> median), order torch / ours / ours / torch each round:
+
+  round   torch avg   ours avg   ratio
+     0     205.93      204.03    0.991x   <- torch still warming up (218.21 on its first call)
+     1     192.79      203.03    1.053x
+     2     190.08      203.31    1.070x
+     3     186.08      202.54    1.088x
+     4     184.74      200.63    1.086x
+     5     185.73      199.42    1.074x
+     6     185.60      197.98    1.067x
+     7     184.20      196.98    1.069x
+     8     184.41      198.66    1.077x
+     9     185.16      198.10    1.070x
+
+  torch  median 185.67 us  range 184.20-205.93  stdev 6.73
+  ours   median 200.02 us  range 196.98-204.03  stdev 2.58
+  ratio  median 1.070x    range 0.991-1.088
+
+=> we are ~7% slower at HBM scale: 1.34 TB/s vs torch 1.45 TB/s (84% / 90% of
+the 1.6 TB/s spec).  The 2-round run at 16:36 caught torch entirely inside a
+warm-up transient (218 -> 185 us over the first 3 rounds) and reported 0.93x.
+Only round0 lands near parity; every steady-state round says 1.05-1.09x.
+Raw CSVs: logs/profiler_raw/README.md, "ABBA 10 轮" table.
+
+--- 17:00 host budget closure（五个块数，同一 kernel 形状）---
+
+probe_hostbudget.py.  wall = time.perf_counter over 50 enqueues, no sync
+inside.  prof = cProfile total for the same 50 calls.
+
+  blocks       N    block_N   wall us/call   prof total   launch   load_bin   eval
+       1    4096       4096        231.9        252.4     113.3      53.2     36.6
+      64 1048576      16384        219.0        254.6     107.7      59.0     36.7
+     256 1048576       4096        215.9        248.6     105.2      54.2     37.1
+    1024 16777216     16384        252.4        286.4     135.2      59.4     37.1
+    4096 16777216      4096       1084.6       1122.8     941.9      73.7     47.3
+
+=> budget closes: launch + load_binary + eval + ~20-30 us of JitKernel.__call__
+   wrapper reproduces the wall number at every point (cProfile overhead makes
+   prof total slightly higher than wall; the wrapper frame itself does not
+   appear because cProfile attributes its time to callees).
+=> shape: flat 216-232 us from 1 to 256 blocks, then 0.04 us/block to 1024
+   and 0.26 us/block from 1024 to 4096.  Not one line through the origin:
+   the 4096-block point is 4.7x the 1-block point, not 4096x.
+=> the slope sits inside ACL's rtKernelLaunch (launch frame absorbs 941.9 of
+   the 1084.6 us at 4096 blocks); tilelang's generated launcher issues a single
+   rtKernelLaunch and only calls rtMalloc/syncBlockLock when workspace_size or
+   lock_num is non-zero, neither of which applies here.
+=> the earlier "0.27 us/block" was a two-point fit across 1024-4096 and should
+   not be extrapolated to small grids; and 939.5/1024 = 0.92, 939.5/4096 = 0.23,
+   so even the launcher slope differs by segment.
+
+--- 17:10 口径内不一致：绝对带宽跨进程不可比 ---
+
+Same torch.abs call, same 128 MiB tensor, same device-time basis, same 20-call
+median, two processes:
+  hbm_peak ladder (16:35, single process, 128 MiB measured FIRST)  214.37 us = 1.25 TB/s
+  abba_hbm      (16:55, after ~40 warmup calls + 2 discarded rounds) 185.67 us = 1.45 TB/s
+  => 15% apart, and the ladder is monotonic 1.25 -> 1.27 -> 1.28 TB/s across
+     128/256/512 MiB, i.e. consistent with DVFS/clock ramp, not with a real
+     hardware ceiling.  "1.25-1.28 TB/s steady HBM" is therefore a COLD lower
+     bound.  Only within-process interleaved ratios are safe; every absolute
+     TB/s number quoted across runs (ours included) carries +-15%.
+
+Our own kernel across processes: 212.14 us (16:34) vs 204.03 (16:36) vs
+200.02/199.04 (16:55 steady) — same direction, ~6%.
+
+--- 17:12 ABBA statistics with explicit warmup discard + IQR/MAD ---
+
+Recomputed from the 16:55 data (no rerun):
+  all 10 rounds     torch median 185.67  ours 200.02  ratio 1.070  IQR 1.067-1.076  MAD 0.006
+  discard first 2   torch median 185.38  ours 199.04  ratio 1.072  IQR 1.070-1.079  MAD 0.004
+  torch IQR 4.2 -> 1.2 us, stdev 6.7 -> 1.9; ours 4.7 -> 3.0, 2.6 -> 2.3.
+  => ratio is insensitive to the warmup rule; 1.07x stands with 8/8 rounds on
+     the same side and a 0.009 IQR.
+
+--- 17:15 two timing bases, same kernel, same data (do not mix) ---
+
+  N=32M, 40-block serial, block_N=8192   device 1.07x   end-to-end ~1.2x (host floor ~240 us)
+  N=16M, 4096-block plain grid           device 7.2x    end-to-end ~32x (1095.4 us vs ~34 us)
+
+--- 17:20 size sweep overturns the 7%: it is a 128 MiB phenomenon ---
+
+probe_abba_hbm.py now takes the element count as argv[1].  10-round A-B-B-A,
+40 blocks + in-core serial, block_N=8192, device time:
+
+  128 MiB tensor (256 MiB traffic)  torch 185.67  ours 200.02  ratio 1.070
+  256 MiB tensor (512 MiB traffic)  torch 422.37  ours 422.57  ratio 1.000  (stdev 0.09 / 0.12 us)
+  512 MiB tensor (1 GiB traffic)    torch 838.46  ours 845.21  ratio 1.008  (stdev 0.11 / 0.31 us)
+  => at >=256 MiB both implementations are stable to 0.03% and we are at parity
+     (1.270 vs 1.280 TB/s at 512 MiB).  The 7% was measured in the one size
+     where the workload straddles the L2 boundary.
+
+torch.abs at 128 MiB, same op, same size, device time, across processes/state:
+  167.2 173.3 (cold, clock_state.log) | 177.6 176.8 (after 60 s load)
+  185.7 (abba) | 193.4 200.5 (bidir, 2nd measurement) | 203.0 206.7 (bidir)
+  210.2 (npugraph) | 212.5 212.8 (first session in a process) | 214.4 (hbm_peak)
+  => 27% spread for torch itself, 4x the 7% we were chasing.  1.45 TB/s at
+     128 MiB exceeds the 1.28 TB/s steady rate measured at 512 MiB, i.e. part of
+     the traffic is served from cache; how much depends on run history.
+
+ours at 128 MiB: 198-219 us (10%), at 256/512 MiB: 0.3 us stdev.
+
+--- 17:25 config sweep at 128 MiB: neither parallelism nor granularity ---
+
+probe_config_sweep.py, cold process, 2 x 20-call medians:
+  block_N 4096/8192/16384 x NCORE 40 : 219.0 / 217.5 / 218.7  (<1% spread)
+  block_N 4096/8192/16384 x NCORE 20 : 233.3 / 228.0 / 228.6  (5-7% slower)
+  8192 x 40, auto multi-buffer off    : 218.8  (same as on)
+  => halving the core count costs 5-7%, not 2x, so 40 cores already saturate;
+     tile size and multi-buffering do not move it.  16384 only compiles with
+     auto multi-buffer off (2 x 2 x 64 KiB = 256 KiB > 192 KiB UB).
+
+--- 17:30 NPUGraph is not usable with this launcher ---
+
+probe_npugraph.py, 128 MiB, 40 blocks:
+  ours   host 437-453 us  device 211-216 us  e2e 254-461 us
+  torch  host  14-17 us   device 173-210 us  e2e 173-210 us
+
+capture with defaults -> abort: "Not allow to synchronize captured-stream,
+stream_id=42" (107027).  The generated launcher calls
+at_npu::native::OpCommand::RunOpApi(name, launch_call, true), which synchronizes
+the stream (tilelang/jit/jit_npu.py:623).
+
+capture with TILELANG_ENABLE_TASKQUEUE=0 (fresh cache dir, the flag is baked into
+the cached .so) -> capture succeeds, replay is a SILENT NO-OP:
+  tilelang graph replay trial 0/1: nonzero=0/33554432
+  torch control graph (same process): replay max_abs_diff = 0.0
+=> raw rtKernelLaunch is not recorded by ACL graph capture.  Even if it were,
+   the 214 us device time is a hard floor, so the e2e ceiling is ~214 us.
+
+host per call for this kernel is 250-450 us depending on the process
+(launch_taskqueue_on.log 444, launch_taskqueue_off.log 250-528,
+launch_multibuffer.log 445/452).  Not the same constant as the 216-232 us
+measured for plain-grid kernels in hostbudget.log; unexplained, do not quote
+it as a precise constant.

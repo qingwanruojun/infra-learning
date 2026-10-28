@@ -1,0 +1,38 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+/mnt/workspace/learn/tilelang-ascend/notes/day2/experiments/probe_npugraph.py:109: UserWarning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (Triggered internally at ../torch_npu/csrc/aten/common/TensorFactories.cpp:340.)
+  b = torch.zeros_like(a)
+2026-10-28 17:30:33  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 17:30:33  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 17:30:33  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+TILELANG_ENABLE_TASKQUEUE=False  capture=1
+[2026-10-28 17:30:36] [WARNING] [116573] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:30:36] [WARNING] [116573] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:30:36] [WARNING] [116573] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:30:37] [INFO] [116890] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_116573_20261028173036474_ascend_pt
+|/-\[2026-10-28 17:30:40] [INFO] [116899] profiler.py: CANN profiling data parsed in a total time of 0:00:03.033742
+[2026-10-28 17:30:40] [INFO] [116890] profiler.py: All profiling data parsed in a total time of 0:00:03.662795
+[2026-10-28 17:30:41] [WARNING] [116573] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:30:41] [WARNING] [116573] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:30:41] [WARNING] [116573] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:30:42] [INFO] [117245] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_116573_20261028173041344_ascend_pt
+|/-[2026-10-28 17:30:44] [INFO] [117259] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028916
+[2026-10-28 17:30:44] [INFO] [117245] profiler.py: All profiling data parsed in a total time of 0:00:02.656657
+terminate called after throwing an instance of 'c10::Error'
+  what():  RunOpApi:../torch_npu/csrc/framework/OpCommand.cpp:228 NPU function error: c10_npu::acl::AclrtSynchronizeStreamWithTimeout(stream), error code is 107027
+[ERROR] 2026-10-28-17:30:45 (PID:116573, Device:0, RankID:-1) ERR00100 PTA call acl api failed.
+EE9999: Inner Error!
+EE9999[PID: 116573] 2026-10-28-17:30:45.161.272 (EE9999):  Not allow to synchronize captured-stream, stream_id=38.[FUNC:StreamSynchronize][FILE:api_error.cc][LINE:1016]
+        TraceBack (most recent call last):
+       rtStreamSynchronizeWithTimeout execution failed, reason=stream is captured[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]
+       synchronize stream with timeout failed, runtime result = 107027[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]
+
+Exception raised from RunOpApi at ../torch_npu/csrc/framework/OpCommand.cpp:228 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xd4 (0xffff9b7cdea4 in /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) + 0xe4 (0xffff9b76de44 in /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: at_npu::native::OpCommand::RunOpApi(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::function<int ()>, bool) + 0x1348 (0xffff41f4fb88 in /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libtorch_npu.so)
+frame #3: <unknown function> + 0x27ab8 (0xfffef7f6aab8 in /home/developer/.tilelang/cache/dd7f7d46401173a90a1285dea6cf3f6e750127d840ccd6e6642ce6c9f0660e48/main.so)
+frame #4: <unknown function> + 0x28034 (0xfffef7f6b034 in /home/developer/.tilelang/cache/dd7f7d46401173a90a1285dea6cf3f6e750127d840ccd6e6642ce6c9f0660e48/main.so)
+<omitting python frames>
+frame #20: __libc_start_main + 0xe8 (0xffffa7c1ae10 in /lib/aarch64-linux-gnu/libc.so.6)
+

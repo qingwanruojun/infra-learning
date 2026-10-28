@@ -1,0 +1,8 @@
+A) host submission cost (200 calls, no sync until the end)
+AscendNPU IR compile success: 
+   standard 4096: host enqueue  1069.6 us/call, end-to-end  1070.3 us/call
+
+B) block count vs chunk size (N=16M, block_N=4096, 128 MiB traffic)
+AscendNPU IR compile success: 
+   normal grid  (4096 blocks)   1095.4 us
+   fixed grid   (40 blocks, serial)    299.1 us  correct=True

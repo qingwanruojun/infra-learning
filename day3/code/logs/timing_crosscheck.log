@@ -1,0 +1,9 @@
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+  out = torch.empty_like(a)
+case                        event_us   wall_us  GB/s(wall)  check
+----------------------------------------------------------------------
+abs   1 MiB read            27.22     22.29        94.1  True
+abs   8 MiB read            26.56     22.27       753.3  True
+abs  64 MiB read            28.68     29.19      4597.7  True
+a.abs()   8 MiB (new out)     43.50     37.54       670.4
+a.abs()  64 MiB (new out)     43.99     38.93      5171.5

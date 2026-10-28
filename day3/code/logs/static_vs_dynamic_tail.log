@@ -1,0 +1,7 @@
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+AscendNPU IR compile success: 
+N=1048576, block_N=4096, fp32, 50 calls/window, median of 9
+dynamic tail :   254.79 us  correct=True
+static block :   306.74 us  correct=True
+8 MiB traffic => GB/s: dynamic    29.0  static    28.2

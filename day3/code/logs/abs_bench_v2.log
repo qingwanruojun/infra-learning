@@ -1,0 +1,36 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 15:51:47  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 15:51:47  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 15:51:47  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+== abs: tile size (N=1048576, alloc_ub) ==
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N=1024             266.82 us    31.4 GB/s  [min 262.5, max 288.8]
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N=2048             239.61 us    35.0 GB/s  [min 229.9, max 244.4]
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N=4096             238.90 us    35.1 GB/s  [min 225.6, max 243.6]
+== abs: alignment (block_N=4096, alloc_ub) ==
+  N=1048576                240.52 us    34.9 GB/s  [min 234.2, max 245.2]
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  N=1048575                334.61 us    25.1 GB/s  [min 320.0, max 348.5]
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  N=1048577                261.61 us    32.1 GB/s  [min 256.0, max 268.7]
+== abs: block-start alignment (N=1048576, alloc_ub) ==
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N=1023             278.22 us    30.2 GB/s  [min 272.1, max 280.9]
+  block_N=1024             275.93 us    30.4 GB/s  [min 272.8, max 280.4]
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  block_N=1025             276.15 us    30.4 GB/s  [min 262.2, max 290.3]
+== abs: buffer strategy (N=1048576, block_N=4096) ==
+  memory=ub                256.86 us    32.7 GB/s  [min 250.4, max 263.4]
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  memory=shared            256.14 us    32.7 GB/s  [min 251.8, max 263.2]

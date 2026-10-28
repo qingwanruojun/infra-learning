@@ -1,0 +1,32 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+/mnt/workspace/learn/tilelang-ascend/notes/day2/experiments/probe_hbm_compare.py:88: UserWarning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (Triggered internally at ../torch_npu/csrc/aten/common/TensorFactories.cpp:340.)
+  b = torch.zeros_like(a)
+2026-10-28 16:33:59  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 16:33:59  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 16:33:59  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+N=33554432 (128 MiB tensor, 256 MiB traffic), block_N=8192, 40 blocks
+case                                           calls  device_us
+[2026-10-28 16:34:05] [WARNING] [29802] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 16:34:05] [WARNING] [29802] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 16:34:05] [WARNING] [29802] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 16:34:06] [INFO] [29985] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_29802_20261028163405414_ascend_pt
+|/-[2026-10-28 16:34:08] [INFO] [29994] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028158
+[2026-10-28 16:34:08] [INFO] [29985] profiler.py: All profiling data parsed in a total time of 0:00:02.654874
+tilelang 40 blocks, block_N=16384                 20     212.14
+[2026-10-28 16:34:09] [WARNING] [29802] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 16:34:09] [WARNING] [29802] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 16:34:09] [WARNING] [29802] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 16:34:09] [INFO] [30277] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_29802_20261028163409217_ascend_pt
+|/-[2026-10-28 16:34:12] [INFO] [30286] profiler.py: CANN profiling data parsed in a total time of 0:00:02.027991
+[2026-10-28 16:34:12] [INFO] [30277] profiler.py: All profiling data parsed in a total time of 0:00:02.651842
+torch.abs                                         20     166.93
+
+  tilelang  1265.3 GB/s
+  torch     1608.0 GB/s
+  ratio: 1.27x
+
+NOTE: the "block_N=16384" label above is stale -- the run used block_N=8192
+(16384 with the serial loop overflows UB, see worklog error #11).  The label was
+a hard-coded string in the probe; it now prints BLOCK.  Numbers are unaffected.

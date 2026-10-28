@@ -257,6 +257,16 @@ def main():
         st["gbps"] = gbps
         _print_row(f"N={N}", st)
 
+    print("== abs: block-start alignment (N=1048576, alloc_ub) ==")
+    # The N sweep above changes only the tail length; every block still starts
+    # at cid*4096 (16 KiB aligned).  With block_N=1023/1025 the start of every
+    # block is shifted by a non-multiple of the vector width, which is the
+    # closest user-level proxy for vectorization/alignment in this DSL.
+    for block_N in (1023, 1024, 1025):
+        _, gbps, st = _measure(1048576, block_N)
+        st["gbps"] = gbps
+        _print_row(f"block_N={block_N}", st)
+
     print("== abs: buffer strategy (N=1048576, block_N=4096) ==")
     for memory in ("ub", "shared"):
         _, gbps, st = _measure(1048576, 4096, memory=memory)

@@ -1,0 +1,262 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 17:20:23  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 17:20:23  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 17:20:23  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+N=134217728 (512 MiB tensor, 1024 MiB traffic)
+/mnt/workspace/learn/tilelang-ascend/notes/day2/experiments/probe_abba_hbm.py:81: UserWarning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (Triggered internally at ../torch_npu/csrc/aten/common/TensorFactories.cpp:340.)
+  b = torch.zeros_like(a)
+[2026-10-28 17:20:27] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:27] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:27] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:27] [INFO] [85390] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172027044_ascend_pt
+|/-[2026-10-28 17:20:29] [INFO] [85399] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028438
+[2026-10-28 17:20:30] [INFO] [85390] profiler.py: All profiling data parsed in a total time of 0:00:02.656133
+[2026-10-28 17:20:30] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:30] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:30] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:31] [INFO] [85718] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172030850_ascend_pt
+|/-[2026-10-28 17:20:33] [INFO] [85727] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028338
+[2026-10-28 17:20:34] [INFO] [85718] profiler.py: All profiling data parsed in a total time of 0:00:02.653215
+[2026-10-28 17:20:34] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:34] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:34] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:35] [INFO] [86146] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172034625_ascend_pt
+|/-[2026-10-28 17:20:37] [INFO] [86155] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028495
+[2026-10-28 17:20:37] [INFO] [86146] profiler.py: All profiling data parsed in a total time of 0:00:02.662417
+[2026-10-28 17:20:38] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:38] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:38] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:39] [INFO] [86577] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172038425_ascend_pt
+|/-[2026-10-28 17:20:41] [INFO] [86608] profiler.py: CANN profiling data parsed in a total time of 0:00:02.030598
+[2026-10-28 17:20:41] [INFO] [86577] profiler.py: All profiling data parsed in a total time of 0:00:02.705997
+round  0  torch  838.38/ 838.69 (avg  838.53)  ours  845.20/ 844.94 (avg  845.07)  ratio 1.008x
+[2026-10-28 17:20:42] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:42] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:42] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:43] [INFO] [86971] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172042253_ascend_pt
+|/-[2026-10-28 17:20:45] [INFO] [86980] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028999
+[2026-10-28 17:20:45] [INFO] [86971] profiler.py: All profiling data parsed in a total time of 0:00:02.679263
+[2026-10-28 17:20:46] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:46] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:46] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:46] [INFO] [87424] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172046106_ascend_pt
+|/-[2026-10-28 17:20:48] [INFO] [87433] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028614
+[2026-10-28 17:20:49] [INFO] [87424] profiler.py: All profiling data parsed in a total time of 0:00:02.666274
+[2026-10-28 17:20:49] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:49] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:49] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:50] [INFO] [87762] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172049903_ascend_pt
+|/-\[2026-10-28 17:20:53] [INFO] [87772] profiler.py: CANN profiling data parsed in a total time of 0:00:03.043865
+[2026-10-28 17:20:54] [INFO] [87762] profiler.py: All profiling data parsed in a total time of 0:00:03.683401
+[2026-10-28 17:20:54] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:54] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:54] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:55] [INFO] [88204] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172054693_ascend_pt
+|/-[2026-10-28 17:20:57] [INFO] [88219] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028525
+[2026-10-28 17:20:58] [INFO] [88204] profiler.py: All profiling data parsed in a total time of 0:00:02.663854
+round  1  torch  838.58/ 838.29 (avg  838.43)  ours  845.73/ 844.57 (avg  845.15)  ratio 1.008x
+[2026-10-28 17:20:58] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:58] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:20:58] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:20:59] [INFO] [88726] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172058488_ascend_pt
+|/-[2026-10-28 17:21:01] [INFO] [88735] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028676
+[2026-10-28 17:21:01] [INFO] [88726] profiler.py: All profiling data parsed in a total time of 0:00:02.663890
+[2026-10-28 17:21:02] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:02] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:02] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:02] [INFO] [89076] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172102276_ascend_pt
+|/-[2026-10-28 17:21:05] [INFO] [89085] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028624
+[2026-10-28 17:21:05] [INFO] [89076] profiler.py: All profiling data parsed in a total time of 0:00:02.670057
+[2026-10-28 17:21:06] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:06] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:06] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:06] [INFO] [89555] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172106070_ascend_pt
+|/-\[2026-10-28 17:21:09] [INFO] [89564] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032363
+[2026-10-28 17:21:10] [INFO] [89555] profiler.py: All profiling data parsed in a total time of 0:00:03.674814
+[2026-10-28 17:21:10] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:10] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:10] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:11] [INFO] [90016] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172110899_ascend_pt
+|/-[2026-10-28 17:21:13] [INFO] [90025] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028657
+[2026-10-28 17:21:14] [INFO] [90016] profiler.py: All profiling data parsed in a total time of 0:00:02.680422
+round  2  torch  838.72/ 838.36 (avg  838.54)  ours  845.49/ 845.07 (avg  845.28)  ratio 1.008x
+[2026-10-28 17:21:14] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:14] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:14] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:15] [INFO] [90354] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172114711_ascend_pt
+|/-[2026-10-28 17:21:17] [INFO] [90363] profiler.py: CANN profiling data parsed in a total time of 0:00:02.030086
+[2026-10-28 17:21:18] [INFO] [90354] profiler.py: All profiling data parsed in a total time of 0:00:02.672682
+[2026-10-28 17:21:18] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:18] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:18] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:19] [INFO] [90782] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172118515_ascend_pt
+|/-[2026-10-28 17:21:21] [INFO] [90791] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028908
+[2026-10-28 17:21:21] [INFO] [90782] profiler.py: All profiling data parsed in a total time of 0:00:02.668660
+[2026-10-28 17:21:22] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:22] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:22] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:23] [INFO] [91073] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172122311_ascend_pt
+|/-\[2026-10-28 17:21:26] [INFO] [91086] profiler.py: CANN profiling data parsed in a total time of 0:00:03.033312
+[2026-10-28 17:21:26] [INFO] [91073] profiler.py: All profiling data parsed in a total time of 0:00:03.675583
+[2026-10-28 17:21:27] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:27] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:27] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:27] [INFO] [91588] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172127107_ascend_pt
+|/-\[2026-10-28 17:21:30] [INFO] [91597] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032200
+[2026-10-28 17:21:31] [INFO] [91588] profiler.py: All profiling data parsed in a total time of 0:00:03.676222
+round  3  torch  838.07/ 838.40 (avg  838.23)  ours  844.92/ 845.91 (avg  845.41)  ratio 1.009x
+[2026-10-28 17:21:31] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:31] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:31] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:32] [INFO] [92097] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172131911_ascend_pt
+|/-[2026-10-28 17:21:34] [INFO] [92106] profiler.py: CANN profiling data parsed in a total time of 0:00:02.027831
+[2026-10-28 17:21:35] [INFO] [92097] profiler.py: All profiling data parsed in a total time of 0:00:02.668812
+[2026-10-28 17:21:35] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:35] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:35] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:36] [INFO] [92486] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172135699_ascend_pt
+|/-[2026-10-28 17:21:38] [INFO] [92499] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028942
+[2026-10-28 17:21:39] [INFO] [92486] profiler.py: All profiling data parsed in a total time of 0:00:02.671740
+[2026-10-28 17:21:39] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:39] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:39] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:40] [INFO] [92856] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172139511_ascend_pt
+|/-[2026-10-28 17:21:42] [INFO] [92865] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028933
+[2026-10-28 17:21:42] [INFO] [92856] profiler.py: All profiling data parsed in a total time of 0:00:02.674119
+[2026-10-28 17:21:43] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:43] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:43] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:44] [INFO] [93264] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172143323_ascend_pt
+|/-\[2026-10-28 17:21:47] [INFO] [93273] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032285
+[2026-10-28 17:21:47] [INFO] [93264] profiler.py: All profiling data parsed in a total time of 0:00:03.676515
+round  4  torch  838.47/ 838.38 (avg  838.42)  ours  845.04/ 845.03 (avg  845.03)  ratio 1.008x
+[2026-10-28 17:21:48] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:48] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:48] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:48] [INFO] [93588] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172148131_ascend_pt
+|/-[2026-10-28 17:21:50] [INFO] [93597] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028476
+[2026-10-28 17:21:51] [INFO] [93588] profiler.py: All profiling data parsed in a total time of 0:00:02.671781
+[2026-10-28 17:21:51] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:51] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:52] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:52] [INFO] [94019] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172151933_ascend_pt
+|/-[2026-10-28 17:21:54] [INFO] [94028] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028098
+[2026-10-28 17:21:55] [INFO] [94019] profiler.py: All profiling data parsed in a total time of 0:00:02.672894
+[2026-10-28 17:21:55] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:55] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:55] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:21:56] [INFO] [94478] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172155738_ascend_pt
+|/-[2026-10-28 17:21:58] [INFO] [94487] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028434
+[2026-10-28 17:21:58] [INFO] [94478] profiler.py: All profiling data parsed in a total time of 0:00:02.670795
+[2026-10-28 17:21:59] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:59] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:21:59] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:00] [INFO] [94787] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172159424_ascend_pt
+|/-[2026-10-28 17:22:02] [INFO] [94796] profiler.py: CANN profiling data parsed in a total time of 0:00:02.032568
+[2026-10-28 17:22:02] [INFO] [94787] profiler.py: All profiling data parsed in a total time of 0:00:02.677007
+round  5  torch  838.21/ 838.51 (avg  838.36)  ours  844.60/ 845.20 (avg  844.90)  ratio 1.008x
+[2026-10-28 17:22:03] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:03] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:03] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:03] [INFO] [95217] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172203221_ascend_pt
+|/-[2026-10-28 17:22:06] [INFO] [95226] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028098
+[2026-10-28 17:22:06] [INFO] [95217] profiler.py: All profiling data parsed in a total time of 0:00:02.671499
+[2026-10-28 17:22:07] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:07] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:07] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:07] [INFO] [95546] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172207039_ascend_pt
+|/-[2026-10-28 17:22:09] [INFO] [95555] profiler.py: CANN profiling data parsed in a total time of 0:00:02.029371
+[2026-10-28 17:22:10] [INFO] [95546] profiler.py: All profiling data parsed in a total time of 0:00:02.700631
+[2026-10-28 17:22:10] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:10] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:10] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:11] [INFO] [95959] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172210873_ascend_pt
+|/-[2026-10-28 17:22:13] [INFO] [95968] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028813
+[2026-10-28 17:22:14] [INFO] [95959] profiler.py: All profiling data parsed in a total time of 0:00:02.672361
+[2026-10-28 17:22:14] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:14] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:14] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:15] [INFO] [96389] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172214674_ascend_pt
+|/-[2026-10-28 17:22:17] [INFO] [96398] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028813
+[2026-10-28 17:22:17] [INFO] [96389] profiler.py: All profiling data parsed in a total time of 0:00:02.674817
+round  6  torch  838.37/ 838.62 (avg  838.49)  ours  845.39/ 845.27 (avg  845.33)  ratio 1.008x
+[2026-10-28 17:22:18] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:18] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:18] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:19] [INFO] [96678] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172218372_ascend_pt
+|/-[2026-10-28 17:22:21] [INFO] [96687] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028936
+[2026-10-28 17:22:21] [INFO] [96678] profiler.py: All profiling data parsed in a total time of 0:00:02.677367
+[2026-10-28 17:22:22] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:22] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:22] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:22] [INFO] [97122] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172222183_ascend_pt
+|/-[2026-10-28 17:22:24] [INFO] [97131] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028815
+[2026-10-28 17:22:25] [INFO] [97122] profiler.py: All profiling data parsed in a total time of 0:00:02.676326
+[2026-10-28 17:22:25] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:25] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:26] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:26] [INFO] [97431] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172225976_ascend_pt
+|/-\[2026-10-28 17:22:29] [INFO] [97440] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032135
+[2026-10-28 17:22:30] [INFO] [97431] profiler.py: All profiling data parsed in a total time of 0:00:03.676544
+[2026-10-28 17:22:30] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:30] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:30] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:31] [INFO] [97897] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172230778_ascend_pt
+|/-[2026-10-28 17:22:33] [INFO] [97906] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028545
+[2026-10-28 17:22:34] [INFO] [97897] profiler.py: All profiling data parsed in a total time of 0:00:02.673990
+round  7  torch  838.66/ 838.37 (avg  838.51)  ours  845.92/ 845.00 (avg  845.46)  ratio 1.008x
+[2026-10-28 17:22:34] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:34] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:34] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:35] [INFO] [98309] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172234568_ascend_pt
+|/-[2026-10-28 17:22:37] [INFO] [98318] profiler.py: CANN profiling data parsed in a total time of 0:00:02.029138
+[2026-10-28 17:22:37] [INFO] [98309] profiler.py: All profiling data parsed in a total time of 0:00:02.674501
+[2026-10-28 17:22:38] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:38] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:38] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:39] [INFO] [98614] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172238370_ascend_pt
+|/-\[2026-10-28 17:22:42] [INFO] [98623] profiler.py: CANN profiling data parsed in a total time of 0:00:03.031939
+[2026-10-28 17:22:42] [INFO] [98614] profiler.py: All profiling data parsed in a total time of 0:00:03.676924
+[2026-10-28 17:22:43] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:43] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:43] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:43] [INFO] [99075] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172243155_ascend_pt
+|/-[2026-10-28 17:22:45] [INFO] [99084] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028146
+[2026-10-28 17:22:46] [INFO] [99075] profiler.py: All profiling data parsed in a total time of 0:00:02.675540
+[2026-10-28 17:22:46] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:46] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:47] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:47] [INFO] [99503] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172246949_ascend_pt
+|/-[2026-10-28 17:22:49] [INFO] [99512] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028573
+[2026-10-28 17:22:50] [INFO] [99503] profiler.py: All profiling data parsed in a total time of 0:00:02.671306
+round  8  torch  838.36/ 838.15 (avg  838.25)  ours  844.92/ 844.97 (avg  844.94)  ratio 1.008x
+[2026-10-28 17:22:50] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:50] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:50] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:51] [INFO] [99846] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172250742_ascend_pt
+|/-[2026-10-28 17:22:53] [INFO] [99855] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028655
+[2026-10-28 17:22:54] [INFO] [99846] profiler.py: All profiling data parsed in a total time of 0:00:02.674451
+[2026-10-28 17:22:54] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:54] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:54] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:55] [INFO] [100259] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172254536_ascend_pt
+|/-[2026-10-28 17:22:57] [INFO] [100268] profiler.py: CANN profiling data parsed in a total time of 0:00:02.027943
+[2026-10-28 17:22:57] [INFO] [100259] profiler.py: All profiling data parsed in a total time of 0:00:02.672852
+[2026-10-28 17:22:58] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:58] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:22:58] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:22:59] [INFO] [100570] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172258324_ascend_pt
+|/-\[2026-10-28 17:23:02] [INFO] [100596] profiler.py: CANN profiling data parsed in a total time of 0:00:03.031933
+[2026-10-28 17:23:02] [INFO] [100570] profiler.py: All profiling data parsed in a total time of 0:00:03.678017
+[2026-10-28 17:23:03] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:23:03] [WARNING] [84721] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 17:23:03] [WARNING] [84721] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 17:23:03] [INFO] [101031] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_84721_20261028172303130_ascend_pt
+|/-[2026-10-28 17:23:05] [INFO] [101040] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028739
+[2026-10-28 17:23:06] [INFO] [101031] profiler.py: All profiling data parsed in a total time of 0:00:02.675213
+round  9  torch  838.49/ 838.49 (avg  838.49)  ours  846.48/ 845.41 (avg  845.94)  ratio 1.009x
+
+torch  median  838.46 us  range 838.23-838.54  stdev 0.11
+ours   median  845.21 us  range 844.90-845.94  stdev 0.31
+ratio  median 1.008x  range 1.008-1.009

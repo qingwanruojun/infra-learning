@@ -1,0 +1,15 @@
+         N  MiB traffic   abs_us     GB/s  torch_us  torch GB/s
+--------------------------------------------------------------------
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+   1048576            8   235.26     35.7     17.77       472.0
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+   4194304           32   259.12    129.5     17.28      1941.4
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+  16777216          128  1087.82    123.4     34.43      3898.1
+
+linear fit from N=1048576 to N=16777216:
+  per-launch intercept ~ 178.4 us
+  streaming bandwidth  ~ 147.6 GB/s

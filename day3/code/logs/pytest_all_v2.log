@@ -1,0 +1,43 @@
+2026-10-28 15:37:24  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 15:37:24  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 15:37:24  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+
+fp32 max_abs=1.907e-06 max_rel=3.455e-07
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+
+fp16 max_abs=2.344e-02 max_rel=3.448e-02
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+
+fp16/sqrt_rec max_abs=9.766e-04 max_rel=9.597e-04
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+
+newton max_abs=9.441e-05 max_rel=1.249e-05
+.AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+.
+=============================== warnings summary ===============================
+../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 1 warning in 502.22s (0:08:22)

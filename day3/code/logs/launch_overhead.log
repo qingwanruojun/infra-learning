@@ -1,0 +1,17 @@
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+N=1048576, block_N=4096, ub, fp32 (8 MiB traffic)
+measurement                          us/call
+--------------------------------------------
+event, 1 call(s) per window           393.68
+event, 2 call(s) per window           307.34
+event, 5 call(s) per window           262.52
+event, 10 call(s) per window          249.40
+event, 50 call(s) per window          238.99
+wall clock, 1 call(s)                 311.05
+wall clock, 10 call(s)                242.31
+wall clock, 50 call(s)                236.90
+
+If '1 call' is much smaller than '10 calls', the window is host-bound:
+device work per launch is the 1-call number, the rest is Python/launcher
+latency that the 10-call window cannot hide.

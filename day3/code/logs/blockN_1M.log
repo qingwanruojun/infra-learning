@@ -1,0 +1,12 @@
+  a=torch.randn(N,device="npu",dtype=torch.float32); b=torch.zeros_like(a)
+N=1048576 (8 MiB traffic), fp32, ub, 256 blocks at 4096
+  block_N  blocks       us     GB/s
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+     4096     256    242.3     34.6  ok=True
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+     8192     128    258.6     32.4  ok=True
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+    16384      64    263.1     31.9  ok=True

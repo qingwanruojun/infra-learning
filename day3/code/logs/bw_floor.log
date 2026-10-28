@@ -1,0 +1,16 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+/mnt/workspace/learn/tilelang-ascend/notes/day2/experiments/probe_bw_floor.py:47: UserWarning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (Triggered internally at ../torch_npu/csrc/aten/common/TensorFactories.cpp:340.)
+  tiny_out = torch.empty_like(tiny)
+case                         median_us   min_us   max_us    GB/s
+----------------------------------------------------------------
+tiny 1024 elems (floor)          46.21    41.00    69.94       -
+torch.abs 1 MiB read             41.82    38.90    46.32    50.1
+torch.abs 8 MiB read             41.92    40.01    42.36   400.2
+torch.abs 64 MiB read            41.31    39.06    45.70  3248.7
+
+Interpretation:
+  - If the 1 MiB point is close to the tiny floor, the loop is
+    overhead-bound and the abs table compares mostly-constant times.
+  - Slope between 8 and 64 MiB gives the sustainable bandwidth;
+    intercept at 0 MiB estimates per-iteration overhead.

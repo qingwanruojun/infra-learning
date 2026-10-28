@@ -1,0 +1,27 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+/mnt/workspace/learn/tilelang-ascend/notes/day2/experiments/probe_hostprofile.py:50: UserWarning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (Triggered internally at ../torch_npu/csrc/aten/common/TensorFactories.cpp:340.)
+  b = torch.zeros_like(a)
+2026-10-28 16:42:28  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 16:42:28  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 16:42:28  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+
+=== block_N=4096, blocks=4096, 40 calls ===
+  <built-in method __tilelang_launcher.launch>     939.5 us/call  (1.0 calls/call)
+  <built-in method npu_utils.load_kernel_binary>      65.0 us/call  (1.0 calls/call)
+  <built-in method builtins.eval>               40.3 us/call  (1.0 calls/call)
+  __call__                                      27.4 us/call  (1.0 calls/call)
+  _calcu_grid                                   11.9 us/call  (1.0 calls/call)
+  get                                            3.4 us/call  (1.0 calls/call)
+  replace_by_longest_key                         2.9 us/call  (1.0 calls/call)
+  <built-in method builtins.__import__>          2.2 us/call  (1.0 calls/call)
+
+=== block_N=16384, blocks=1024, 40 calls ===
+  <built-in method __tilelang_launcher.launch>     138.2 us/call  (1.0 calls/call)
+  <built-in method npu_utils.load_kernel_binary>      61.0 us/call  (1.0 calls/call)
+  <built-in method builtins.eval>               35.9 us/call  (1.0 calls/call)
+  __call__                                      24.8 us/call  (1.0 calls/call)
+  _calcu_grid                                   11.0 us/call  (1.0 calls/call)
+  replace_by_longest_key                         2.9 us/call  (1.0 calls/call)
+  get                                            2.7 us/call  (1.0 calls/call)
+  <built-in method builtins.__import__>          2.2 us/call  (1.0 calls/call)

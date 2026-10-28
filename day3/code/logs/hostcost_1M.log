@@ -1,0 +1,5 @@
+host submission floor (device work is tiny at N=1024)
+  N=1024  : no-sync loop    277.4 us/call, after sync    278.1 us/call
+  N=65536 : no-sync loop    240.6 us/call, after sync    241.2 us/call
+
+N=1M (8 MiB, L2-resident): normal grid   239.2 us | 40-block serial   249.5 us  correct=True

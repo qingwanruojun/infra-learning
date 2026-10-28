@@ -115,16 +115,24 @@ def rmsnorm_kernel(
             rows = T.min(block_M, M - m_start)
 
             T.copy(X[m_start : m_start + rows, :], x_in[0:rows, :])
-            T.copy(W, w_in)
             # The condition is a Python bool, so the parser emits exactly one
             # branch.  Only ops live inside these ifs -- never allocations,
             # whose names would fall out of the parser's variable scope.
             if dtype == accum_dtype:
-                T.copy(w_in, w_f32)
                 T.copy(x_in, x_f32)
             else:
-                T.vcast(w_in, w_f32, round_mode="rint")
                 T.vcast(x_in, x_f32, round_mode="rint")
+
+            # The weight load/cast belongs to the use_weight ablation: with
+            # use_weight=False the block must not even read W.  Otherwise the
+            # "no weight" timing still pays 4 KiB of per-block copy traffic
+            # (~12.5% of the 32 KiB row read) and is not a clean ablation.
+            if use_weight:
+                T.copy(W, w_in)
+                if dtype == accum_dtype:
+                    T.copy(w_in, w_f32)
+                else:
+                    T.vcast(w_in, w_f32, round_mode="rint")
 
             # (1) x^2 into a dedicated fp32 intermediate buffer.
             T.vmul(x_f32, x_f32, xsq)
@@ -326,10 +334,35 @@ def test_rmsnorm_fp16():
     print(f"\nfp16 max_abs={max_abs:.3e} max_rel={max_rel:.3e}")
 
 
-def test_rmsnorm_newton():
-    """vrsqrt + one Newton step is accurate enough for the fp32 1e-4 target."""
+def test_rmsnorm_fp16_sqrt_rec():
+    """Lock the fp16 + sqrt_rec precision at 5e-3.
+
+    Measured max_abs is 9.8e-4 to 3.9e-3 depending on the input, well below
+    the 1e-2 fp16 tolerance and far below vrsqrt's ~2.3e-2; asserting 5e-3
+    catches a regression to vrsqrt.
+    """
     _, max_abs, max_rel = check(
-        64, 1024, 8, dtype="float32", use_weight=True, rstd_mode="newton"
+        1024,
+        1024,
+        8,
+        dtype="float16",
+        use_weight=True,
+        rstd_mode="sqrt_rec",
+        rtol=1e-2,
+        atol=5e-3,
+    )
+    print(f"\nfp16/sqrt_rec max_abs={max_abs:.3e} max_rel={max_rel:.3e}")
+
+
+def test_rmsnorm_newton():
+    """vrsqrt + one Newton step is accurate enough for the fp32 1e-4 target.
+
+    Uses the same M=N=1024 shape as ``test_rmsnorm_fp32`` so the two rstd
+    modes are compared on identical inputs; max_abs is sensitive to the
+    number of elements, so M=64 would not be comparable.
+    """
+    _, max_abs, max_rel = check(
+        1024, 1024, 8, dtype="float32", use_weight=True, rstd_mode="newton"
     )
     print(f"\nnewton max_abs={max_abs:.3e} max_rel={max_rel:.3e}")
 
