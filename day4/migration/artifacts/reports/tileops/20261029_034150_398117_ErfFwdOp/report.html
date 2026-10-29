@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TileOPs Evaluation Report: ErfFwdOp</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e;
+      --ink-mid: #4a4a5e;
+      --ink-light: #7a7a8e;
+      --rule: #c8c8d0;
+      --rule-light: #e8e8ee;
+      --bg-page: #f0f2f5;
+      --bg-paper: #fff;
+      --bg-stripe: #f8f9fb;
+      --bg-callout: #f4f6fa;
+      --score-high: #1a6b3c;
+      --score-mid: #a66c00;
+      --score-low: #c0392b;
+      --accent: #1e4d7b;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+        "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "SF Mono", "Cascadia Code", Consolas, "Noto Sans Mono SC", monospace;
+      --content-width: 980px;
+      --pad-h: 40px;
+    }
+    html { font-size: 16px; }
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 24px 8px 48px;
+      background: var(--bg-page);
+      color: var(--ink);
+      font-family: var(--font-stack);
+      line-height: 1.6;
+    }
+    .report {
+      width: 100%;
+      max-width: var(--content-width);
+      background: var(--bg-paper);
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 6%), 0 2px 16px rgb(0 0 0 / 8%);
+    }
+    .report-header {
+      padding: 10px var(--pad-h);
+      background: var(--ink);
+      color: #fff;
+      font-size: .6875rem;
+      letter-spacing: .18em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .report-header span { opacity: .55; font-weight: 400; }
+    .title-area {
+      padding: 34px var(--pad-h) 27px;
+      border-bottom: 3px double var(--ink);
+      text-align: center;
+    }
+    .title-area h1 { margin-bottom: 7px; font-size: 1.5rem; line-height: 1.4; }
+    .title-area h2 {
+      color: var(--ink-mid);
+      font-size: .875rem;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .meta-line { margin-top: 13px; color: var(--ink-mid); font-size: .75rem; }
+    .meta-line + .meta-line { margin-top: 2px; }
+    .status {
+      display: inline-block;
+      margin-left: 7px;
+      padding: 1px 7px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: .625rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .status.passed { color: var(--score-high); }
+    .status.partial { color: var(--score-mid); }
+    .status.failed { color: var(--score-low); }
+    .abstract {
+      margin: 20px var(--pad-h) 0;
+      padding: 18px 22px;
+      border: 1px solid var(--rule-light);
+      border-radius: 4px;
+      background: var(--bg-callout);
+    }
+    .abstract h3 {
+      margin-bottom: 7px;
+      font-size: .8125rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .abstract p { color: var(--ink-mid); font-size: .8125rem; line-height: 1.75; }
+    .section { padding: 0 var(--pad-h); margin-top: 28px; }
+    .section h3 {
+      margin-bottom: 16px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 1rem;
+    }
+    .section h4 { margin: 20px 0 8px; font-size: .875rem; }
+    .operator-block { margin-top: 22px; }
+    .operator-block + .operator-block {
+      margin-top: 32px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule-light);
+    }
+    .sec-num { margin-right: 8px; }
+    .kpi-strip {
+      display: flex;
+      margin: 16px 0;
+      overflow: hidden;
+      border: 1px solid var(--rule-light);
+      border-radius: 4px;
+    }
+    .kpi-item {
+      flex: 1;
+      padding: 18px 10px;
+      border-right: 1px solid var(--rule-light);
+      text-align: center;
+    }
+    .kpi-item:last-child { border-right: 0; }
+    .kpi-value { color: var(--ink); font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+    .kpi-label {
+      margin-top: 5px;
+      color: var(--ink-light);
+      font-size: .6875rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .kpi-sub { margin-top: 2px; color: var(--ink-light); font-size: .625rem; }
+    .table-wrap { margin: 14px 0; overflow-x: auto; }
+    .table-wrap caption {
+      margin-bottom: 8px;
+      caption-side: top;
+      color: var(--ink-mid);
+      font-size: .75rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .table-wrap table { width: 100%; border-collapse: collapse; font-size: .75rem; }
+    .table-wrap thead th {
+      padding: 9px 8px;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1.5px solid var(--ink);
+      background: var(--bg-paper);
+      color: var(--ink);
+      font-size: .65rem;
+      letter-spacing: .025em;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .table-wrap tbody td {
+      padding: 8px;
+      border-bottom: 1px solid var(--rule-light);
+      color: var(--ink-mid);
+      text-align: center;
+      vertical-align: middle;
+    }
+    .table-wrap tbody tr:nth-child(even) { background: var(--bg-stripe); }
+    .table-wrap tbody tr:last-child { border-bottom: 1.5px solid var(--ink); }
+    .table-wrap .col-name { color: var(--ink); font-weight: 600; text-align: left; }
+    code { font-family: var(--font-mono); font-size: .6875rem; }
+    .number { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .strong { color: var(--ink) !important; font-weight: 700; }
+    .cell-sub { display: block; margin-top: 1px; color: var(--ink-light); font-size: .6rem; }
+    .score-cell { font-weight: 600; }
+    .score-high { color: var(--score-high) !important; }
+    .score-mid { color: var(--score-mid) !important; }
+    .score-low { color: var(--score-low) !important; }
+    .case-link { color: var(--accent); font-weight: 700; text-decoration: none; }
+    .case-link:hover { text-decoration: underline; }
+    .note { margin-top: 6px; color: var(--ink-light); font-size: .6875rem; font-style: italic; }
+    .callout {
+      margin: 12px 0;
+      padding: 12px 16px;
+      border: 1px solid var(--rule-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      background: var(--bg-callout);
+      color: var(--ink-mid);
+      font-size: .75rem;
+    }
+    .callout.warning { border-left-color: var(--score-mid); }
+    .callout ul { margin: 5px 0 0 18px; }
+    .case-detail {
+      margin-bottom: 8px;
+      border: 1px solid var(--rule-light);
+      border-radius: 4px;
+      background: var(--bg-paper);
+    }
+    .case-detail[open] { border-left: 3px solid var(--accent); }
+    .case-detail summary {
+      display: grid;
+      grid-template-columns: minmax(100px, 160px) 90px 70px minmax(190px, 1fr) 90px 36px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 14px;
+      color: var(--ink-mid);
+      cursor: pointer;
+      font-size: .75rem;
+      list-style-position: inside;
+    }
+    .case-detail summary strong { color: var(--ink); text-align: right; }
+    .case-detail summary::after { content: "展开"; color: var(--accent); font-size: .625rem; }
+    .case-detail[open] summary::after { content: "收起"; }
+    .timing-detail summary { grid-template-columns: minmax(180px, 1fr) 110px 100px 36px; }
+    .case-index { color: var(--accent); font-weight: 700; }
+    .detail-grid { padding: 0 14px 14px; }
+    .detail-grid table { width: 100%; border-collapse: collapse; font-size: .6875rem; }
+    .detail-grid td { padding: 5px 7px; border-bottom: 1px solid var(--rule-light); }
+    .detail-grid .kv-k { width: 29%; color: var(--ink); font-weight: 600; }
+    .setup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+      align-items: start;
+    }
+    .setup-block {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--rule-light);
+      border-radius: 5px;
+      background: var(--bg-paper);
+    }
+    .setup-block h4 {
+      margin: 0;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule-light);
+      background: var(--bg-callout);
+      font-size: .6875rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .setup-block table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: .6875rem;
+    }
+    .setup-block td {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--rule-light);
+      color: var(--ink-mid);
+      line-height: 1.45;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    .setup-block tr:last-child td { border-bottom: 0; }
+    .setup-block .kv-k {
+      width: 36%;
+      color: var(--ink);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .empty { padding: 24px !important; color: var(--ink-light) !important; text-align: center; }
+    .footnote {
+      margin-top: 28px;
+      padding: 14px var(--pad-h);
+      border-top: 1px solid var(--rule);
+      color: var(--ink-light);
+      font-size: .625rem;
+      line-height: 1.8;
+    }
+    @media (max-width: 760px) {
+      :root { --pad-h: 20px; }
+      body { padding: 0; }
+      .kpi-strip { flex-wrap: wrap; }
+      .kpi-item { flex: 1 1 50%; }
+      .setup-grid { grid-template-columns: 1fr; }
+      .case-detail summary { grid-template-columns: 70px 1fr; }
+      .case-detail summary::after { display: none; }
+      .case-detail summary strong { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<main class="report">
+  <div class="report-header">TILEOPS EVALUATION REPORT <span>· STRUCTURED NPU OPERATOR BENCHMARK</span></div>
+
+  <div class="title-area">
+    <h1>TileOPs 算子评测报告</h1>
+    <h2>Correctness-gated NPU Performance Evaluation</h2>
+    <div class="meta-line"><strong>ErfFwdOp</strong> · 14 Workloads · Profiler: msprof</div>
+    <div class="meta-line">2026-10-29T04:12:47.611065+08:00 <span class="status passed">PASSED</span></div>
+  </div>
+
+  <div class="abstract">
+    <h3>Abstract / 摘要</h3>
+    <p>本报告覆盖 <strong>1</strong> 个算子、<strong>16</strong> 个精度用例和 <strong>14</strong> 个性能 workload。精度由原有 pytest golden 对比判定，性能数据来自 BenchmarkReport 与 msprof；run.json 是机器可读的事实来源。</p>
+  </div>
+
+  <section class="section">
+    <h3><span class="sec-num">1.</span> Experiment Setup / 评测配置</h3>
+    <div class="setup-grid"><div class="setup-block"><h4>Metadata / 元信息</h4><table><tbody><tr><td class="kv-k">Framework</td><td>TileOPs Reporting 0.1.0</td></tr><tr><td class="kv-k">Date</td><td>2026-10-29T04:12:47.611065+08:00</td></tr><tr><td class="kv-k">Evaluation Scope</td><td>ErfFwdOp</td></tr><tr><td class="kv-k">Benchmark</td><td>TileOPs pytest operator suite</td></tr><tr><td class="kv-k">Profiler</td><td>msprof</td></tr><tr><td class="kv-k">Run ID</td><td>20261029_034150_398117_ErfFwdOp</td></tr><tr><td class="kv-k">Git Commit</td><td>d7f990d0f2d1899a45f46af76ab12f4bd5de0d15</td></tr><tr><td class="kv-k">Correctness Target</td><td>tests/ops/test_unary_math.py</td></tr><tr><td class="kv-k">Benchmark Target</td><td>benchmarks/ops/bench_unary_elementwise.py</td></tr></tbody></table></div><div class="setup-block"><h4>Environment / 运行环境</h4><table><tbody><tr><td class="kv-k">NPU</td><td>Ascend910B3 x 1</td></tr><tr><td class="kv-k">CPU</td><td>aarch64</td></tr><tr><td class="kv-k">CANN</td><td>9.0.0</td></tr><tr><td class="kv-k">Driver</td><td>25.5.0</td></tr><tr><td class="kv-k">PyTorch</td><td>2.7.1+cpu</td></tr><tr><td class="kv-k">PyTorch NPU</td><td>2.7.1.post4</td></tr><tr><td class="kv-k">TileLang</td><td>0.1.1.10+ubuntu.20.4.cann900</td></tr><tr><td class="kv-k">Python</td><td>3.11.4</td></tr><tr><td class="kv-k">OS</td><td>Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31</td></tr><tr><td class="kv-k">Container</td><td>container</td></tr></tbody></table></div></div>
+  </section>
+
+  <section class="section">
+    <h3><span class="sec-num">2.</span> Results Overview / 结果总览</h3>
+    <div class="kpi-strip">
+      <div class="kpi-item"><div class="kpi-value">100.0%</div><div class="kpi-label">Pass Rate / 通过率</div><div class="kpi-sub">16 / 16 cases</div></div>
+      <div class="kpi-item"><div class="kpi-value">1</div><div class="kpi-label">Operators / 算子数</div><div class="kpi-sub">evaluated operators</div></div>
+      <div class="kpi-item"><div class="kpi-value">16</div><div class="kpi-label">Total Cases / 总用例</div><div class="kpi-sub">correctness cases</div></div>
+      <div class="kpi-item"><div class="kpi-value">0</div><div class="kpi-label">Failed Cases / 失败用例</div><div class="kpi-sub">failure + error</div></div>
+    </div>
+  </section>
+
+  
+
+  <section class="section">
+    <h3><span class="sec-num">3.</span> Operator Analysis / 算子分析</h3>
+    <div class="table-wrap">
+      <table>
+        <caption>Table 1. Results by operator</caption>
+        <thead><tr><th>#</th><th>Operator</th><th>Total Time / 总时间</th><th>Correctness</th><th>Avg Max Abs Error</th><th>Performance Shapes</th><th>Ratio Range</th></tr></thead>
+        <tbody><tr><td>1</td><td class="col-name"><a class="case-link" href="#operator-1">ErfFwdOp</a></td><td class="number strong">1h59m39s</td><td class="score-cell score-high">100.0% (10/10)</td><td class="number">4.33e-05</td><td>7</td><td>20.21% – 32.22%</td></tr></tbody>
+      </table>
+    </div>
+    <p class="note">Correctness 格式为通过率 (通过用例/总用例)；Avg Max Abs Error 来自正确性测试，数值越低越好；Ratio 展示各 shape 的最小值–最大值，不跨 shape 求平均。</p>
+  </section>
+
+  <section class="section"><h3><span class="sec-num">4.</span> Operator Details / 算子明细</h3><div class="operator-block" id="operator-1"><h4>4.1 ErfFwdOp</h4><details class="case-detail timing-detail" id="timing-1"><summary><span class="case-index">Session Timing / Session 耗时</span><strong>1h59m39s</strong><span>available</span></summary><div class="detail-grid"><div class="table-wrap"><table><thead><tr><th>Phase / 环节</th><th>Duration / 耗时</th><th>Ratio / 占比</th><th>Detail / 说明</th></tr></thead><tbody><tr><td>场景路由与准备</td><td class="number">1m45s</td><td class="number">1.50%</td><td>02:16:05-02:17:50 场景识别+harness 探测+场景文件载入+leaky_relu 教训读取+statectl init+start 0+kb_stale_check(154 stale)</td></tr><tr><td>Stage 0 脚手架</td><td class="number">10m10s</td><td class="number">8.50%</td><td>02:17:50-02:28:00 @tileops-scaffolder：add-npu-op 机器模式 7 文件移植+Tier1 校验+meta</td></tr><tr><td>Stage 0 收束</td><td class="number">1m06s</td><td class="number">0.90%</td><td>02:28:00-02:29:06 gate0+complete0+migration init(聚合状态)</td></tr><tr><td>Stage 1 首次设计</td><td class="number">38m37s</td><td class="number">32.30%</td><td>02:29:06-03:07:43 @tilelang-op-designer：M0→R→M1 全流程（T.verf 禁用双证+A&amp;S 7.1.26 机器验证+persistent 分核三要素+verify_equiv EQUIV_PASS）</td></tr><tr><td>Stage 1 收束</td><td class="number">22.000s</td><td class="number">0.30%</td><td>03:07:43-03:08:05 gate1+complete1+start2</td></tr><tr><td>Stage 2 检视</td><td class="number">14m16s</td><td class="number">11.90%</td><td>03:08:05-03:22:21 @tilelang-design-reviewer：9 维度全 pass+机械复核（verify_equiv 重跑/design_calc_check/kb_stale_check 对账）</td></tr><tr><td>Stage 2 收束</td><td class="number">23.000s</td><td class="number">0.30%</td><td>03:22:21-03:22:44 complete2+start3</td></tr><tr><td>Stage 3 开发</td><td class="number">13m53s</td><td class="number">11.60%</td><td>03:22:44-03:36:37 @tilelang-op-developer：A&amp;S 22-op v-prefix 链+fp32 transit+persistent，L0/L1/L2/Boundary 全过→PRECISION_PASS</td></tr><tr><td>Stage 3 收束+二次校验</td><td class="number">2m53s</td><td class="number">2.40%</td><td>03:36:37-03:39:30 complete3+conductor 二次校验 --level all 全过+func done+phase INTEGRATE+start5</td></tr><tr><td>Stage 5 集成</td><td class="number">35m47s</td><td class="number">29.90%</td><td>03:39:30-04:15:17 @tilelang-op-integrator：integrate_kernel.py+单算子 report（correctness 16/16+msprof 20/20 bench）</td></tr><tr><td>终态收束</td><td class="number">27.000s</td><td class="number">0.40%</td><td>04:15:17-04:15:44 complete5+integrate pass+phase DONE+opencode export full.json+Session 耗时分析</td></tr></tbody></table></div></div></details><div class="table-wrap"><table><caption>Table 4.1. Per-shape performance results</caption><thead><tr><th>Label</th><th>Latency (us)</th><th>Ratio</th><th>Shape / Parameters</th><th>DType</th><th>Kernel</th><th>Bandwidth (TB/s)</th></tr></thead><tbody><tr><td class="col-name"><a class="case-link" href="#case-1-1">elementwise-16m</a></td><td class="number strong">294.806</td><td class="number score-cell score-low">31.24%</td><td><code>[4096, 4096]</code></td><td><code>float16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-2">elementwise-16m</a></td><td class="number strong">298.446</td><td class="number score-cell score-low">32.08%</td><td><code>[4096, 4096]</code></td><td><code>bfloat16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-3">elementwise-16m</a></td><td class="number strong">442.669</td><td class="number score-cell score-low">20.21%</td><td><code>[4096, 4096]</code></td><td><code>float32</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-4">elementwise-64m</a></td><td class="number strong">1176.083</td><td class="number score-cell score-low">31.31%</td><td><code>[8192, 8192]</code></td><td><code>float16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-5">elementwise-64m</a></td><td class="number strong">1187.964</td><td class="number score-cell score-low">32.22%</td><td><code>[8192, 8192]</code></td><td><code>bfloat16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-6">elementwise-256m</a></td><td class="number strong">4702.474</td><td class="number score-cell score-low">31.32%</td><td><code>[16384, 16384]</code></td><td><code>float16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-7">elementwise-256m</a></td><td class="number strong">4761.315</td><td class="number score-cell score-low">32.16%</td><td><code>[16384, 16384]</code></td><td><code>bfloat16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr></tbody></table></div><p class="note">Latency 是该 shape 重复测量后的统计值；Ratio 不跨 shape 求平均。</p><details class="case-detail" id="case-1-1"><summary><span class="case-index">elementwise-16m</span><strong>294.806 us</strong><span>31.24%</span><code>[4096, 4096]</code><span>float16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-948c5107d2c0</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;float16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [4096, 4096]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 2048}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>12.5741</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>1.4312</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5810</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>294.8059 / 294.8059 / 294.8059</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_fbk_pbwm</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-2"><summary><span class="case-index">elementwise-16m</span><strong>298.446 us</strong><span>32.08%</span><code>[4096, 4096]</code><span>bfloat16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-d4c3fec3b359</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;bfloat16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [4096, 4096]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 2048}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>13.0741</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>1.4699</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5820</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>298.4460 / 298.4460 / 298.4460</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_4sq0rvq7</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-3"><summary><span class="case-index">elementwise-16m</span><strong>442.669 us</strong><span>20.21%</span><code>[4096, 4096]</code><span>float32</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-e8fa45bea844</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;float32&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [4096, 4096]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 1024}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>5.8873</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>0.9204</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5545</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>442.6689 / 442.6689 / 442.6689</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_48s7v8ck</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-4"><summary><span class="case-index">elementwise-64m</span><strong>1176.083 us</strong><span>31.31%</span><code>[8192, 8192]</code><span>float16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-a0be62f722ac</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;float16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [8192, 8192]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 2048}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>10.0570</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>1.4347</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5820</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>1176.0835 / 1176.0835 / 1176.0835</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_ytgdl6s3</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-5"><summary><span class="case-index">elementwise-64m</span><strong>1187.964 us</strong><span>32.22%</span><code>[8192, 8192]</code><span>bfloat16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-778504803338</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;bfloat16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [8192, 8192]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 2048}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>10.3272</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>1.4768</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5830</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>1187.9637 / 1187.9637 / 1187.9637</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_x4gku51t</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-6"><summary><span class="case-index">elementwise-256m</span><strong>4702.474 us</strong><span>31.32%</span><code>[16384, 16384]</code><span>float16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-45771d3e31b7</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;float16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [16384, 16384]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 2048}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>6.9327</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>1.4352</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5823</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>4702.4741 / 4702.4741 / 4702.4741</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_6hlt3wal</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-7"><summary><span class="case-index">elementwise-256m</span><strong>4761.315 us</strong><span>32.16%</span><code>[16384, 16384]</code><span>bfloat16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>ErfFwdOp-6c988651021b</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;bfloat16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [16384, 16384]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 2048}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>7.2159</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>1.4738</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>4.5833</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>4761.3149 / 4761.3149 / 4761.3149</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/artifacts/msprof/main_z5yi3tfd</code></td></tr></tbody></table></div></details></div></section>
+
+  <div class="footnote">
+    <strong>Framework:</strong> TileOPs Reporting ·
+    <strong>Data Source:</strong> pytest JUnit, BenchmarkReport JSON, msprof artifacts ·
+    <strong>Canonical Record:</strong> run.json
+  </div>
+</main>
+</body>
+</html>

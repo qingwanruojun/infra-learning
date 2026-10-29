@@ -1,0 +1,54 @@
+{
+  "artifact_hashes": {},
+  "budget": {
+    "max_stage4_experiments": null,
+    "max_subagent_dispatches": null,
+    "max_wallclock_s": null
+  },
+  "current_stage": 5,
+  "design_md_path": "examples/elu_fwd/DESIGN.md",
+  "env_check_passed": false,
+  "failure_reason": null,
+  "final_artifact": null,
+  "kernel_opt_py_path": "examples/elu_fwd/perf_opt/elu_fwd.py",
+  "kernel_py_path": "examples/elu_fwd/elu_fwd.py",
+  "last_failure_reason": null,
+  "last_updated": "2026-10-28T15:02:31Z",
+  "max_retry": 3,
+  "migration_mode": "harness",
+  "operator_name": "elu_fwd",
+  "perf_feedback": null,
+  "perf_iteration": {
+    "consecutive_no_improvement": 0,
+    "count": 0,
+    "last_improvement": 0.0
+  },
+  "perf_tuning_requested": null,
+  "phase": "DONE",
+  "project_name": "elu_fwd",
+  "retry_count": 0,
+  "review_md_path": "examples/elu_fwd/REVIEW.md",
+  "scenario": "migration",
+  "stage3_failure_breakdown": {
+    "precision_fail": 0,
+    "runtime_fail": 0
+  },
+  "stage_plan": [
+    0,
+    5
+  ],
+  "stage_retry_count": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "stage_status": {
+    "0": "completed",
+    "5": "completed"
+  },
+  "task_id": "elu_fwd-elu_fwd-20261028T131334Z",
+  "user_requirement": "迁移 TileOPs GPU 算子 EluFwdOp 到 TileLang NPU（harness）；GPU_REPO=/mnt/workspace/learn/refs/TileOPs；manifest=elementwise_unary_activation.yaml（family=elementwise，kernel_map elu: EluFwdKernel，factory=_make_elu_kernel）；op_slug=elu_fwd；规格从 GPU 代码与 manifest workloads 推断（dtype fp16/bf16/fp32，alpha=1.0，inplace=false；workloads [2048,4096]/[2048,8192] fp16/bf16）；编程模式 developer；参考 examples/leaky_relu/_make_leaky_relu_kernel 可迁移教训"
+}

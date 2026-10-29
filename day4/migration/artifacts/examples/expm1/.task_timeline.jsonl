@@ -1,0 +1,11 @@
+{"action": "init", "migration_mode": "harness", "mode": "migration-harness", "phase_after": "SCAFFOLD", "phase_before": null, "scenario": "migration", "stage_plan": [0, 5], "ts": "2026-10-28T15:05:18Z"}
+{"action": "start", "mode": "migration-harness", "phase_after": "SCAFFOLD", "phase_before": "SCAFFOLD", "stage": 0, "subagent": "tileops-scaffolder", "ts": "2026-10-28T15:05:21Z"}
+{"action": "complete", "duration_s": 773.0, "mode": "migration-harness", "phase_after": "INTEGRATE", "phase_before": "SCAFFOLD", "snapshot": [], "stage": 0, "subagent": "tileops-scaffolder", "ts": "2026-10-28T15:18:14Z", "verdict": "pass"}
+{"action": "migration-init", "functions": ["expm1_fwd_kernel"], "phase_after": "DEV_LOOP", "phase_before": null, "ts": "2026-10-28T15:18:25Z"}
+{"action": "migration-func", "func": "expm1_fwd_kernel", "phase_after": "DEV_LOOP", "phase_before": null, "status": "in_progress", "ts": "2026-10-28T15:18:37Z"}
+{"action": "migration-func", "func": "expm1_fwd_kernel", "phase_after": "DEV_LOOP", "phase_before": null, "status": "done", "ts": "2026-10-28T17:17:09Z"}
+{"action": "migration-phase", "phase_after": "INTEGRATE", "phase_before": "DEV_LOOP", "reason": null, "ts": "2026-10-28T17:17:09Z"}
+{"action": "start", "mode": "migration-harness", "phase_after": "INTEGRATE", "phase_before": "INTEGRATE", "stage": 5, "subagent": "tilelang-op-integrator", "ts": "2026-10-28T17:17:12Z"}
+{"action": "complete", "duration_s": 1462.0, "mode": "migration-harness", "phase_after": "DONE", "phase_before": "INTEGRATE", "snapshot": [], "stage": 5, "subagent": "tilelang-op-integrator", "ts": "2026-10-28T17:41:34Z", "verdict": "pass"}
+{"action": "migration-integrate", "phase_after": "INTEGRATE", "phase_before": null, "status": "pass", "ts": "2026-10-28T17:41:34Z"}
+{"action": "migration-phase", "phase_after": "DONE", "phase_before": "INTEGRATE", "reason": null, "ts": "2026-10-28T17:41:35Z"}

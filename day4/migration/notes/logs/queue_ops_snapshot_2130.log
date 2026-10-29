@@ -1,0 +1,3 @@
+20:58:26 queue armed; waiting for leaky_relu
+21:10:48 leaky_relu phase=DONE -> starting queue
+21:10:48 === start EluFwdOp (slug=elu) ===

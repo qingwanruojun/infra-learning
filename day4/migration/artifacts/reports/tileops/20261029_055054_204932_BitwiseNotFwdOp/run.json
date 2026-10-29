@@ -1,0 +1,611 @@
+{
+  "schema_version": 2,
+  "operator": "BitwiseNotFwdOp",
+  "status": "passed",
+  "metadata": {
+    "run_id": "20261029_055054_204932_BitwiseNotFwdOp",
+    "generated_at": "2026-10-29T06:04:12.062167+08:00",
+    "project_root": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs",
+    "git_commit": "2a94a29845e556ba0d75a07f699ceb9886544f63",
+    "python": "3.11.4",
+    "platform": "Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31",
+    "test_file": "tests/ops/test_bitwise_not.py",
+    "benchmark_file": "benchmarks/ops/bench_bitwise_not.py",
+    "prof_mode_requested": "msprof",
+    "kernel_name_requested": null,
+    "commands": {
+      "correctness": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "tests/ops/test_bitwise_not.py",
+        "-sv",
+        "--junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/correctness.xml"
+      ],
+      "benchmark": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "benchmarks/ops/bench_bitwise_not.py",
+        "-sv",
+        "--junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/benchmark.xml",
+        "-m",
+        "not smoke"
+      ]
+    },
+    "exit_codes": {
+      "correctness": 0,
+      "benchmark": 0
+    }
+  },
+  "setup": {
+    "metadata": {
+      "framework": "TileOPs Reporting 0.1.0",
+      "date": "2026-10-29T06:04:12.062167+08:00",
+      "evaluation_scope": "BitwiseNotFwdOp",
+      "benchmark": "TileOPs pytest operator suite",
+      "profiler": "msprof",
+      "run_id": "20261029_055054_204932_BitwiseNotFwdOp",
+      "git_commit": "2a94a29845e556ba0d75a07f699ceb9886544f63",
+      "correctness_target": "tests/ops/test_bitwise_not.py",
+      "benchmark_target": "benchmarks/ops/bench_bitwise_not.py"
+    },
+    "environment": {
+      "npu": "Ascend910B3 x 1",
+      "cpu": "aarch64",
+      "cann": "9.0.0",
+      "driver": "25.5.0",
+      "pytorch": "2.7.1+cpu",
+      "pytorch_npu": "2.7.1.post4",
+      "tilelang": "0.1.1.10+ubuntu.20.4.cann900",
+      "python": "3.11.4",
+      "os": "Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31",
+      "container": "container"
+    }
+  },
+  "summary": {
+    "correctness_passed": true,
+    "correctness_tests": 9,
+    "correctness_failed": 0,
+    "operator_count": 1,
+    "total_cases": 9,
+    "passed_cases": 9,
+    "failed_cases": 0,
+    "pass_rate": 1.0,
+    "benchmark_requested": true,
+    "benchmark_passed": true,
+    "benchmark_tests": 8,
+    "benchmark_failed": 0,
+    "case_count": 5,
+    "msprof_case_count": 5,
+    "profiler_fallback_count": 0,
+    "kernel_filter_fallback_count": 0,
+    "invalid_profile_count": 0
+  },
+  "correctness": {
+    "path": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/correctness.xml",
+    "status": "passed",
+    "tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not[1048576-dtype0]",
+        "name": "test_bitwise_not[1048576-dtype0]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 45.573,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not[1048576-dtype1]",
+        "name": "test_bitwise_not[1048576-dtype1]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 2.406,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not[1048576-dtype2]",
+        "name": "test_bitwise_not[1048576-dtype2]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 0.076,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not[1048576-dtype3]",
+        "name": "test_bitwise_not[1048576-dtype3]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 17.459,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not[1048576-dtype4]",
+        "name": "test_bitwise_not[1048576-dtype4]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 17.32,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not[1048576-dtype5]",
+        "name": "test_bitwise_not[1048576-dtype5]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 17.432,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not_rejects_float_dtype[dtype0]",
+        "name": "test_bitwise_not_rejects_float_dtype[dtype0]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 0.003,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not_rejects_float_dtype[dtype1]",
+        "name": "test_bitwise_not_rejects_float_dtype[dtype1]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 0.002,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_bitwise_not::test_bitwise_not_rejects_float_dtype[dtype2]",
+        "name": "test_bitwise_not_rejects_float_dtype[dtype2]",
+        "classname": "tests.ops.test_bitwise_not",
+        "time_s": 0.002,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      }
+    ]
+  },
+  "benchmark_tests": {
+    "path": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/benchmark.xml",
+    "status": "passed",
+    "tests": 8,
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[smoke-1m-bool]",
+        "name": "test_bitwise_not_bench[smoke-1m-bool]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 113.699,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "29.2406"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[smoke-1m-uint8]",
+        "name": "test_bitwise_not_bench[smoke-1m-uint8]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 68.178,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "26.3605"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[smoke-1m-int32]",
+        "name": "test_bitwise_not_bench[smoke-1m-int32]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 85.734,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "31.0806"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[elementwise-16m-int32]",
+        "name": "test_bitwise_not_bench[elementwise-16m-int32]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 67.362,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "455.5091"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[elementwise-16m-int64]",
+        "name": "test_bitwise_not_bench[elementwise-16m-int64]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 85.951,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "501.9700"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[elementwise-64m-int16]",
+        "name": "test_bitwise_not_bench[elementwise-64m-int16]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 83.667,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "1699.7540"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[elementwise-64m-int32]",
+        "name": "test_bitwise_not_bench[elementwise-64m-int32]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 88.329,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "1801.0160"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_bitwise_not::test_bitwise_not_bench[elementwise-256m-int32]",
+        "name": "test_bitwise_not_bench[elementwise-256m-int32]",
+        "classname": "benchmarks.ops.bench_bitwise_not",
+        "time_s": 70.392,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "BitwiseNotFwdOp",
+          "op_module": "tileops.ops.elementwise.bitwise_not",
+          "tileops_latency_us": "7220.3647"
+        }
+      }
+    ]
+  },
+  "performance": {
+    "source": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/benchmark.json",
+    "requested_prof_mode": "msprof",
+    "cases": [
+      {
+        "operator": "BitwiseNotFwdOp",
+        "case_id": "BitwiseNotFwdOp-d540b1a9333d",
+        "label": "elementwise-16m",
+        "params": {
+          "dtype": "int32",
+          "op_params": {},
+          "shape": [
+            4096,
+            4096
+          ]
+        },
+        "config": {
+          "block_size": 256
+        },
+        "tag": "tileops",
+        "latency_us": 455.509125,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 8.4187,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.1250760555267334,
+        "performance_tops": 0.018427135422825813,
+        "computility_tops": 2.303999900817871,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_50j_308q",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 455.509125,
+          "max_latency_us": 455.509125,
+          "min_latency_us": 455.509125,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "BitwiseNotFwdOp",
+        "case_id": "BitwiseNotFwdOp-52dc97ed3899",
+        "label": "elementwise-16m",
+        "params": {
+          "dtype": "int64",
+          "op_params": {},
+          "shape": [
+            4096,
+            4096
+          ]
+        },
+        "config": {
+          "block_size": 256
+        },
+        "tag": "tileops",
+        "latency_us": 501.970032,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 19.098000000000003,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.10003410279750824,
+        "performance_tops": 0.03343294560909271,
+        "computility_tops": 2.303999900817871,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_eflwymir",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 501.970032,
+          "max_latency_us": 501.970032,
+          "min_latency_us": 501.970032,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "BitwiseNotFwdOp",
+        "case_id": "BitwiseNotFwdOp-1c1a6c0abe73",
+        "label": "elementwise-64m",
+        "params": {
+          "dtype": "int16",
+          "op_params": {},
+          "shape": [
+            8192,
+            8192
+          ]
+        },
+        "config": {
+          "block_size": 256
+        },
+        "tag": "tileops",
+        "latency_us": 1699.754028,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 5.5697,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.10129664838314056,
+        "performance_tops": 0.009873390197753906,
+        "computility_tops": 2.303999900817871,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main__wb6nyho",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 1699.754028,
+          "max_latency_us": 1699.754028,
+          "min_latency_us": 1699.754028,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "BitwiseNotFwdOp",
+        "case_id": "BitwiseNotFwdOp-159d92070f68",
+        "label": "elementwise-64m",
+        "params": {
+          "dtype": "int32",
+          "op_params": {},
+          "shape": [
+            8192,
+            8192
+          ]
+        },
+        "config": {
+          "block_size": 256
+        },
+        "tag": "tileops",
+        "latency_us": 1801.015991,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.797699999999999,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.0771712064743042,
+        "performance_tops": 0.018633678555488586,
+        "computility_tops": 2.303999900817871,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_e1kh1tfj",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 1801.015991,
+          "max_latency_us": 1801.015991,
+          "min_latency_us": 1801.015991,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "BitwiseNotFwdOp",
+        "case_id": "BitwiseNotFwdOp-29766591a6ed",
+        "label": "elementwise-256m",
+        "params": {
+          "dtype": "int32",
+          "op_params": {},
+          "shape": [
+            16384,
+            16384
+          ]
+        },
+        "config": {
+          "block_size": 256
+        },
+        "tag": "tileops",
+        "latency_us": 7220.364746,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 16.1979,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.06557969748973846,
+        "performance_tops": 0.018589483574032784,
+        "computility_tops": 2.303999900817871,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_zri8id1u",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 7220.364746,
+          "max_latency_us": 7220.364746,
+          "min_latency_us": 7220.364746,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      }
+    ]
+  },
+  "operators": [
+    {
+      "operator": "BitwiseNotFwdOp",
+      "family": "elementwise",
+      "cases": 9,
+      "passed": 9,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_max_abs_err": 0.0,
+      "max_abs_err": 0.0,
+      "performance_cases": 5,
+      "ratio_range": {
+        "min": 5.5697,
+        "max": 19.098000000000003
+      }
+    }
+  ],
+  "warnings": [],
+  "session_timing": {
+    "enabled": true,
+    "operators": {
+      "BitwiseNotFwdOp": {
+        "operator": "BitwiseNotFwdOp",
+        "source": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/bitwise_not/SESSION_TIMING_ANALYSIS.md",
+        "status": "available",
+        "total_duration_s": 4917.1,
+        "breakdown": [
+          {
+            "name": "Stage 0 脚手架",
+            "duration_s": 581.8,
+            "ratio_percent": 11.8,
+            "detail": "scaffolder ses_e7bbb589 20:47:34→20:57:16，7 文件移植 + Tier 1 + meta"
+          },
+          {
+            "name": "Stage 1 算子设计",
+            "duration_s": 1110.8,
+            "ratio_percent": 22.6,
+            "detail": "designer ses_e7bb13139 20:58:39→21:17:10，DESIGN.md 617 行 + verify_equiv"
+          },
+          {
+            "name": "Stage 1 门禁修复",
+            "duration_s": 41.4,
+            "ratio_percent": 0.8,
+            "detail": "designer ses_e7b9fb513 21:17:45→21:18:26，2 处 S1-PLACEHOLDER 字面量修复"
+          },
+          {
+            "name": "Stage 2 设计检视",
+            "duration_s": 746.7,
+            "ratio_percent": 15.2,
+            "detail": "reviewer ses_e7b9ed5ba 21:18:42→21:31:09，9 维度 REVIEW.md 结论通过"
+          },
+          {
+            "name": "Stage 3 算子开发",
+            "duration_s": 817.8,
+            "ratio_percent": 16.6,
+            "detail": "developer ses_e7b93184b 21:31:32→21:45:13，kernel + L0/L1/L2/Boundary 全过"
+          },
+          {
+            "name": "Stage 5 集成验证",
+            "duration_s": 1234.4,
+            "ratio_percent": 25.1,
+            "detail": "integrator ses_e7b85aa9a 21:46:12→22:06:46，集成 + 单算子 report passed"
+          },
+          {
+            "name": "编排与校验开销",
+            "duration_s": 384.2,
+            "ratio_percent": 7.8,
+            "detail": "conductor 状态迁移/门禁/二次精度校验/kb 检索/export 导出等 20:45:32→22:07:29"
+          }
+        ],
+        "reason": null
+      }
+    }
+  }
+}

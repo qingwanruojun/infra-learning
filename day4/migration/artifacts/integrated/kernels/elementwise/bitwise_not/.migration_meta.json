@@ -1,0 +1,18 @@
+{
+  "op_name": "BitwiseNotFwdOp",
+  "op_slug": "bitwise_not",
+  "family": "elementwise",
+  "gpu_repo_root": "/mnt/workspace/learn/refs/TileOPs",
+  "kernel_class_name": "BitwiseNotFwdKernel",
+  "op_class_name": "BitwiseNotFwdOp",
+  "test_path": "tests/ops/test_bitwise_not.py",
+  "test_slug": "bitwise_not",
+  "bench_path": "benchmarks/ops/bench_bitwise_not.py",
+  "bench_slug": "bitwise_not",
+  "wrapper_path": "tileops/kernels/elementwise/bitwise_not/bitwise_not.py",
+  "extracted_file": "tileops/kernels/elementwise/bitwise_not/_bitwise_not_fwd_kernels.py",
+  "extracted_functions": [
+    "bitwise_not_fwd_kernel"
+  ],
+  "created_at": "2026-10-28T20:56:47Z"
+}

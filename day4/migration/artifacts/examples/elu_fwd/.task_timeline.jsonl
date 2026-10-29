@@ -1,0 +1,11 @@
+{"action": "init", "migration_mode": "harness", "mode": "migration-harness", "phase_after": "SCAFFOLD", "phase_before": null, "scenario": "migration", "stage_plan": [0, 5], "ts": "2026-10-28T13:13:34Z"}
+{"action": "start", "mode": "migration-harness", "phase_after": "SCAFFOLD", "phase_before": "SCAFFOLD", "stage": 0, "subagent": "tileops-scaffolder", "ts": "2026-10-28T13:13:41Z"}
+{"action": "complete", "duration_s": 674.0, "mode": "migration-harness", "phase_after": "INTEGRATE", "phase_before": "SCAFFOLD", "snapshot": [], "stage": 0, "subagent": "tileops-scaffolder", "ts": "2026-10-28T13:24:55Z", "verdict": "pass"}
+{"action": "migration-init", "functions": ["_make_elu_kernel"], "phase_after": "DEV_LOOP", "phase_before": null, "ts": "2026-10-28T13:24:59Z"}
+{"action": "migration-func", "func": "_make_elu_kernel", "phase_after": "DEV_LOOP", "phase_before": null, "status": "in_progress", "ts": "2026-10-28T13:25:17Z"}
+{"action": "migration-func", "func": "_make_elu_kernel", "phase_after": "DEV_LOOP", "phase_before": null, "status": "done", "ts": "2026-10-28T14:40:44Z"}
+{"action": "migration-phase", "phase_after": "INTEGRATE", "phase_before": "DEV_LOOP", "reason": null, "ts": "2026-10-28T14:40:44Z"}
+{"action": "start", "mode": "migration-harness", "phase_after": "INTEGRATE", "phase_before": "INTEGRATE", "stage": 5, "subagent": "tilelang-op-integrator", "ts": "2026-10-28T14:40:47Z"}
+{"action": "complete", "duration_s": 1304.0, "mode": "migration-harness", "phase_after": "DONE", "phase_before": "INTEGRATE", "snapshot": [], "stage": 5, "subagent": "tilelang-op-integrator", "ts": "2026-10-28T15:02:31Z", "verdict": "pass"}
+{"action": "migration-integrate", "phase_after": "INTEGRATE", "phase_before": null, "status": "pass", "ts": "2026-10-28T15:02:35Z"}
+{"action": "migration-phase", "phase_after": "DONE", "phase_before": "INTEGRATE", "reason": null, "ts": "2026-10-28T15:02:35Z"}

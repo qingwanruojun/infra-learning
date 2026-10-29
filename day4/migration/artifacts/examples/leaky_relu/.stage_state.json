@@ -1,0 +1,54 @@
+{
+  "artifact_hashes": {},
+  "budget": {
+    "max_stage4_experiments": null,
+    "max_subagent_dispatches": null,
+    "max_wallclock_s": null
+  },
+  "current_stage": 5,
+  "design_md_path": "examples/leaky_relu/DESIGN.md",
+  "env_check_passed": false,
+  "failure_reason": null,
+  "final_artifact": null,
+  "kernel_opt_py_path": "examples/leaky_relu/perf_opt/leaky_relu.py",
+  "kernel_py_path": "examples/leaky_relu/leaky_relu.py",
+  "last_failure_reason": null,
+  "last_updated": "2026-10-28T13:10:43Z",
+  "max_retry": 3,
+  "migration_mode": "harness",
+  "operator_name": "leaky_relu",
+  "perf_feedback": null,
+  "perf_iteration": {
+    "consecutive_no_improvement": 0,
+    "count": 0,
+    "last_improvement": 0.0
+  },
+  "perf_tuning_requested": null,
+  "phase": "DONE",
+  "project_name": "leaky_relu",
+  "retry_count": 0,
+  "review_md_path": "examples/leaky_relu/REVIEW.md",
+  "scenario": "migration",
+  "stage3_failure_breakdown": {
+    "precision_fail": 0,
+    "runtime_fail": 0
+  },
+  "stage_plan": [
+    0,
+    5
+  ],
+  "stage_retry_count": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "stage_status": {
+    "0": "completed",
+    "5": "completed"
+  },
+  "task_id": "leaky_relu-leaky_relu-20261028T103309Z",
+  "user_requirement": "迁移 TileOPs GPU 算子 LeakyReluFwdOp 到 TileLang NPU（harness）；GPU_REPO=/mnt/workspace/learn/refs/TileOPs；manifest=elementwise_unary_activation.yaml（family=elementwise）；op_slug=leaky_relu；规格从 GPU 代码与 manifest workloads 推断；编程模式 developer"
+}

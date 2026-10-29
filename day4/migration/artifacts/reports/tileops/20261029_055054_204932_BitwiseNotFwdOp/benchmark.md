@@ -1,0 +1,25 @@
+# NPU Benchmark Report
+Generated: 2026-10-29 06:04:06
+
+## Environment
+
+- **Torch version**: 2.7.1+cpu
+- **torch_npu version**: 2.7.1.post4
+- **NPU model**: Ascend910B3
+- **NPU count**: 1
+- **Profiling mode**: msprof
+
+## BitwiseNotFwdOp
+
+### tileops
+
+| Label | Latency (us) | Ratio (%) | AI(Ops/Byte) | Bandwidth(TB/s) | Computility(TOps/s) | Perf(TOps/s) | artifact_dir | msprof | prof_mode | op_params | config | dtype | shape |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| smoke-1m | 29.2406 | 1.0248 | 1.0168 | 1.7500 | 2.3040 | 0.0182 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_englwh9k | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 29.240585, 'max_latency_us': 29.240585, 'min_latency_us': 29.240585, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | bool | [1048576] |
+| smoke-1m | 26.3605 | 1.1368 | 0.2597 | 1.7500 | 2.3040 | 0.0052 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_dx4hhsli | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 26.360527, 'max_latency_us': 26.360527, 'min_latency_us': 26.360527, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | uint8 | [1048576] |
+| smoke-1m | 31.0806 | 7.7116 | 0.1262 | 1.7500 | 2.3040 | 0.0170 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_w2uu0ukm | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 31.080622, 'max_latency_us': 31.080622, 'min_latency_us': 31.080622, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | int32 | [1048576] |
+| elementwise-16m | 455.5091 | 8.4187 | 0.1251 | 1.7500 | 2.3040 | 0.0184 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_50j_308q | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 455.509125, 'max_latency_us': 455.509125, 'min_latency_us': 455.509125, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | int32 | [4096, 4096] |
+| elementwise-16m | 501.9700 | 19.0980 | 0.1000 | 1.7500 | 2.3040 | 0.0334 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_eflwymir | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 501.970032, 'max_latency_us': 501.970032, 'min_latency_us': 501.970032, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | int64 | [4096, 4096] |
+| elementwise-64m | 1699.7540 | 5.5697 | 0.1013 | 1.7500 | 2.3040 | 0.0099 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main__wb6nyho | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 1699.754028, 'max_latency_us': 1699.754028, 'min_latency_us': 1699.754028, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | int16 | [8192, 8192] |
+| elementwise-64m | 1801.0160 | 13.7977 | 0.0772 | 1.7500 | 2.3040 | 0.0186 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_e1kh1tfj | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 1801.015991, 'max_latency_us': 1801.015991, 'min_latency_us': 1801.015991, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | int32 | [8192, 8192] |
+| elementwise-256m | 7220.3647 | 16.1979 | 0.0656 | 1.7500 | 2.3040 | 0.0186 | /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_zri8id1u | {'captured_op_count': 1, 'captured_op_names': ['main'], 'kernel_name_attempts': ['main'], 'kernel_name_requested': 'main', 'kernel_name_resolved': 'main', 'latency_us': 7220.364746, 'max_latency_us': 7220.364746, 'min_latency_us': 7220.364746, 'op_name': 'main', 'sample_count': 1} | msprof | {} | {'block_size': 256} | int32 | [16384, 16384] |

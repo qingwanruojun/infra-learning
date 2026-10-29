@@ -1,0 +1,37 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+L2 = 192 MiB; HBM steady ~1.27 TB/s (Day 2)
+
+=== 8192x8192x64  C=128 MiB (fits L2) ===
+[2026-10-28 19:56:51] [WARNING] [197733] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 19:56:51] [WARNING] [197733] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 19:56:52] [WARNING] [197733] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 19:56:52] [INFO] [197927] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_197733_20261028195651989_ascend_pt
+|/-[2026-10-28 19:56:54] [INFO] [197936] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028091
+[2026-10-28 19:56:55] [INFO] [197927] profiler.py: All profiling data parsed in a total time of 0:00:02.651926
+    5x      59.30 us  median  aclnnMatmul_MatMulV3Common_MatMulV3
+  implied write bandwidth (C only, median): 2.26 TB/s  [sum of per-call medians = 59.30 us]
+  wall time for 5 calls + profiler parse: 4.0 s
+
+=== 12288x12288x64  C=288 MiB (exceeds L2) ===
+[2026-10-28 19:56:55] [WARNING] [197733] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 19:56:55] [WARNING] [197733] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 19:56:55] [WARNING] [197733] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 19:56:56] [INFO] [198203] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_197733_20261028195655867_ascend_pt
+|/-[2026-10-28 19:56:58] [INFO] [198212] profiler.py: CANN profiling data parsed in a total time of 0:00:02.029065
+[2026-10-28 19:56:59] [INFO] [198203] profiler.py: All profiling data parsed in a total time of 0:00:02.652798
+    5x     231.32 us  median  aclnnMatmul_MatMulV3Common_MatMulV3
+  implied write bandwidth (C only, median): 1.31 TB/s  [sum of per-call medians = 231.32 us]
+  wall time for 5 calls + profiler parse: 3.8 s
+
+=== 16384x16384x64  C=512 MiB (exceeds L2) ===
+[2026-10-28 19:56:59] [WARNING] [197733] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 19:56:59] [WARNING] [197733] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-28 19:56:59] [WARNING] [197733] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-28 19:57:00] [INFO] [198506] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_197733_20261028195659740_ascend_pt
+|/-\[2026-10-28 19:57:03] [INFO] [198515] profiler.py: CANN profiling data parsed in a total time of 0:00:03.031363
+[2026-10-28 19:57:04] [INFO] [198506] profiler.py: All profiling data parsed in a total time of 0:00:03.660096
+    5x     403.25 us  median  aclnnMatmul_MatMulV3Common_MatMulV3
+  implied write bandwidth (C only, median): 1.33 TB/s  [sum of per-call medians = 403.25 us]
+  wall time for 5 calls + profiler parse: 4.8 s
+probe_exit=0

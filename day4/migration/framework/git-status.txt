@@ -1,0 +1,36 @@
+ M .opencode/agents/tilelang-design-reviewer.md
+ M .opencode/agents/tilelang-op-conductor.md
+ M .opencode/agents/tilelang-op-designer.md
+ M .opencode/agents/tilelang-op-developer.md
+ M .opencode/agents/tilelang-op-integrator.md
+ M .opencode/agents/tilelang-op-optimizer.md
+ M .opencode/agents/tilelang-skill-evolver.md
+ M .opencode/agents/tileops-scaffolder.md
+ M examples/TileOPs/tileops/kernels/elementwise/__init__.py
+ M examples/TileOPs/tileops/manifest/elementwise.yaml
+ M examples/TileOPs/tileops/ops/elementwise/__init__.py
+ M examples/TileOPs/tileops/workloads/elementwise.py
+?? examples/TileOPs/benchmarks/ops/bench_bitwise_not.py
+?? examples/TileOPs/benchmarks/ops/bench_elu.py
+?? examples/TileOPs/benchmarks/ops/bench_leaky_relu.py
+?? examples/TileOPs/benchmarks/ops/bench_unary_elementwise.py
+?? examples/TileOPs/reports/tileops/
+?? examples/TileOPs/tests/ops/test_bitwise_not.py
+?? examples/TileOPs/tests/ops/test_elu.py
+?? examples/TileOPs/tests/ops/test_leaky_relu.py
+?? examples/TileOPs/tests/ops/test_unary_math.py
+?? examples/TileOPs/tileops/kernels/elementwise/bitwise_not/
+?? examples/TileOPs/tileops/kernels/elementwise/elu_fwd/
+?? examples/TileOPs/tileops/kernels/elementwise/erf_fwd/
+?? examples/TileOPs/tileops/kernels/elementwise/expm1/
+?? examples/TileOPs/tileops/kernels/elementwise/leaky_relu/
+?? examples/TileOPs/tileops/ops/elementwise/bitwise_not.py
+?? examples/TileOPs/tileops/ops/elementwise/elu_fwd.py
+?? examples/TileOPs/tileops/ops/elementwise/erf_fwd.py
+?? examples/TileOPs/tileops/ops/elementwise/expm1.py
+?? examples/TileOPs/tileops/ops/elementwise/leaky_relu.py
+?? examples/bitwise_not/
+?? examples/elu_fwd/
+?? examples/erf_fwd/
+?? examples/expm1/
+?? examples/leaky_relu/

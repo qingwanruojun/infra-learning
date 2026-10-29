@@ -1,0 +1,201 @@
+"""ELU forward kernel using TileLang (NPU-adapted).
+
+Implements the elementwise ELU activation:
+    y = x if x > 0 else alpha * (exp(x) - 1)
+
+Adaptation summary (GPU -> NPU), per docs/gpu_to_npu_adaptation.md §3:
+
+  **Part A -- TileLang kernel functions** (extracted + imported):
+    The GPU TileLang kernel factory (``_make_elu_kernel``) is extracted
+    from the GPU repo via ``extract_tl_kernel.py`` and imported as-is.
+    It serves as the reference for the NPU kernel component to
+    reimplement for ``target="npuir"``.  K1-K4 and K11 adaptations
+    (decorator, grid/sync, ``threads``/``npt`` collapse, padding strategy)
+    are handled by the NPU component during re-implementation:
+      - factory signature drops ``output_dtype`` / ``is_fp8`` /
+        ``threads`` / ``npt`` (K3) -> ``_make_elu_kernel(N, dtype, alpha)``;
+      - the returned callable takes a single ``block_size`` (the GPU
+        ``threads * npt`` product) instead of ``(threads_arg, npt_arg)``
+        (K11);
+      - ``T.Kernel(T.ceildiv(N, block_size), is_npu=True)`` replaces the
+        CUDA ``threads=`` dimension;
+      - ``T.Parallel(block_size)`` replaces
+        ``T.Parallel(threads_arg, npt_arg)``.
+
+  **Part B -- custom_op wrapper + Kernel class** (fully ported from GPU
+  ``EluFwdKernel`` / ``ParametricUnaryKernel``):
+    K5:  ``supported_archs = None`` (was ``[80, 86, 89, 90]``).
+    K6:  fp8 helpers are not needed -- the manifest contract is
+         ``float16 | bfloat16 | float32`` and the GPU
+         ``ParametricUnaryKernel.SUPPORTED_DTYPES`` already rejects fp8.
+    K7:  ``custom_op("npub::...")`` (was ``"top::..."``).
+    K8:  autotune removed; heuristic config selection only;
+         ``init_config(config)`` takes no ``tune`` argument.
+    K9:  ``threads`` removed from ``default_config`` and ``forward``.
+    K11: GPU ``threads * npt`` product collapsed into a single
+         ``block_size`` config key (elementwise op).
+"""
+
+from typing import Optional
+
+import torch
+
+from tileops.kernels.kernel_base import Kernel
+
+# Stage 5 integration note: the GPU-side fp8 branch of ``_make_elu_kernel``
+# needs no external helper (it casts to "float32" inline) -- unlike
+# leaky_relu there is no ``_fp8_accum_dtype_str`` dependency.  The fp8
+# path is dead code for the NPU wrapper anyway (K6: fp8 helpers are not
+# needed; the manifest contract is float16 | bfloat16 | float32 and the
+# NPU kernel builder rejects is_fp8=True), and it is not part of the
+# conductor kernel product.
+# ---------------------------------------------------------------------------
+# Kernel source selection: baseline vs perf_opt (Stage 4 tuned)
+#
+# Exactly one source block below is active; toggle by swapping the comment.
+# Default policy: the perf_opt source becomes active once tuned drop-in
+# kernels (same factory signatures) land at
+# .elu_fwd_kernel/perf_opt/{func}.py and pass their L0/L1 regression;
+# the baseline (Stage 3) source is active otherwise.  ``pytest tests/ops/``
+# and ``pytest benchmarks/ops/`` dispatch through whichever source is
+# active here.
+# ---------------------------------------------------------------------------
+# --- baseline (Stage 3) ------------------------------------------------------
+from .elu_fwd_kernel import _make_elu_kernel
+# --- perf_opt (Stage 4 tuned) ------------------------------------------------
+# from .elu_fwd_kernel.perf_opt._make_elu_kernel import _make_elu_kernel
+
+__all__ = ["EluFwdKernel"]
+
+
+# ---------------------------------------------------------------------------
+# K11 constants: GPU ``threads * npt`` defaults collapsed into ``block_size``.
+#
+# GPU ``ParametricUnaryKernel`` defaults: threads=256, npt=4 (fp32) or
+# npt=8 (fp16/bf16).  Collapsed per K11 ("block_size = the original
+# threads * npt product"):
+#   fp32:      256 * 4 = 1024
+#   fp16/bf16: 256 * 8 = 2048
+# ---------------------------------------------------------------------------
+
+_BLOCK_SIZE_FP32 = 1024
+_BLOCK_SIZE_NON_FP32 = 2048
+
+
+# ---------------------------------------------------------------------------
+# custom_op wrapper (K7: top:: -> npub::, K9: threads removed, K11: block_size)
+# ---------------------------------------------------------------------------
+
+
+@torch.library.custom_op("npub::elu_fwd", mutates_args=())
+def _elu_fwd_wrapped(
+    N: int,
+    dtype_str: str,
+    block_size: int,
+    alpha: float,
+    x: torch.Tensor,
+) -> torch.Tensor:
+    dtype = getattr(torch, dtype_str)
+    return _make_elu_kernel(N, dtype, alpha)(block_size)(x)
+
+
+@_elu_fwd_wrapped.register_fake
+def _(N: int, dtype_str: str, block_size: int, alpha: float, x: torch.Tensor):
+    return torch.empty((N,), dtype=x.dtype, device=x.device)
+
+
+# ---------------------------------------------------------------------------
+# Kernel class (K5-K9, K11 adaptations; ParametricUnaryKernel logic inlined)
+# ---------------------------------------------------------------------------
+
+
+class EluFwdKernel(Kernel):
+    """ELU forward kernel: y = x if x > 0 else alpha * (exp(x) - 1).
+
+    A single-input, single-output elementwise activation with one
+    scalar construction-time parameter (``alpha``).  The kernel
+    flattens the input to a 1-D vector of ``N_total`` elements and
+    applies the compare-and-select + exponential formula.
+
+    NPU adaptations:
+
+    - K5: ``supported_archs = None`` (all architectures).
+    - K6: no fp8 output handling -- ``SUPPORTED_DTYPES`` is the manifest
+      contract ``(float16, bfloat16, float32)`` (GPU
+      ``ParametricUnaryKernel`` rejects fp8 the same way), so
+      ``output_dtype == dtype`` always.
+    - K8: autotune removed; heuristic config selection only.
+      ``init_config(config)`` takes no ``tune`` argument.
+    - K9: ``threads`` removed from ``default_config`` and ``forward``.
+    - K11: GPU ``threads * npt`` product collapsed into ``block_size``
+      (the GPU ``ParametricUnaryKernel`` logic is inlined, as the NPU
+      project does not ship that base class).
+
+    Args:
+        N_total: Total number of elements (flattened input).
+        dtype: Data type (float16, bfloat16, or float32).
+        alpha: Scale for the negative part (default 1.0).
+        config: Optional kernel configuration dict (e.g.
+            ``{"block_size": 2048}``).
+    """
+
+    # K5: [80, 86, 89, 90] (CUDA SM) -> None (all architectures).
+    supported_archs: Optional[list] = None
+
+    # Developer-form vector kernel; invocations are scoped to Developer
+    # mode regardless of ambient TILELANG_ASCEND_MODE (CG-2026-0010).
+    ascend_mode = "Developer"
+
+    # Manifest: float16 | bfloat16 | float32 (fp8 rejected, GPU parity).
+    SUPPORTED_DTYPES = (torch.float16, torch.bfloat16, torch.float32)
+
+    def __init__(
+        self,
+        N_total: int,
+        dtype: torch.dtype,
+        alpha: float = 1.0,
+        config: Optional[dict] = None,
+    ):
+        super().__init__()
+        if dtype not in self.SUPPORTED_DTYPES:
+            supported = ", ".join(str(dt) for dt in self.SUPPORTED_DTYPES)
+            raise ValueError(
+                f"{self.__class__.__name__} only supports dtypes [{supported}], got {dtype}"
+            )
+        self.N_total = N_total
+        self.dtype = dtype
+        self.alpha = alpha
+        self.output_dtype = dtype  # same_as(input)
+        # Build the factory callable (does not compile yet — compilation
+        # is deferred to forward() via the custom_op wrapper).  The
+        # imported function is the GPU implementation; the NPU component
+        # rewrites it for target="npuir" with the K3/K11 signature
+        # ``(N, dtype, alpha)`` -> ``kernel(block_size)``.
+        self.kernel = _make_elu_kernel(self.N_total, self.dtype, self.alpha)
+        self.init_config(config)
+
+    @property
+    def default_config(self) -> dict:
+        """Return the default config (K11: block_size = threads * npt).
+
+        GPU defaults (``ParametricUnaryKernel``): threads=256, npt=4
+        (fp32) or npt=8 (fp16/bf16).  Collapsed per K11:
+        block_size = 1024 (fp32) or 2048 (fp16/bf16).
+        """
+        if self.dtype == torch.float32:
+            return {"block_size": _BLOCK_SIZE_FP32}
+        return {"block_size": _BLOCK_SIZE_NON_FP32}
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Run the ELU kernel.
+
+        Accepts a 1-D contiguous tensor of ``N_total`` elements.
+        K9: ``threads`` removed from the call; K11: ``block_size`` used.
+        """
+        return _elu_fwd_wrapped(
+            self.N_total,
+            self.dtype_str,
+            self.config["block_size"],
+            self.alpha,
+            x,
+        )

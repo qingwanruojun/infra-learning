@@ -1,0 +1,18 @@
+{
+  "family": "elementwise",
+  "functions": {
+    "bitwise_not_fwd_kernel": {
+      "stage_state": null,
+      "status": "done"
+    }
+  },
+  "integration": {
+    "attempts": 0,
+    "status": "pass"
+  },
+  "last_updated": "2026-10-28T22:06:55Z",
+  "meta_path": "examples/TileOPs/tileops/kernels/elementwise/bitwise_not/.migration_meta.json",
+  "op_name": "bitwise_not",
+  "op_slug": "bitwise_not",
+  "phase": "DONE"
+}

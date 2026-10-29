@@ -1,0 +1,30 @@
+{
+  "op_name": "EluFwdOp",
+  "op_slug": "elu_fwd",
+  "family": "elementwise",
+  "gpu_repo_root": "/mnt/workspace/learn/refs/TileOPs",
+  "kernel_class_name": "EluFwdKernel",
+  "op_class_name": "EluFwdOp",
+  "test_path": "tests/ops/test_elu.py",
+  "test_slug": "elu",
+  "bench_path": "benchmarks/ops/bench_elu.py",
+  "bench_slug": "elu",
+  "wrapper_path": "tileops/kernels/elementwise/elu_fwd/elu_fwd.py",
+  "extracted_file": "tileops/kernels/elementwise/elu_fwd/_elu_fwd_kernels.py",
+  "extracted_functions": [
+    "_make_elu_kernel"
+  ],
+  "gpu_source_paths": {
+    "manifest": "tileops/manifest/elementwise_unary_activation.yaml",
+    "kernel": "tileops/kernels/elementwise.py",
+    "op": "tileops/ops/elementwise/activations.py",
+    "test": "tests/ops/test_activation.py",
+    "bench": "benchmarks/ops/bench_elementwise_manifest.py",
+    "workload": "workloads/elementwise.py"
+  },
+  "gpu_kernel_map": {
+    "elu": "EluFwdKernel"
+  },
+  "manually_appended_helpers": [],
+  "created_at": "2026-10-28T13:23:56Z"
+}

@@ -1,0 +1,6 @@
+55a9ec8 evolution: bitwise_not 迁移蒸馏——PL-1.21 第五例+2.3x 语义消歧/PL-1.22 第五实例/CONST-aicore 六至八次复跑/CASE-bitwisenot + Tier1 合入 TRAP-torch-dtype-name-attr/TRAP-env-broken-devroot-cwd + 入队 VP-2026-0181..0187 (task: bitwise_not-bitwise_not_fwd_kernel-20261028T205740Z)
+2a94a29 evolution: erf_fwd 迁移蒸馏——PL-1.22 persistent 模板与标量+原地两案 2/2 合入，T.verf 禁用双证/A&S 候选入队，链长时延锚点与零适配先例落库 (task: erf_fwd-erf_fwd_kernel-20261028T182820Z / erf_fwd-erf_fwd-20261028T181719Z)
+d7f990d evolution: expm1 harness 迁移蒸馏——TRAP-curried-single-stage-reject/CONST-vsub-crossbuf-scalar add+repro ED-C 转正×2、TRAP-UB 第七源 fp32 guard 4096 上板、PL-1.21 第三例、CASE-expm1、CG-2026-0018 fp64 缺口、VP-2026-0146 2/2 合入 precision-patterns.md、入队 VP-2026-0165..0170 (task: expm1-expm1_fwd_kernel-20261028T151833Z)
+ef4078a evolution: elu_fwd harness 迁移蒸馏——PL-1.17 第四例（承接型 0 ulp + 上板）+ PL-1.21 910B3 集成基线双例 + ALG-elementwise max 化简两例 + TRAP-vselect 豁免判据（Tier 1 三条 2/2 合入）+ Tier 1×3/Tier 2×5 入队 + 证据链×6 (task: elu_fwd-_make_elu_kernel-20261028T132506Z)
+f388fab evolution: leaky_relu harness 迁移蒸馏——Tier 0（vbrc 触发面细化+repro ED-C 转正/910B3 重验戳集群/CONST-aicore 910B3 数据点/CASE-elementwise-leakyrelu-migration）+ Tier 1×5 + Tier 2×10 + 证据链×6 (task: leaky_relu-_make_leaky_relu_kernel-20261028T104716Z)
+88ee8c3 fix: fix tvm isolation

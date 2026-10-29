@@ -1,0 +1,126 @@
+command: /usr/local/bin/python -m pytest benchmarks/ops/bench_unary_elementwise.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/pytest/benchmark.xml -m not smoke
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-10-29 03:44:00  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 03:44:00  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 03:44:00  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 20 items
+
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[smoke-1m-float32] Expm1FwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_3q4k255v/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_3q4k255v/prof_script.py
+=== [msprof] latency_us: 15.760315, roofline: {'Ratio(%)': 15.207899999999999, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.7511977553367615, 'Perf(TOps/s)': 0.19992291927337646, 'Computility(TOps/s)': 4.600524425506592}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[smoke-1m-float16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_f1wmgs0f/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_f1wmgs0f/prof_script.py
+=== [msprof] latency_us: 10.180203, roofline: {'Ratio(%)': 11.7723, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.002319097518921, 'Perf(TOps/s)': 0.41250884532928467, 'Computility(TOps/s)': 4.602388858795166}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[smoke-1m-bfloat16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_87_wixei/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_87_wixei/prof_script.py
+=== [msprof] latency_us: 10.640213, roofline: {'Ratio(%)': 11.263399999999999, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.502288579940796, 'Perf(TOps/s)': 0.4932232201099396, 'Computility(TOps/s)': 4.603508949279785}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-16m-float16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_5mvkr5c3/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_5mvkr5c3/prof_script.py
+=== [msprof] latency_us: 128.142563, roofline: {'Ratio(%)': 14.963000000000001, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.0001449584960938, 'Perf(TOps/s)': 0.5237446427345276, 'Computility(TOps/s)': 4.6076483726501465}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-16m-bfloat16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_ygdg1hhv/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_ygdg1hhv/prof_script.py
+=== [msprof] latency_us: 130.602615, roofline: {'Ratio(%)': 14.6812, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.500143051147461, 'Perf(TOps/s)': 0.6423393487930298, 'Computility(TOps/s)': 4.607718467712402}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-16m-float32] Expm1FwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_vpc3qt6h/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_vpc3qt6h/prof_script.py
+=== [msprof] latency_us: 217.344345, roofline: {'Ratio(%)': 17.643900000000002, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.7500748634338379, 'Perf(TOps/s)': 0.23159915208816528, 'Computility(TOps/s)': 4.607531547546387}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-64m-float16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_bqyk_j85/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_bqyk_j85/prof_script.py
+=== [msprof] latency_us: 505.370117, roofline: {'Ratio(%)': 18.6312, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.6291438341140747, 'Perf(TOps/s)': 0.5311762094497681, 'Computility(TOps/s)': 4.607912063598633}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-64m-bfloat16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_69mt3ek5/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_69mt3ek5/prof_script.py
+=== [msprof] latency_us: 521.17041, roofline: {'Ratio(%)': 18.826999999999998, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.9541453123092651, 'Perf(TOps/s)': 0.6438382863998413, 'Computility(TOps/s)': 4.6079301834106445}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-256m-float16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_0v_9zrzg/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_0v_9zrzg/prof_script.py
+=== [msprof] latency_us: 2044.4409179999998, roofline: {'Ratio(%)': 27.1955, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.1035492420196533, 'Perf(TOps/s)': 0.5252031683921814, 'Computility(TOps/s)': 4.607977867126465}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_expm1_bench[elementwise-256m-bfloat16] Expm1FwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_b801dezy/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_b801dezy/prof_script.py
+=== [msprof] latency_us: 2099.741943, roofline: {'Ratio(%)': 26.4849, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.3791412115097046, 'Perf(TOps/s)': 0.6392130255699158, 'Computility(TOps/s)': 4.607982635498047}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[smoke-1m-float32] ErfFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_qtlsyqh5/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_qtlsyqh5/prof_script.py
+=== [msprof] latency_us: 30.100601, roofline: {'Ratio(%)': 18.6648, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 6.085995674133301, 'Perf(TOps/s)': 0.848065972328186, 'Computility(TOps/s)': 4.543660640716553}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[smoke-1m-float16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_z92dmc27/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_z92dmc27/prof_script.py
+=== [msprof] latency_us: 20.540411, roofline: {'Ratio(%)': 28.278100000000002, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 12.630577087402344, 'Perf(TOps/s)': 1.2896459102630615, 'Computility(TOps/s)': 4.560576438903809}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[smoke-1m-bfloat16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_ojus1lk8/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_ojus1lk8/prof_script.py
+=== [msprof] latency_us: 21.140423, roofline: {'Ratio(%)': 28.551900000000003, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 13.130546569824219, 'Perf(TOps/s)': 1.3026434183120728, 'Computility(TOps/s)': 4.562364101409912}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-16m-float16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_pypr_70d/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_pypr_70d/prof_script.py
+=== [msprof] latency_us: 294.805908, roofline: {'Ratio(%)': 31.2415, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 12.574079513549805, 'Perf(TOps/s)': 1.431171178817749, 'Computility(TOps/s)': 4.580994129180908}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-16m-bfloat16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_8r56mot8/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_8r56mot8/prof_script.py
+=== [msprof] latency_us: 298.445984, roofline: {'Ratio(%)': 32.0804, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 13.074077606201172, 'Perf(TOps/s)': 1.4699307680130005, 'Computility(TOps/s)': 4.5820207595825195}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-16m-float32] ErfFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_e46yad2_/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_e46yad2_/prof_script.py
+=== [msprof] latency_us: 442.668854, roofline: {'Ratio(%)': 20.2088, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 5.887314319610596, 'Perf(TOps/s)': 0.9204133749008179, 'Computility(TOps/s)': 4.554509162902832}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-64m-float16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_5owi_3ya/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_5owi_3ya/prof_script.py
+=== [msprof] latency_us: 1176.083496, roofline: {'Ratio(%)': 31.310700000000004, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 10.057004928588867, 'Perf(TOps/s)': 1.4346657991409302, 'Computility(TOps/s)': 4.582024574279785}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-64m-bfloat16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_jqbbntm_/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_jqbbntm_/prof_script.py
+=== [msprof] latency_us: 1187.963745, roofline: {'Ratio(%)': 32.2235, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 10.32715892791748, 'Perf(TOps/s)': 1.476809024810791, 'Computility(TOps/s)': 4.58301305770874}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-256m-float16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_vsnxpnko/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_vsnxpnko/prof_script.py
+=== [msprof] latency_us: 4702.474121, roofline: {'Ratio(%)': 31.319599999999998, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 6.932732105255127, 'Perf(TOps/s)': 1.4351515769958496, 'Computility(TOps/s)': 4.582282543182373}
+PASSED
+benchmarks/ops/bench_unary_elementwise.py::test_erf_bench[elementwise-256m-bfloat16] ErfFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof__4c0b1c5/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof__4c0b1c5/prof_script.py
+=== [msprof] latency_us: 4761.314941, roofline: {'Ratio(%)': 32.156, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 7.215893745422363, 'Perf(TOps/s)': 1.4737942218780518, 'Computility(TOps/s)': 4.583261013031006}
+PASSED
+Benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/benchmark.md
+Structured benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/benchmark.json
+
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_034150_398117_ErfFwdOp/pytest/benchmark.xml -
+================== 20 passed, 1 warning in 1722.24s (0:28:42) ==================

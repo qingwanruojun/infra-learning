@@ -1,0 +1,43 @@
+command: /usr/local/bin/python -m pytest tests/ops/test_bitwise_not.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/correctness.xml
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-10-29 05:51:03  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 05:51:03  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 05:51:03  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 9 items
+
+tests/ops/test_bitwise_not.py::test_bitwise_not[1048576-dtype0] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not[1048576-dtype1] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not[1048576-dtype2] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not[1048576-dtype3] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not[1048576-dtype4] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not[1048576-dtype5] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not_rejects_float_dtype[dtype0] PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not_rejects_float_dtype[dtype1] PASSED
+tests/ops/test_bitwise_not.py::test_bitwise_not_rejects_float_dtype[dtype2] PASSED
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/correctness.xml -
+=================== 9 passed, 1 warning in 102.15s (0:01:42) ===================

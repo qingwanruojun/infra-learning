@@ -1,0 +1,11 @@
+{"action": "init", "migration_mode": "harness", "mode": "migration-harness", "phase_after": "SCAFFOLD", "phase_before": null, "scenario": "migration", "stage_plan": [0, 5], "ts": "2026-10-28T10:33:09Z"}
+{"action": "start", "mode": "migration-harness", "phase_after": "SCAFFOLD", "phase_before": "SCAFFOLD", "stage": 0, "subagent": "tileops-scaffolder", "ts": "2026-10-28T10:34:02Z"}
+{"action": "complete", "duration_s": 777.0, "mode": "migration-harness", "phase_after": "INTEGRATE", "phase_before": "SCAFFOLD", "snapshot": [], "stage": 0, "subagent": "tileops-scaffolder", "ts": "2026-10-28T10:46:59Z", "verdict": "pass"}
+{"action": "migration-init", "functions": ["_make_leaky_relu_kernel"], "phase_after": "DEV_LOOP", "phase_before": null, "ts": "2026-10-28T10:46:59Z"}
+{"action": "migration-func", "func": "_make_leaky_relu_kernel", "phase_after": "DEV_LOOP", "phase_before": null, "status": "in_progress", "ts": "2026-10-28T10:47:15Z"}
+{"action": "migration-func", "func": "_make_leaky_relu_kernel", "phase_after": "DEV_LOOP", "phase_before": null, "status": "done", "ts": "2026-10-28T12:49:09Z"}
+{"action": "migration-phase", "phase_after": "INTEGRATE", "phase_before": "DEV_LOOP", "reason": null, "ts": "2026-10-28T12:49:09Z"}
+{"action": "start", "mode": "migration-harness", "phase_after": "INTEGRATE", "phase_before": "INTEGRATE", "stage": 5, "subagent": "tilelang-op-integrator", "ts": "2026-10-28T12:49:10Z"}
+{"action": "complete", "duration_s": 1293.0, "mode": "migration-harness", "phase_after": "DONE", "phase_before": "INTEGRATE", "snapshot": [], "stage": 5, "subagent": "tilelang-op-integrator", "ts": "2026-10-28T13:10:43Z", "verdict": "pass"}
+{"action": "migration-integrate", "phase_after": "INTEGRATE", "phase_before": null, "status": "pass", "ts": "2026-10-28T13:10:44Z"}
+{"action": "migration-phase", "phase_after": "DONE", "phase_before": "INTEGRATE", "reason": null, "ts": "2026-10-28T13:10:44Z"}

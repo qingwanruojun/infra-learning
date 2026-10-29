@@ -1,0 +1,18 @@
+{
+  "family": "elementwise",
+  "functions": {
+    "_make_leaky_relu_kernel": {
+      "stage_state": null,
+      "status": "done"
+    }
+  },
+  "integration": {
+    "attempts": 0,
+    "status": "pass"
+  },
+  "last_updated": "2026-10-28T13:10:44Z",
+  "meta_path": "examples/TileOPs/tileops/kernels/elementwise/leaky_relu/.migration_meta.json",
+  "op_name": "leaky_relu",
+  "op_slug": "leaky_relu",
+  "phase": "DONE"
+}

@@ -1,0 +1,12 @@
+# cmd: python -m pytest tests/ops/test_leaky_relu.py -q
+# cwd: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+# date: 2026-10-29 08:21:19
+..............                                                           [100%]
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+14 passed, 1 warning in 105.43s (0:01:45)
+# exit=0

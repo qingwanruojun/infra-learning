@@ -1,0 +1,411 @@
+diff --git a/.opencode/agents/tilelang-design-reviewer.md b/.opencode/agents/tilelang-design-reviewer.md
+index a5f1575..60c4369 100644
+--- a/.opencode/agents/tilelang-design-reviewer.md
++++ b/.opencode/agents/tilelang-design-reviewer.md
+@@ -2,7 +2,7 @@
+ name: tilelang-design-reviewer
+ description: "TileLang-NPUIR 算子设计检视 Subagent。负责 Stage 2 算子设计文档的 review，调用 tilelang-design-review skill 生成 REVIEW.md，必须给出明确结论（通过/不通过）。含算法优化检视维度 8（算法调研四问的完整性与结论正确性独立复核——对照设计 skill 的 algorithm-research.md 参考表与源码证据复核负向断言、复算复杂度；数学等价优化的等价性论证与收益、循环/标量计算的向量化替代完整性，须独立推演核对）。迁移任务额外检视源算子理解（语义/算法/优化手段）、硬件耦合性判定与 NPU 重设计（须亲自读源码核对）。"
+ mode: subagent
+-model: gateway/qwen3.8-max
++model: "cannbot/Qwen3.8-Flash(built-in)"
+ skills:
+ - tilelang-design-review
+ ---
+diff --git a/.opencode/agents/tilelang-op-conductor.md b/.opencode/agents/tilelang-op-conductor.md
+index 235ab47..1f44380 100644
+--- a/.opencode/agents/tilelang-op-conductor.md
++++ b/.opencode/agents/tilelang-op-conductor.md
+@@ -2,7 +2,7 @@
+ name: tilelang-op-conductor
+ description: "TileLang-NPUIR 算子端到端开发编排 Agent。作为唯一流程 owner，先做场景路由（新算子生成 / GPU TileLang 算子迁移（harness|plain）/ 已有算子定制优化），再按 Stage-Gate 模式调度子 Agent（脚手架、算子设计、设计检视、算子开发、算子调优、迁移集成），维护全局任务状态与上下文，处理检视不通过的设计修订循环，确保交付物版本连贯。"
+ mode: primary
+-model: gateway/deepseek-v4-pro
++model: "cannbot/DeepSeek-V4-Flash(built-in)"
+ ---
+ 
+ # TileLang-NPUIR 算子端到端开发编排 Agent
+diff --git a/.opencode/agents/tilelang-op-designer.md b/.opencode/agents/tilelang-op-designer.md
+index 97f223c..d4a0a25 100644
+--- a/.opencode/agents/tilelang-op-designer.md
++++ b/.opencode/agents/tilelang-op-designer.md
+@@ -2,7 +2,7 @@
+ name: tilelang-op-designer
+ description: "TileLang-NPUIR 算子分析 Subagent。负责 Stage 1 算子设计（含需求理解与设计回退），调用 tilelang-op-design 生成 DESIGN.md。所有任务必做算法调研与算法级优化设计：先调研算法族（调研四问：等价化简公式替代/在线算法/复杂度对比/硬件亲和，输入公式/源算法只是候选之一），再数学等价地优化公式（更少计算量/访存量），再做循环/标量计算的向量化替代分析（替代不了的须给出充分理由）。迁移场景先完成源算子三问解读（语义/算法/优化手段）→ 算法调研 → 硬件耦合性判定与 NPU 算法重设计，再产出设计。"
+ mode: subagent
+-model: gateway/glm-5.3
++model: "cannbot/GLM-5.3-Flash(built-in)"
+ skills:
+ - tilelang-op-design
+ ---
+diff --git a/.opencode/agents/tilelang-op-developer.md b/.opencode/agents/tilelang-op-developer.md
+index e31a064..c394bd8 100644
+--- a/.opencode/agents/tilelang-op-developer.md
++++ b/.opencode/agents/tilelang-op-developer.md
+@@ -2,7 +2,7 @@
+ name: tilelang-op-developer
+ description: "TileLang-NPUIR 算子开发 Subagent。负责 Stage 3 算子开发，调用 tilelang-op-develop skill 生成 kernel + golden + 分层测试套件并执行，返回四出口判定（[PRECISION_PASS] / [PRECISION_FAIL] / [DESIGN_ERROR] / RUNTIME_FAIL）。"
+ mode: subagent
+-model: gateway/deepseek-v4-pro
++model: "cannbot/DeepSeek-V4-Flash(built-in)"
+ skills:
+ - tilelang-op-develop
+ ---
+diff --git a/.opencode/agents/tilelang-op-integrator.md b/.opencode/agents/tilelang-op-integrator.md
+index 50ea010..8903ecc 100644
+--- a/.opencode/agents/tilelang-op-integrator.md
++++ b/.opencode/agents/tilelang-op-integrator.md
+@@ -2,7 +2,7 @@
+ name: tilelang-op-integrator
+ description: "TileOps 迁移集成 Subagent。负责 Stage 5 集成验证：运行 integrate_kernel.py 将 conductor 产物（kernel + Stage 1 交付件 DESIGN.md）集成进 TileOPs 包同一目录，运行单算子 TileOPs report 完成全量正确性与 benchmark 报告，失败时进入受控调试闭环（≤5 attempt，先备份后修改），返回三态判定。"
+ mode: subagent
+-model: gateway/glm-5.3-flash
++model: "cannbot/GLM-5.3-Flash(built-in)"
+ skills:
+ - tilelang-error-fixer
+ - tilelang-debug-helper
+diff --git a/.opencode/agents/tilelang-op-optimizer.md b/.opencode/agents/tilelang-op-optimizer.md
+index 48495da..2f33d3b 100644
+--- a/.opencode/agents/tilelang-op-optimizer.md
++++ b/.opencode/agents/tilelang-op-optimizer.md
+@@ -2,7 +2,7 @@
+ name: tilelang-op-optimizer
+ description: "TileLang-NPUIR 算子调优 Subagent。负责 Stage 4 性能调优，调用 tilelang-op-optimize skill 产出 perf_opt/{op}.py、msprof op 数据、结构化性能记录 perf_records.jsonl（append-only）与调优日志。支持 full（完整调优）与 precision_fix（仅精度回归修复）两种调度模式。"
+ mode: subagent
+-model: gateway/glm-5.3
++model: "cannbot/GLM-5.3-Flash(built-in)"
+ skills:
+ - tilelang-op-optimize
+ ---
+diff --git a/.opencode/agents/tilelang-skill-evolver.md b/.opencode/agents/tilelang-skill-evolver.md
+index 61e7974..59d5e88 100644
+--- a/.opencode/agents/tilelang-skill-evolver.md
++++ b/.opencode/agents/tilelang-skill-evolver.md
+@@ -2,7 +2,7 @@
+ name: tilelang-skill-evolver
+ description: "自进化蒸馏 Subagent。任务终态由 conductor 调度：从任务工件蒸馏价值点（D 实测数据/P 模式方法/R 流程规则/C 案例索引），查重与冲突消解后按分级治理合入 pattern-library 或入队 .agents/evolution/queue.md（Tier 2 仅出提案），维护 .agents/evolution/stats.md 并打 git 快照。apply 模式执行用户已批准的 Tier 2 提案。"
+ mode: subagent
+-model: gateway/glm-5.3
++model: "cannbot/GLM-5.3-Flash(built-in)"
+ skills:
+ - tilelang-skill-evolution
+ ---
+diff --git a/.opencode/agents/tileops-scaffolder.md b/.opencode/agents/tileops-scaffolder.md
+index 5105080..1f7cf9b 100644
+--- a/.opencode/agents/tileops-scaffolder.md
++++ b/.opencode/agents/tileops-scaffolder.md
+@@ -2,7 +2,7 @@
+ name: tileops-scaffolder
+ description: "TileOps 迁移脚手架 Subagent。负责 Stage 0：读取并执行 examples/TileOPs 下的 add-npu-op skill（机器模式），完成 7 文件移植 + Tier 1 结构校验 + 写出 .migration_meta.json，返回逐 kernel 迁移 prompt 列表。"
+ mode: subagent
+-model: gateway/glm-5.3-flash
++model: "cannbot/GLM-5.3-Flash(built-in)"
+ ---
+ 
+ # TileOps 迁移脚手架 Agent -- Stage 0 执行器
+diff --git a/examples/TileOPs/tileops/kernels/elementwise/__init__.py b/examples/TileOPs/tileops/kernels/elementwise/__init__.py
+index f3bdb04..aceeaba 100644
+--- a/examples/TileOPs/tileops/kernels/elementwise/__init__.py
++++ b/examples/TileOPs/tileops/kernels/elementwise/__init__.py
+@@ -1,4 +1,9 @@
++from tileops.kernels.elementwise.bitwise_not import BitwiseNotFwdKernel
++from tileops.kernels.elementwise.elu_fwd import EluFwdKernel
++from tileops.kernels.elementwise.erf_fwd import ErfFwdKernel
++from tileops.kernels.elementwise.expm1 import Expm1FwdKernel
++from tileops.kernels.elementwise.leaky_relu import LeakyReluFwdKernel
+ from tileops.kernels.elementwise.lerp_tensor import LerpTensorFwdKernel
+ from tileops.kernels.elementwise.mish import MishFwdKernel
+ 
+-__all__ = ["LerpTensorFwdKernel", "MishFwdKernel"]
++__all__ = ["BitwiseNotFwdKernel", "EluFwdKernel", "ErfFwdKernel", "Expm1FwdKernel", "LeakyReluFwdKernel", "LerpTensorFwdKernel", "MishFwdKernel"]
+diff --git a/examples/TileOPs/tileops/manifest/elementwise.yaml b/examples/TileOPs/tileops/manifest/elementwise.yaml
+index d10eb7b..4702f48 100644
+--- a/examples/TileOPs/tileops/manifest/elementwise.yaml
++++ b/examples/TileOPs/tileops/manifest/elementwise.yaml
+@@ -97,3 +97,209 @@ LerpTensorFwdOp:
+     test: tests/ops/test_lerp_tensor.py
+     bench: benchmarks/ops/bench_lerp_tensor.py
+     bench_manifest_driven: true
++
++LeakyReluFwdOp:
++  ref_api: "torch.nn.functional.leaky_relu"
++  family: elementwise
++  status: implemented
++
++  signature:
++    inputs:
++      input: {dtype: "float16 | bfloat16 | float32"}
++    outputs:
++      output: {dtype: "same_as(input)"}
++    params:
++      negative_slope: {type: float, default: 0.01}
++      inplace: {type: bool, default: false}
++    shape_rules:
++      - "output.shape == input.shape"
++
++  workloads:
++    # Smoke: small flat vector
++    - {input_shape: [1048576], dtypes: [float32, float16, bfloat16], label: "smoke-1m"}
++    # Full: GAN feature map activation (ported from the GPU manifest)
++    - {input_shape: [16, 256, 64, 64], dtypes: [float16, bfloat16], label: "gan-feat"}
++    - {input_shape: [16, 512, 32, 32], dtypes: [float16, bfloat16], label: "gan-feat-deep"}
++    # Full: large FC layer
++    - {input_shape: [2048, 4096], dtypes: [float16, bfloat16], label: "fc-wide"}
++
++  roofline:
++    vars:
++      N: "product(input.shape)"
++    # FLOPs: leaky_relu(x) = x if x>0 else negative_slope*x. Per
++    # roofline.md §1.3, compare-and-select(1) + mul(1) = 2 per elem.
++    flops: "2 * N"
++    bytes: "2 * N * elem_bytes"
++
++  source:
++    kernel: tileops/kernels/elementwise/leaky_relu/leaky_relu.py
++    kernel_map:
++      leaky_relu: LeakyReluFwdKernel
++    op: tileops/ops/elementwise/leaky_relu.py
++    test: tests/ops/test_leaky_relu.py
++    bench: benchmarks/ops/bench_leaky_relu.py
++    bench_manifest_driven: true
++
++EluFwdOp:
++  ref_api: "torch.nn.functional.elu"
++  family: elementwise
++  status: implemented
++
++  signature:
++    inputs:
++      input: {dtype: "float16 | bfloat16 | float32"}
++    outputs:
++      output: {dtype: "same_as(input)"}
++    params:
++      alpha: {type: float, default: 1.0}
++      inplace: {type: bool, default: false}
++    shape_rules:
++      - "output.shape == input.shape"
++
++  workloads:
++    # Smoke: small flat vector
++    - {input_shape: [1048576], dtypes: [float32, float16, bfloat16], label: "smoke-1m"}
++    # Full: MLP hidden activation (ported from the GPU manifest)
++    - {input_shape: [2048, 4096], dtypes: [float16, bfloat16], label: "mlp-hidden"}
++    - {input_shape: [2048, 8192], dtypes: [float16, bfloat16], label: "mlp-hidden-wide"}
++    # Full: GAN feature map activation
++    - {input_shape: [16, 256, 64, 64], dtypes: [float16, bfloat16], label: "gan-feat"}
++
++  roofline:
++    vars:
++      N: "product(input.shape)"
++    # FLOPs: elu(x) = x if x>0 else alpha*(exp(x)-1).
++    # compare-and-select(1) + exp(1) + sub(1) + mul(1) = 4 per elem.
++    flops: "4 * N"
++    bytes: "2 * N * elem_bytes"
++
++  source:
++    kernel: tileops/kernels/elementwise/elu_fwd/elu_fwd.py
++    kernel_map:
++      elu: EluFwdKernel
++    op: tileops/ops/elementwise/elu_fwd.py
++    test: tests/ops/test_elu.py
++    bench: benchmarks/ops/bench_elu.py
++    bench_manifest_driven: true
++
++Expm1FwdOp:
++  ref_api: "torch.expm1"
++  family: elementwise
++  status: implemented
++
++  torch_compile_fullgraph: true
++  signature:
++    inputs:
++      input: {dtype: "float16 | bfloat16 | float32"}
++    outputs:
++      output: {dtype: "same_as(input)"}
++    shape_rules:
++    - "output.shape == input.shape"
++
++  workloads:
++    # Smoke: small flat vector
++    - {input_shape: [1048576], dtypes: [float32, float16, bfloat16], label: "smoke-1m"}
++    # Full: GPU manifest elementwise-16M workload
++    - {input_shape: [4096, 4096], dtypes: [float16, bfloat16, float32], label: "elementwise-16m"}
++    # Full: mid-size square
++    - {input_shape: [8192, 8192], dtypes: [float16, bfloat16], label: "elementwise-64m"}
++    # Full: GPU manifest elementwise-256M workload
++    - {input_shape: [16384, 16384], dtypes: [float16, bfloat16], label: "elementwise-256m"}
++
++  roofline:
++    vars:
++      N: "product(input.shape)"
++    # exp(x) - 1: 1 exp + 1 sub
++    flops: "2 * N"
++    bytes: "2 * N * elem_bytes"
++
++  source:
++    kernel: tileops/kernels/elementwise/expm1/expm1.py
++    kernel_map:
++      expm1: Expm1FwdKernel
++    op: tileops/ops/elementwise/expm1.py
++    test: tests/ops/test_unary_math.py
++    bench: benchmarks/ops/bench_unary_elementwise.py
++    bench_manifest_driven: true
++
++ErfFwdOp:
++  ref_api: "torch.erf"
++  family: elementwise
++  status: implemented
++
++  torch_compile_fullgraph: true
++  signature:
++    inputs:
++      input: {dtype: "float16 | bfloat16 | float32"}
++    outputs:
++      output: {dtype: "same_as(input)"}
++    shape_rules:
++    - "output.shape == input.shape"
++
++  workloads:
++    # Smoke: small flat vector
++    - {input_shape: [1048576], dtypes: [float32, float16, bfloat16], label: "smoke-1m"}
++    # Full: GPU manifest elementwise-16M workload
++    - {input_shape: [4096, 4096], dtypes: [float16, bfloat16, float32], label: "elementwise-16m"}
++    # Full: mid-size square
++    - {input_shape: [8192, 8192], dtypes: [float16, bfloat16], label: "elementwise-64m"}
++    # Full: GPU manifest elementwise-256M workload
++    - {input_shape: [16384, 16384], dtypes: [float16, bfloat16], label: "elementwise-256m"}
++
++  roofline:
++    vars:
++      N: "product(input.shape)"
++    # erf(x): one transcendental call; per roofline.md §1.3 convention,
++    # transcendentals count as 1 FLOP per element (GPU manifest: flops: "N").
++    flops: "N"
++    bytes: "2 * N * elem_bytes"
++
++  source:
++    kernel: tileops/kernels/elementwise/erf_fwd/erf_fwd.py
++    kernel_map:
++      erf: ErfFwdKernel
++    op: tileops/ops/elementwise/erf_fwd.py
++    test: tests/ops/test_unary_math.py
++    bench: benchmarks/ops/bench_unary_elementwise.py
++    bench_manifest_driven: true
++
++BitwiseNotFwdOp:
++  ref_api: "torch.bitwise_not"
++  family: elementwise
++  status: implemented
++
++  torch_compile_fullgraph: true
++  signature:
++    inputs:
++      input: {dtype: "bool | uint8 | int8 | int16 | int32 | int64"}
++    outputs:
++      output: {dtype: "same_as(input)"}
++    shape_rules:
++    - "output.shape == input.shape"
++
++  workloads:
++    # Smoke: small flat vector (bool + uint8 exercise the kernel's
++    # special-cased dtype paths: ==0 for bool, xor 255 for uint8)
++    - {input_shape: [1048576], dtypes: [bool, uint8, int32], label: "smoke-1m"}
++    # Full: GPU manifest elementwise-16M workload (ported verbatim)
++    - {input_shape: [4096, 4096], dtypes: [int32, int64], label: "elementwise-16m"}
++    # Full: mid-size square
++    - {input_shape: [8192, 8192], dtypes: [int16, int32], label: "elementwise-64m"}
++    # Full: GPU manifest elementwise-256M workload (ported verbatim)
++    - {input_shape: [16384, 16384], dtypes: [int32], label: "elementwise-256m"}
++
++  roofline:
++    vars:
++      N: "product(input.shape)"
++    # ~x: one bitwise op per element (GPU manifest: flops: "N").
++    flops: "N"
++    bytes: "2 * N * elem_bytes"
++
++  source:
++    kernel: tileops/kernels/elementwise/bitwise_not/bitwise_not.py
++    kernel_map:
++      bitwise_not: BitwiseNotFwdKernel
++    op: tileops/ops/elementwise/bitwise_not.py
++    test: tests/ops/test_bitwise_not.py
++    bench: benchmarks/ops/bench_bitwise_not.py
++    bench_manifest_driven: true
+diff --git a/examples/TileOPs/tileops/ops/elementwise/__init__.py b/examples/TileOPs/tileops/ops/elementwise/__init__.py
+index 09eda98..be151f0 100644
+--- a/examples/TileOPs/tileops/ops/elementwise/__init__.py
++++ b/examples/TileOPs/tileops/ops/elementwise/__init__.py
+@@ -1,4 +1,9 @@
++from tileops.ops.elementwise.bitwise_not import BitwiseNotFwdOp
++from tileops.ops.elementwise.elu_fwd import EluFwdOp
++from tileops.ops.elementwise.erf_fwd import ErfFwdOp
++from tileops.ops.elementwise.expm1 import Expm1FwdOp
++from tileops.ops.elementwise.leaky_relu import LeakyReluFwdOp
+ from tileops.ops.elementwise.lerp_tensor import LerpTensorFwdOp
+ from tileops.ops.elementwise.mish import MishFwdOp
+ 
+-__all__ = ["LerpTensorFwdOp", "MishFwdOp"]
++__all__ = ["BitwiseNotFwdOp", "EluFwdOp", "ErfFwdOp", "Expm1FwdOp", "LeakyReluFwdOp", "LerpTensorFwdOp", "MishFwdOp"]
+diff --git a/examples/TileOPs/tileops/workloads/elementwise.py b/examples/TileOPs/tileops/workloads/elementwise.py
+index 7bc6601..c195de0 100644
+--- a/examples/TileOPs/tileops/workloads/elementwise.py
++++ b/examples/TileOPs/tileops/workloads/elementwise.py
+@@ -5,7 +5,7 @@ from math import prod
+ import torch
+ 
+ from tileops.device import get_device_backend
+-from tileops.workloads.workload_base import RandnWorkload
++from tileops.workloads.workload_base import RandnWorkload, WorkloadBase
+ 
+ 
+ class ShapedRandnWorkload(RandnWorkload):
+@@ -24,6 +24,49 @@ class MishWorkload(ShapedRandnWorkload):
+     """Workload definition for MishFwdOp (shape + dtype, randn input)."""
+ 
+ 
++class LeakyReluWorkload(ShapedRandnWorkload):
++    """Workload definition for LeakyReluFwdOp (shape + dtype, randn input)."""
++
++
++class EluWorkload(ShapedRandnWorkload):
++    """Workload definition for EluFwdOp (shape + dtype, randn input)."""
++
++
++class Expm1Workload(ShapedRandnWorkload):
++    """Workload definition for Expm1FwdOp (shape + dtype, randn input)."""
++
++
++class ErfWorkload(ShapedRandnWorkload):
++    """Workload definition for ErfFwdOp (shape + dtype, randn input)."""
++
++
++class BitwiseNotWorkload(WorkloadBase):
++    """Workload definition for BitwiseNotFwdOp (bool/integer bitwise NOT).
++
++    Ported from TileOPs ``workloads/elementwise.py`` (``BitwiseNotWorkload``):
++    bool inputs are drawn from ``rand > 0.5``, uint8 from the full byte
++    range, and the signed integers from ``[-128, 128)``.
++
++    Adaptation point W1: ``device`` is resolved from
++    :func:`get_device_backend` instead of hard-coded ``"cuda"``.
++    """
++
++    def __init__(self, shape: tuple, dtype: torch.dtype):
++        self.shape = tuple(shape)
++        self.n_total = prod(self.shape)
++        self.dtype = dtype
++
++    def gen_inputs(self) -> tuple[torch.Tensor]:
++        device = get_device_backend().name
++        if self.dtype == torch.bool:
++            x = torch.rand(self.shape, device=device) > 0.5
++        elif self.dtype == torch.uint8:
++            x = torch.randint(0, 256, self.shape, device=device, dtype=self.dtype)
++        else:
++            x = torch.randint(-128, 128, self.shape, device=device, dtype=self.dtype)
++        return (x,)
++
++
+ class LerpTensorManifestWorkload:
+     """Workload definition for LerpTensorFwdOp (Tensor-weight torch.lerp).
+ 

@@ -1,0 +1,46 @@
+[W1028 17:33:55.261557511 ToKernelNpu.cpp:41] Warning: Device do not support double dtype now, dtype cast replace with float. (function operator())
+2026-10-28 17:33:52  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 17:33:52  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 17:33:52  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+F
+=================================== FAILURES ===================================
+____________________________ test_single_block_256 _____________________________
+
+    def test_single_block_256():
+        """Tier A: one global block, exact division 256^3."""
+        kernel = get_kernel("single", M=256, N=256, K=256, block_M=128,
+                            block_N=128, block_K=64)
+>       max_abs, max_rel = check(kernel, 256, 256, 256)
+
+day4/code/own_ops/gemm.py:633: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+day4/code/own_ops/gemm.py:369: in check
+    max_abs, max_rel = error_stats(c, ref)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = tensor([[ 11.1094,   8.8594, -13.6016,  ..., -17.8906, -39.8750,  12.9453],
+        [ 12.6875, -35.3125,  -6.7617,  .....       [ -4.1172, -14.9453,  -7.5703,  ...,  20.6719, -13.9609,  26.2188]],
+       device='npu:0', dtype=torch.float16)
+ref = tensor([[ 11.1094,   8.8594, -13.6016,  ..., -17.8906, -39.8750,  12.9453],
+        [ 12.6875, -35.3125,  -6.7617,  .....24,  14.1797],
+        [ -4.1172, -14.9453,  -7.5703,  ...,  20.6719, -13.9609,  26.2188]],
+       dtype=torch.float16)
+
+    def error_stats(c, ref):
+        c32 = c.float()
+        r32 = ref.float()
+>       abs_err = (c32 - r32).abs()
+E       RuntimeError: Expected all tensors to be on the same device. Expected NPU tensor, please check whether the input tensor device is correct.
+E       [ERROR] 2026-10-28-17:33:55 (PID:122622, Device:0, RankID:-1) ERR01002 OPS invalid type
+
+day4/code/own_ops/gemm.py:347: RuntimeError
+=============================== warnings summary ===============================
+../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED day4/code/own_ops/gemm.py::test_single_block_256 - RuntimeError: Expec...
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 6 deselected, 1 warning in 12.85s

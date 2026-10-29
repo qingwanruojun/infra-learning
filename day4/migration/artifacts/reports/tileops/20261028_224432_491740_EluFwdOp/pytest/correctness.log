@@ -1,0 +1,60 @@
+command: /usr/local/bin/python -m pytest tests/ops/test_elu.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_224432_491740_EluFwdOp/pytest/correctness.xml
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-10-28 22:44:42  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 22:44:42  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 22:44:42  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 14 items
+
+tests/ops/test_elu.py::test_elu_op[1048576-dtype0] EluFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+PASSED
+tests/ops/test_elu.py::test_elu_op[1048576-dtype1] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_op[1048576-dtype2] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_op[4000000-dtype3] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_op[4000000-dtype4] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_param[1048576-dtype0] EluFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_param[1048576-dtype1] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_param[1048576-dtype2] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_param[4000000-dtype3] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_param[4000000-dtype4] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_inplace EluFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_elu.py::test_elu_rejects_non_float_dtype PASSED
+tests/ops/test_elu.py::test_elu_rejects_nonfinite_alpha PASSED
+tests/ops/test_elu.py::test_elu_eval_roofline EluFwdKernel initialized with config: {'block_size': 2048}
+PASSED
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_224432_491740_EluFwdOp/pytest/correctness.xml -
+=================== 14 passed, 1 warning in 99.32s (0:01:39) ===================

@@ -1,0 +1,6 @@
+Device_id,Model ID,Task ID,Stream ID,Op Name,OP Type,OP State,Task Type,Task Start Time(us),Task Duration(us),Task Wait Time(us),Block Num,Mix Block Num,HF32 Eligible,Input Shapes,Input Data Types,Input Formats,Output Shapes,Output Data Types,Output Formats,Context ID
+0,4294967295,19,46,aclnnMatmul_MatMulV3Common_MatMulV3,N/A,N/A,N/A,1793188846609155.901	,417.589,0,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,20,46,aclnnMatmul_MatMulV3Common_MatMulV3,N/A,N/A,N/A,1793188846609573.530	,415.168,0.000000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,21,46,aclnnMatmul_MatMulV3Common_MatMulV3,N/A,N/A,N/A,1793188846609988.718	,416.128,0.082000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,22,46,aclnnMatmul_MatMulV3Common_MatMulV3,N/A,N/A,N/A,1793188846610404.866	,423.189,0.000000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,23,46,aclnnMatmul_MatMulV3Common_MatMulV3,N/A,N/A,N/A,1793188846610828.075	,405.728,0.061000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A

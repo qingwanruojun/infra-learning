@@ -1,0 +1,69 @@
+command: /usr/local/bin/python -m pytest benchmarks/ops/bench_leaky_relu.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/pytest/benchmark.xml -m not smoke
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-10-28 20:55:33  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 20:55:33  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 20:55:33  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 9 items
+
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[smoke-1m-float32] LeakyReluFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_z82opaof/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_z82opaof/prof_script.py
+=== [msprof] latency_us: 17.380348, roofline: {'Ratio(%)': 13.7904, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.7693856954574585, 'Perf(TOps/s)': 0.18567728996276855, 'Computility(TOps/s)': 4.4946184158325195}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[smoke-1m-float16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_e05a0g87/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_e05a0g87/prof_script.py
+=== [msprof] latency_us: 11.420228, roofline: {'Ratio(%)': 10.494100000000001, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.0504119396209717, 'Perf(TOps/s)': 0.3765500783920288, 'Computility(TOps/s)': 4.497164249420166}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[smoke-1m-bfloat16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_oc83t033/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_oc83t033/prof_script.py
+=== [msprof] latency_us: 11.180223, roofline: {'Ratio(%)': 10.7193, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.5503814220428467, 'Perf(TOps/s)': 0.4784219264984131, 'Computility(TOps/s)': 4.51846981048584}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[gan-feat-float16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_bd2tor5r/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_bd2tor5r/prof_script.py
+=== [msprof] latency_us: 141.46283, roofline: {'Ratio(%)': 13.5541, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.0104751586914062, 'Perf(TOps/s)': 0.47687870264053345, 'Computility(TOps/s)': 4.584098815917969}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[gan-feat-bfloat16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_qhz4ha_d/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_qhz4ha_d/prof_script.py
+=== [msprof] latency_us: 144.842896, roofline: {'Ratio(%)': 13.2378, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.5104732513427734, 'Perf(TOps/s)': 0.581580638885498, 'Computility(TOps/s)': 4.588839054107666}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[gan-feat-deep-float16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_j9b1otoz/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_j9b1otoz/prof_script.py
+=== [msprof] latency_us: 71.361427, roofline: {'Ratio(%)': 13.4345, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.0131378173828125, 'Perf(TOps/s)': 0.4732963740825653, 'Computility(TOps/s)': 4.578088283538818}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[gan-feat-deep-bfloat16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_p1duwxrq/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_p1duwxrq/prof_script.py
+=== [msprof] latency_us: 72.081444, roofline: {'Ratio(%)': 13.300300000000002, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.513134002685547, 'Perf(TOps/s)': 0.5849454402923584, 'Computility(TOps/s)': 4.58400821685791}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[fc-wide-float16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_p5ft7pb6/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_p5ft7pb6/prof_script.py
+=== [msprof] latency_us: 71.101425, roofline: {'Ratio(%)': 13.483600000000001, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.0131378173828125, 'Perf(TOps/s)': 0.4750271141529083, 'Computility(TOps/s)': 4.578088283538818}
+PASSED
+benchmarks/ops/bench_leaky_relu.py::test_leaky_relu_bench[fc-wide-bfloat16] LeakyReluFwdKernel initialized with config: {'block_size': 2048}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_r2ffgifx/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_r2ffgifx/prof_script.py
+=== [msprof] latency_us: 73.421471, roofline: {'Ratio(%)': 13.057599999999999, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 2.513134002685547, 'Perf(TOps/s)': 0.5742694735527039, 'Computility(TOps/s)': 4.58400821685791}
+PASSED
+Benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/benchmark.md
+Structured benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/benchmark.json
+
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/pytest/benchmark.xml -
+=================== 9 passed, 1 warning in 752.82s (0:12:32) ===================

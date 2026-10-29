@@ -1,0 +1,32 @@
+{
+  "op_name": "LeakyReluFwdOp",
+  "op_slug": "leaky_relu",
+  "family": "elementwise",
+  "gpu_repo_root": "/mnt/workspace/learn/refs/TileOPs",
+  "kernel_class_name": "LeakyReluFwdKernel",
+  "op_class_name": "LeakyReluFwdOp",
+  "test_path": "tests/ops/test_leaky_relu.py",
+  "test_slug": "leaky_relu",
+  "bench_path": "benchmarks/ops/bench_leaky_relu.py",
+  "bench_slug": "leaky_relu",
+  "wrapper_path": "tileops/kernels/elementwise/leaky_relu/leaky_relu.py",
+  "extracted_file": "tileops/kernels/elementwise/leaky_relu/_leaky_relu_fwd_kernels.py",
+  "extracted_functions": [
+    "_make_leaky_relu_kernel"
+  ],
+  "gpu_source_paths": {
+    "manifest": "tileops/manifest/elementwise_unary_activation.yaml",
+    "kernel": "tileops/kernels/elementwise.py",
+    "op": "tileops/ops/elementwise/activations.py",
+    "test": "tests/ops/test_activation.py",
+    "bench": "benchmarks/ops/bench_elementwise_manifest.py",
+    "workload": "workloads/elementwise.py"
+  },
+  "gpu_kernel_map": {
+    "leaky_relu": "LeakyReluFwdKernel"
+  },
+  "manually_appended_helpers": [
+    "_fp8_accum_dtype_str"
+  ],
+  "created_at": "2026-10-28T18:50:00Z"
+}

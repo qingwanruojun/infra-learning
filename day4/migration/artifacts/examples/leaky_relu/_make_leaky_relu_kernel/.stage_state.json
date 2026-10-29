@@ -1,0 +1,60 @@
+{
+  "artifact_hashes": {
+    "examples/leaky_relu/_make_leaky_relu_kernel/DESIGN.md": "95ecad952ce31adbf1f88b95cc6abf4cf27b914edf6eefab50e304a95dfd74b8",
+    "examples/leaky_relu/_make_leaky_relu_kernel/REVIEW.md": "f329b50cfa58e165039f023338ed097017694af3496dfe273a5117ce04a3a454",
+    "examples/leaky_relu/_make_leaky_relu_kernel/_make_leaky_relu_kernel.py": "4c102325c600c9e7a94ebea85b90e89ec5f4e4078e34799bebe88caa9cfd5d1f"
+  },
+  "budget": {
+    "max_stage4_experiments": null,
+    "max_subagent_dispatches": null,
+    "max_wallclock_s": null
+  },
+  "current_stage": 3,
+  "design_md_path": "examples/leaky_relu/_make_leaky_relu_kernel/DESIGN.md",
+  "env_check_passed": false,
+  "failure_reason": null,
+  "final_artifact": "examples/leaky_relu/_make_leaky_relu_kernel/_make_leaky_relu_kernel.py",
+  "kernel_opt_py_path": "examples/leaky_relu/_make_leaky_relu_kernel/perf_opt/_make_leaky_relu_kernel.py",
+  "kernel_py_path": "examples/leaky_relu/_make_leaky_relu_kernel/_make_leaky_relu_kernel.py",
+  "last_failure_reason": null,
+  "last_updated": "2026-10-28T12:48:37Z",
+  "max_retry": 3,
+  "migration_mode": "harness",
+  "operator_name": "_make_leaky_relu_kernel",
+  "perf_feedback": null,
+  "perf_iteration": {
+    "consecutive_no_improvement": 0,
+    "count": 0,
+    "last_improvement": 0.0
+  },
+  "perf_tuning_requested": null,
+  "phase": "DONE",
+  "project_name": "leaky_relu",
+  "retry_count": 1,
+  "review_md_path": "examples/leaky_relu/_make_leaky_relu_kernel/REVIEW.md",
+  "scenario": "migration",
+  "stage3_failure_breakdown": {
+    "precision_fail": 0,
+    "runtime_fail": 0
+  },
+  "stage_plan": [
+    1,
+    2,
+    3
+  ],
+  "stage_retry_count": {
+    "0": 0,
+    "1": 1,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "stage_status": {
+    "1": "completed",
+    "2": "completed",
+    "3": "completed"
+  },
+  "task_id": "leaky_relu-_make_leaky_relu_kernel-20261028T104716Z",
+  "user_requirement": "harness 迁移函数 _make_leaky_relu_kernel（LeakyReluFwdOp / leaky_relu / elementwise）；规格从 GPU 源码与 NPU 侧 manifest workloads 推断；developer 模式"
+}

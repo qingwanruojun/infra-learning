@@ -1,0 +1,37 @@
+{
+  "op_name": "ErfFwdOp",
+  "op_slug": "erf_fwd",
+  "family": "elementwise",
+  "gpu_repo_root": "/mnt/workspace/learn/refs/TileOPs",
+  "kernel_class_name": "ErfFwdKernel",
+  "op_class_name": "ErfFwdOp",
+  "test_path": "tests/ops/test_unary_math.py",
+  "test_slug": "unary_math",
+  "bench_path": "benchmarks/ops/bench_unary_elementwise.py",
+  "bench_slug": "unary_elementwise",
+  "wrapper_path": "tileops/kernels/elementwise/erf_fwd/erf_fwd.py",
+  "extracted_file": "tileops/kernels/elementwise/erf_fwd/_erf_fwd_kernels.py",
+  "extracted_functions": [
+    "erf_fwd_kernel"
+  ],
+  "gpu_source_paths": {
+    "manifest": "tileops/manifest/elementwise_unary_math.yaml",
+    "op": "tileops/ops/elementwise/math_unary.py",
+    "kernel": "tileops/kernels/elementwise.py",
+    "workload": "workloads/elementwise.py",
+    "test": "tests/ops/test_unary_math.py",
+    "bench": "benchmarks/ops/bench_unary_elementwise.py"
+  },
+  "gpu_kernel_map": {
+    "erf": "ErfFwdKernel"
+  },
+  "manually_appended_helpers": [],
+  "gpu_execution_params": {
+    "family": "elementwise",
+    "default_strategy": "register_copy",
+    "gpu_default_config": {"threads": 256, "num_per_thread_fp32": 4, "num_per_thread_fp16_bf16": 8},
+    "k11_block_size": {"float32": 1024, "float16": 2048, "bfloat16": 2048},
+    "adaptations": ["K1-K4 extracted as-is", "K5 supported_archs=None", "K6 fp8 helpers not needed", "K7 npub:: namespace", "K8 autotune removed", "K9 threads removed", "K11 threads*npt -> block_size", "O1/O3/O4/O5/O6 op layer", "W1 workload device", "T1-T4 test/bench"]
+  },
+  "created_at": "2026-10-28T18:27:15Z"
+}

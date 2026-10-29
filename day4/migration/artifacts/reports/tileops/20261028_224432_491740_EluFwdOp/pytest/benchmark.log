@@ -1,0 +1,69 @@
+command: /usr/local/bin/python -m pytest benchmarks/ops/bench_elu.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_224432_491740_EluFwdOp/pytest/benchmark.xml -m not smoke
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-10-28 22:46:35  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 22:46:35  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 22:46:35  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 9 items
+
+benchmarks/ops/bench_elu.py::test_elu_bench[smoke-1m-float32] EluFwdKernel initialized with config: {'block_size': 1024}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_lop0v_2c/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_lop0v_2c/prof_script.py
+=== [msprof] latency_us: 18.940378, roofline: {'Ratio(%)': 12.654499999999999, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.5193628072738647, 'Perf(TOps/s)': 0.33646973967552185, 'Computility(TOps/s)': 4.54987907409668}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[smoke-1m-float16] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_z4dxfzvv/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_z4dxfzvv/prof_script.py
+=== [msprof] latency_us: 12.340247, roofline: {'Ratio(%)': 13.280800000000001, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 3.5503203868865967, 'Perf(TOps/s)': 0.6033927798271179, 'Computility(TOps/s)': 4.543332099914551}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[smoke-1m-bfloat16] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_2khfiurb/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_2khfiurb/prof_script.py
+=== [msprof] latency_us: 12.120242, roofline: {'Ratio(%)': 15.3994, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 4.050290107727051, 'Perf(TOps/s)': 0.7008599042892456, 'Computility(TOps/s)': 4.551216125488281}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[mlp-hidden-float16] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_6reyqhck/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_6reyqhck/prof_script.py
+=== [msprof] latency_us: 78.761574, roofline: {'Ratio(%)': 16.301, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 3.5131263732910156, 'Perf(TOps/s)': 0.7483462691307068, 'Computility(TOps/s)': 4.5908122062683105}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[mlp-hidden-bfloat16] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_9vu79o3p/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_9vu79o3p/prof_script.py
+=== [msprof] latency_us: 80.561615, roofline: {'Ratio(%)': 18.196399999999997, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 4.01312255859375, 'Perf(TOps/s)': 0.8357520699501038, 'Computility(TOps/s)': 4.592947006225586}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[mlp-hidden-wide-float16] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_85oizioa/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_85oizioa/prof_script.py
+=== [msprof] latency_us: 156.303131, roofline: {'Ratio(%)': 16.4033, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 3.510469436645508, 'Perf(TOps/s)': 0.7536141872406006, 'Computility(TOps/s)': 4.59428071975708}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[mlp-hidden-wide-bfloat16] EluFwdKernel initialized with config: {'block_size': 2048}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_5141ex28/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_5141ex28/prof_script.py
+=== [msprof] latency_us: 158.703171, roofline: {'Ratio(%)': 18.4494, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 4.010467529296875, 'Perf(TOps/s)': 0.8479318022727966, 'Computility(TOps/s)': 4.595986366271973}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[gan-feat-float16] EluFwdKernel initialized with config: {'block_size': 2048}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_mj5no7ru/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_mj5no7ru/prof_script.py
+=== [msprof] latency_us: 155.903122, roofline: {'Ratio(%)': 16.4454, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 3.510469436645508, 'Perf(TOps/s)': 0.7555477023124695, 'Computility(TOps/s)': 4.59428071975708}
+PASSED
+benchmarks/ops/bench_elu.py::test_elu_bench[gan-feat-bfloat16] EluFwdKernel initialized with config: {'block_size': 2048}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_7zdkavc8/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_7zdkavc8/prof_script.py
+=== [msprof] latency_us: 157.983154, roofline: {'Ratio(%)': 18.5335, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 4.010467529296875, 'Perf(TOps/s)': 0.8517963290214539, 'Computility(TOps/s)': 4.595986366271973}
+PASSED
+Benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_224432_491740_EluFwdOp/benchmark.md
+Structured benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_224432_491740_EluFwdOp/benchmark.json
+
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_224432_491740_EluFwdOp/pytest/benchmark.xml -
+=================== 9 passed, 1 warning in 737.68s (0:12:17) ===================

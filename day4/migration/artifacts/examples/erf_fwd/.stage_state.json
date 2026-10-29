@@ -1,0 +1,54 @@
+{
+  "artifact_hashes": {},
+  "budget": {
+    "max_stage4_experiments": null,
+    "max_subagent_dispatches": null,
+    "max_wallclock_s": null
+  },
+  "current_stage": 5,
+  "design_md_path": "examples/erf_fwd/DESIGN.md",
+  "env_check_passed": false,
+  "failure_reason": null,
+  "final_artifact": null,
+  "kernel_opt_py_path": "examples/erf_fwd/perf_opt/erf_fwd.py",
+  "kernel_py_path": "examples/erf_fwd/erf_fwd.py",
+  "last_failure_reason": null,
+  "last_updated": "2026-10-28T20:15:22Z",
+  "max_retry": 3,
+  "migration_mode": "harness",
+  "operator_name": "erf_fwd",
+  "perf_feedback": null,
+  "perf_iteration": {
+    "consecutive_no_improvement": 0,
+    "count": 0,
+    "last_improvement": 0.0
+  },
+  "perf_tuning_requested": null,
+  "phase": "DONE",
+  "project_name": "erf_fwd",
+  "retry_count": 0,
+  "review_md_path": "examples/erf_fwd/REVIEW.md",
+  "scenario": "migration",
+  "stage3_failure_breakdown": {
+    "precision_fail": 0,
+    "runtime_fail": 0
+  },
+  "stage_plan": [
+    0,
+    5
+  ],
+  "stage_retry_count": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "stage_status": {
+    "0": "completed",
+    "5": "completed"
+  },
+  "task_id": "erf_fwd-erf_fwd-20261028T181719Z",
+  "user_requirement": "迁移 TileOPs GPU 算子 ErfFwdOp 到 TileLang NPUIR（Ascend 910B3）；GPU_REPO=/mnt/workspace/learn/refs/TileOPs；manifest=elementwise_unary_math.yaml（family=elementwise）；op_slug=erf_fwd；规格从 GPU 代码与 manifest workloads 推断；编程模式 developer（TILELANG_ASCEND_MODE=Developer）；Stage 4 跳过；T.verf 非硬件 erf（7 阶泰勒展开，大 |x| 严重失真）不可用于全范围实现，须用 Abramowitz & Stegun 7.1.26 近似并在设计中复核"
+}

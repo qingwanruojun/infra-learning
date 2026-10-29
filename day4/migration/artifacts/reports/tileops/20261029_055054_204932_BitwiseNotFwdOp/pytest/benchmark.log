@@ -1,0 +1,66 @@
+command: /usr/local/bin/python -m pytest benchmarks/ops/bench_bitwise_not.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/benchmark.xml -m not smoke
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-10-29 05:53:00  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 05:53:00  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 05:53:00  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 8 items
+
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[smoke-1m-bool] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_4oqy8c7x/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_4oqy8c7x/prof_script.py
+=== [msprof] latency_us: 29.240585, roofline: {'Ratio(%)': 1.0248, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.0168416500091553, 'Perf(TOps/s)': 0.018236570060253143, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[smoke-1m-uint8] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_o5a5q0bl/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_o5a5q0bl/prof_script.py
+=== [msprof] latency_us: 26.360527, roofline: {'Ratio(%)': 1.1368, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.25970223546028137, 'Perf(TOps/s)': 0.005166512448340654, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[smoke-1m-int32] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_ww53fjko/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_ww53fjko/prof_script.py
+=== [msprof] latency_us: 31.080622, roofline: {'Ratio(%)': 7.711600000000001, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.126216858625412, 'Perf(TOps/s)': 0.017033379524946213, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[elementwise-16m-int32] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_5ll28m_8/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_5ll28m_8/prof_script.py
+=== [msprof] latency_us: 455.509125, roofline: {'Ratio(%)': 8.4187, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.1250760555267334, 'Perf(TOps/s)': 0.018427135422825813, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[elementwise-16m-int64] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof__heybjow/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof__heybjow/prof_script.py
+=== [msprof] latency_us: 501.970032, roofline: {'Ratio(%)': 19.098000000000003, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.10003410279750824, 'Perf(TOps/s)': 0.03343294560909271, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[elementwise-64m-int16] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_ezf0kzb7/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_ezf0kzb7/prof_script.py
+=== [msprof] latency_us: 1699.754028, roofline: {'Ratio(%)': 5.5697, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.10129664838314056, 'Perf(TOps/s)': 0.009873390197753906, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[elementwise-64m-int32] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_epmn16it/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_epmn16it/prof_script.py
+=== [msprof] latency_us: 1801.015991, roofline: {'Ratio(%)': 13.797699999999999, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.0771712064743042, 'Perf(TOps/s)': 0.018633678555488586, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+benchmarks/ops/bench_bitwise_not.py::test_bitwise_not_bench[elementwise-256m-int32] BitwiseNotFwdKernel initialized with config: {'block_size': 256}
+AscendNPU IR compile success: 
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_acfe5ozg/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /usr/local/bin/python /tmp/tileops_msprof_acfe5ozg/prof_script.py
+=== [msprof] latency_us: 7220.364746, roofline: {'Ratio(%)': 16.1979, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.06557969748973846, 'Perf(TOps/s)': 0.018589483574032784, 'Computility(TOps/s)': 2.303999900817871}
+PASSED
+Benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/benchmark.md
+Structured benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/benchmark.json
+
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/pytest/benchmark.xml -
+=================== 8 passed, 1 warning in 666.05s (0:11:06) ===================

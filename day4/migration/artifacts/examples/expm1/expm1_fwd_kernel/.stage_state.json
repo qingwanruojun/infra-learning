@@ -1,0 +1,60 @@
+{
+  "artifact_hashes": {
+    "examples/expm1/expm1_fwd_kernel/DESIGN.md": "5268bee720d4829baae60cd880c53f3539a7f870f5bb3ec06ef8551ca3f914da",
+    "examples/expm1/expm1_fwd_kernel/REVIEW.md": "c88873154a72639e1045fb64bea7eebe3d1d98e08560b67c83b145e80cf7d446",
+    "examples/expm1/expm1_fwd_kernel/expm1_fwd_kernel.py": "6ddcfaf55daffd43b2944bc06a3d33b19e0f427fcac5101349e6819ceb689366"
+  },
+  "budget": {
+    "max_stage4_experiments": null,
+    "max_subagent_dispatches": null,
+    "max_wallclock_s": null
+  },
+  "current_stage": 3,
+  "design_md_path": "examples/expm1/expm1_fwd_kernel/DESIGN.md",
+  "env_check_passed": false,
+  "failure_reason": null,
+  "final_artifact": "examples/expm1/expm1_fwd_kernel/expm1_fwd_kernel.py",
+  "kernel_opt_py_path": "examples/expm1/expm1_fwd_kernel/perf_opt/expm1_fwd_kernel.py",
+  "kernel_py_path": "examples/expm1/expm1_fwd_kernel/expm1_fwd_kernel.py",
+  "last_failure_reason": null,
+  "last_updated": "2026-10-28T17:16:34Z",
+  "max_retry": 3,
+  "migration_mode": "harness",
+  "operator_name": "expm1_fwd_kernel",
+  "perf_feedback": null,
+  "perf_iteration": {
+    "consecutive_no_improvement": 0,
+    "count": 0,
+    "last_improvement": 0.0
+  },
+  "perf_tuning_requested": null,
+  "phase": "DONE",
+  "project_name": "expm1",
+  "retry_count": 1,
+  "review_md_path": "examples/expm1/expm1_fwd_kernel/REVIEW.md",
+  "scenario": "migration",
+  "stage3_failure_breakdown": {
+    "precision_fail": 0,
+    "runtime_fail": 0
+  },
+  "stage_plan": [
+    1,
+    2,
+    3
+  ],
+  "stage_retry_count": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "stage_status": {
+    "1": "completed",
+    "2": "completed",
+    "3": "completed"
+  },
+  "task_id": "expm1-expm1_fwd_kernel-20261028T151833Z",
+  "user_requirement": "harness 迁移函数 expm1_fwd_kernel（Expm1FwdOp / expm1 / elementwise）；规格从 GPU 源码与 NPU 侧 manifest workloads 推断；developer 模式；精度风险：expm1 小|x| 相消误差需离线数值实验量化（Taylor 分段 vs 高精度中间量）"
+}

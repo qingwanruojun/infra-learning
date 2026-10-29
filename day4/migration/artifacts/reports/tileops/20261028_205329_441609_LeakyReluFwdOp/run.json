@@ -1,0 +1,673 @@
+{
+  "schema_version": 2,
+  "operator": "LeakyReluFwdOp",
+  "status": "passed",
+  "metadata": {
+    "run_id": "20261028_205329_441609_LeakyReluFwdOp",
+    "generated_at": "2026-10-28T21:08:11.354650+08:00",
+    "project_root": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs",
+    "git_commit": "88ee8c302e7c5bc2153d68f02b613cae04449351",
+    "python": "3.11.4",
+    "platform": "Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31",
+    "test_file": "tests/ops/test_leaky_relu.py",
+    "benchmark_file": "benchmarks/ops/bench_leaky_relu.py",
+    "prof_mode_requested": "msprof",
+    "kernel_name_requested": null,
+    "commands": {
+      "correctness": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "tests/ops/test_leaky_relu.py",
+        "-sv",
+        "--junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/pytest/correctness.xml"
+      ],
+      "benchmark": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "benchmarks/ops/bench_leaky_relu.py",
+        "-sv",
+        "--junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/pytest/benchmark.xml",
+        "-m",
+        "not smoke"
+      ]
+    },
+    "exit_codes": {
+      "correctness": 0,
+      "benchmark": 0
+    }
+  },
+  "setup": {
+    "metadata": {
+      "framework": "TileOPs Reporting 0.1.0",
+      "date": "2026-10-28T21:08:11.354650+08:00",
+      "evaluation_scope": "LeakyReluFwdOp",
+      "benchmark": "TileOPs pytest operator suite",
+      "profiler": "msprof",
+      "run_id": "20261028_205329_441609_LeakyReluFwdOp",
+      "git_commit": "88ee8c302e7c5bc2153d68f02b613cae04449351",
+      "correctness_target": "tests/ops/test_leaky_relu.py",
+      "benchmark_target": "benchmarks/ops/bench_leaky_relu.py"
+    },
+    "environment": {
+      "npu": "Ascend910B3 x 1",
+      "cpu": "aarch64",
+      "cann": "9.0.0",
+      "driver": "25.5.0",
+      "pytorch": "2.7.1+cpu",
+      "pytorch_npu": "2.7.1.post4",
+      "tilelang": "0.1.1.10+ubuntu.20.4.cann900",
+      "python": "3.11.4",
+      "os": "Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31",
+      "container": "container"
+    }
+  },
+  "summary": {
+    "correctness_passed": true,
+    "correctness_tests": 14,
+    "correctness_failed": 0,
+    "operator_count": 1,
+    "total_cases": 14,
+    "passed_cases": 14,
+    "failed_cases": 0,
+    "pass_rate": 1.0,
+    "benchmark_requested": true,
+    "benchmark_passed": true,
+    "benchmark_tests": 9,
+    "benchmark_failed": 0,
+    "case_count": 6,
+    "msprof_case_count": 6,
+    "profiler_fallback_count": 0,
+    "kernel_filter_fallback_count": 0,
+    "invalid_profile_count": 0
+  },
+  "correctness": {
+    "path": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/pytest/correctness.xml",
+    "status": "passed",
+    "tests": 14,
+    "passed": 14,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_op[1048576-dtype0]",
+        "name": "test_leaky_relu_op[1048576-dtype0]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 43.177,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_op[1048576-dtype1]",
+        "name": "test_leaky_relu_op[1048576-dtype1]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 16.742,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_op[1048576-dtype2]",
+        "name": "test_leaky_relu_op[1048576-dtype2]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 17.097,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_op[4000000-dtype3]",
+        "name": "test_leaky_relu_op[4000000-dtype3]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.469,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_op[4000000-dtype4]",
+        "name": "test_leaky_relu_op[4000000-dtype4]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.308,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_param[1048576-dtype0]",
+        "name": "test_leaky_relu_param[1048576-dtype0]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.36,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_param[1048576-dtype1]",
+        "name": "test_leaky_relu_param[1048576-dtype1]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.344,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_param[1048576-dtype2]",
+        "name": "test_leaky_relu_param[1048576-dtype2]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.405,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_param[4000000-dtype3]",
+        "name": "test_leaky_relu_param[4000000-dtype3]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.298,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_param[4000000-dtype4]",
+        "name": "test_leaky_relu_param[4000000-dtype4]",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.307,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_inplace",
+        "name": "test_leaky_relu_inplace",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 2.25,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_rejects_non_float_dtype",
+        "name": "test_leaky_relu_rejects_non_float_dtype",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 0.002,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_rejects_nonfinite_negative_slope",
+        "name": "test_leaky_relu_rejects_nonfinite_negative_slope",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 0.002,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_leaky_relu::test_leaky_relu_eval_roofline",
+        "name": "test_leaky_relu_eval_roofline",
+        "classname": "tests.ops.test_leaky_relu",
+        "time_s": 0.002,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      }
+    ]
+  },
+  "benchmark_tests": {
+    "path": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/pytest/benchmark.xml",
+    "status": "passed",
+    "tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[smoke-1m-float32]",
+        "name": "test_leaky_relu_bench[smoke-1m-float32]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 110.262,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "17.3803"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[smoke-1m-float16]",
+        "name": "test_leaky_relu_bench[smoke-1m-float16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 82.007,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "11.4202"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[smoke-1m-bfloat16]",
+        "name": "test_leaky_relu_bench[smoke-1m-bfloat16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 83.411,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "11.1802"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[gan-feat-float16]",
+        "name": "test_leaky_relu_bench[gan-feat-float16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 86.097,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "141.4628"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[gan-feat-bfloat16]",
+        "name": "test_leaky_relu_bench[gan-feat-bfloat16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 84.782,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "144.8429"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[gan-feat-deep-float16]",
+        "name": "test_leaky_relu_bench[gan-feat-deep-float16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 85.655,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "71.3614"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[gan-feat-deep-bfloat16]",
+        "name": "test_leaky_relu_bench[gan-feat-deep-bfloat16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 85.543,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "72.0814"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[fc-wide-float16]",
+        "name": "test_leaky_relu_bench[fc-wide-float16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 65.635,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "71.1014"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_leaky_relu::test_leaky_relu_bench[fc-wide-bfloat16]",
+        "name": "test_leaky_relu_bench[fc-wide-bfloat16]",
+        "classname": "benchmarks.ops.bench_leaky_relu",
+        "time_s": 66.663,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "LeakyReluFwdOp",
+          "op_module": "tileops.ops.elementwise.leaky_relu",
+          "tileops_latency_us": "73.4215"
+        }
+      }
+    ]
+  },
+  "performance": {
+    "source": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/benchmark.json",
+    "requested_prof_mode": "msprof",
+    "cases": [
+      {
+        "operator": "LeakyReluFwdOp",
+        "case_id": "LeakyReluFwdOp-55b31d174302",
+        "label": "gan-feat",
+        "params": {
+          "dtype": "float16",
+          "op_params": {},
+          "shape": [
+            16,
+            256,
+            64,
+            64
+          ]
+        },
+        "config": {
+          "block_size": 2048
+        },
+        "tag": "tileops",
+        "latency_us": 141.46283,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.5541,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 2.0104751586914062,
+        "performance_tops": 0.47687870264053345,
+        "computility_tops": 4.584098815917969,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/artifacts/msprof/main_5rigko99",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 141.46283,
+          "max_latency_us": 141.46283,
+          "min_latency_us": 141.46283,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "LeakyReluFwdOp",
+        "case_id": "LeakyReluFwdOp-53b504586d2a",
+        "label": "gan-feat",
+        "params": {
+          "dtype": "bfloat16",
+          "op_params": {},
+          "shape": [
+            16,
+            256,
+            64,
+            64
+          ]
+        },
+        "config": {
+          "block_size": 2048
+        },
+        "tag": "tileops",
+        "latency_us": 144.842896,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.2378,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 2.5104732513427734,
+        "performance_tops": 0.581580638885498,
+        "computility_tops": 4.588839054107666,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/artifacts/msprof/main_c5rio53l",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 144.842896,
+          "max_latency_us": 144.842896,
+          "min_latency_us": 144.842896,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "LeakyReluFwdOp",
+        "case_id": "LeakyReluFwdOp-d0241e58468f",
+        "label": "gan-feat-deep",
+        "params": {
+          "dtype": "float16",
+          "op_params": {},
+          "shape": [
+            16,
+            512,
+            32,
+            32
+          ]
+        },
+        "config": {
+          "block_size": 2048
+        },
+        "tag": "tileops",
+        "latency_us": 71.361427,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.4345,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 2.0131378173828125,
+        "performance_tops": 0.4732963740825653,
+        "computility_tops": 4.578088283538818,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/artifacts/msprof/main_u9qfj7cg",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 71.361427,
+          "max_latency_us": 71.361427,
+          "min_latency_us": 71.361427,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "LeakyReluFwdOp",
+        "case_id": "LeakyReluFwdOp-fa595e331233",
+        "label": "gan-feat-deep",
+        "params": {
+          "dtype": "bfloat16",
+          "op_params": {},
+          "shape": [
+            16,
+            512,
+            32,
+            32
+          ]
+        },
+        "config": {
+          "block_size": 2048
+        },
+        "tag": "tileops",
+        "latency_us": 72.081444,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.300300000000002,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 2.513134002685547,
+        "performance_tops": 0.5849454402923584,
+        "computility_tops": 4.58400821685791,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/artifacts/msprof/main_fvy_b4gp",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 72.081444,
+          "max_latency_us": 72.081444,
+          "min_latency_us": 72.081444,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "LeakyReluFwdOp",
+        "case_id": "LeakyReluFwdOp-38784cca412c",
+        "label": "fc-wide",
+        "params": {
+          "dtype": "float16",
+          "op_params": {},
+          "shape": [
+            2048,
+            4096
+          ]
+        },
+        "config": {
+          "block_size": 2048
+        },
+        "tag": "tileops",
+        "latency_us": 71.101425,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.483600000000001,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 2.0131378173828125,
+        "performance_tops": 0.4750271141529083,
+        "computility_tops": 4.578088283538818,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/artifacts/msprof/main_x714mqfg",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 71.101425,
+          "max_latency_us": 71.101425,
+          "min_latency_us": 71.101425,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "LeakyReluFwdOp",
+        "case_id": "LeakyReluFwdOp-0c5f035cb580",
+        "label": "fc-wide",
+        "params": {
+          "dtype": "bfloat16",
+          "op_params": {},
+          "shape": [
+            2048,
+            4096
+          ]
+        },
+        "config": {
+          "block_size": 2048
+        },
+        "tag": "tileops",
+        "latency_us": 73.421471,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 13.057599999999999,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 2.513134002685547,
+        "performance_tops": 0.5742694735527039,
+        "computility_tops": 4.58400821685791,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261028_205329_441609_LeakyReluFwdOp/artifacts/msprof/main_vfi2koxy",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 73.421471,
+          "max_latency_us": 73.421471,
+          "min_latency_us": 73.421471,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      }
+    ]
+  },
+  "operators": [
+    {
+      "operator": "LeakyReluFwdOp",
+      "family": "elementwise",
+      "cases": 14,
+      "passed": 14,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_max_abs_err": 0.0,
+      "max_abs_err": 0.0,
+      "performance_cases": 6,
+      "ratio_range": {
+        "min": 13.057599999999999,
+        "max": 13.5541
+      }
+    }
+  ],
+  "warnings": [],
+  "session_timing": {
+    "enabled": true,
+    "operators": {
+      "LeakyReluFwdOp": {
+        "operator": "LeakyReluFwdOp",
+        "source": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/leaky_relu/SESSION_TIMING_ANALYSIS.md",
+        "status": "invalid",
+        "total_duration_s": null,
+        "breakdown": [],
+        "reason": "breakdown[10].duration_s must be a number"
+      }
+    }
+  }
+}

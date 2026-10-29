@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TileOPs Evaluation Report: BitwiseNotFwdOp</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e;
+      --ink-mid: #4a4a5e;
+      --ink-light: #7a7a8e;
+      --rule: #c8c8d0;
+      --rule-light: #e8e8ee;
+      --bg-page: #f0f2f5;
+      --bg-paper: #fff;
+      --bg-stripe: #f8f9fb;
+      --bg-callout: #f4f6fa;
+      --score-high: #1a6b3c;
+      --score-mid: #a66c00;
+      --score-low: #c0392b;
+      --accent: #1e4d7b;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+        "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "SF Mono", "Cascadia Code", Consolas, "Noto Sans Mono SC", monospace;
+      --content-width: 980px;
+      --pad-h: 40px;
+    }
+    html { font-size: 16px; }
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 24px 8px 48px;
+      background: var(--bg-page);
+      color: var(--ink);
+      font-family: var(--font-stack);
+      line-height: 1.6;
+    }
+    .report {
+      width: 100%;
+      max-width: var(--content-width);
+      background: var(--bg-paper);
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 6%), 0 2px 16px rgb(0 0 0 / 8%);
+    }
+    .report-header {
+      padding: 10px var(--pad-h);
+      background: var(--ink);
+      color: #fff;
+      font-size: .6875rem;
+      letter-spacing: .18em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .report-header span { opacity: .55; font-weight: 400; }
+    .title-area {
+      padding: 34px var(--pad-h) 27px;
+      border-bottom: 3px double var(--ink);
+      text-align: center;
+    }
+    .title-area h1 { margin-bottom: 7px; font-size: 1.5rem; line-height: 1.4; }
+    .title-area h2 {
+      color: var(--ink-mid);
+      font-size: .875rem;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .meta-line { margin-top: 13px; color: var(--ink-mid); font-size: .75rem; }
+    .meta-line + .meta-line { margin-top: 2px; }
+    .status {
+      display: inline-block;
+      margin-left: 7px;
+      padding: 1px 7px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: .625rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .status.passed { color: var(--score-high); }
+    .status.partial { color: var(--score-mid); }
+    .status.failed { color: var(--score-low); }
+    .abstract {
+      margin: 20px var(--pad-h) 0;
+      padding: 18px 22px;
+      border: 1px solid var(--rule-light);
+      border-radius: 4px;
+      background: var(--bg-callout);
+    }
+    .abstract h3 {
+      margin-bottom: 7px;
+      font-size: .8125rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .abstract p { color: var(--ink-mid); font-size: .8125rem; line-height: 1.75; }
+    .section { padding: 0 var(--pad-h); margin-top: 28px; }
+    .section h3 {
+      margin-bottom: 16px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 1rem;
+    }
+    .section h4 { margin: 20px 0 8px; font-size: .875rem; }
+    .operator-block { margin-top: 22px; }
+    .operator-block + .operator-block {
+      margin-top: 32px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule-light);
+    }
+    .sec-num { margin-right: 8px; }
+    .kpi-strip {
+      display: flex;
+      margin: 16px 0;
+      overflow: hidden;
+      border: 1px solid var(--rule-light);
+      border-radius: 4px;
+    }
+    .kpi-item {
+      flex: 1;
+      padding: 18px 10px;
+      border-right: 1px solid var(--rule-light);
+      text-align: center;
+    }
+    .kpi-item:last-child { border-right: 0; }
+    .kpi-value { color: var(--ink); font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+    .kpi-label {
+      margin-top: 5px;
+      color: var(--ink-light);
+      font-size: .6875rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .kpi-sub { margin-top: 2px; color: var(--ink-light); font-size: .625rem; }
+    .table-wrap { margin: 14px 0; overflow-x: auto; }
+    .table-wrap caption {
+      margin-bottom: 8px;
+      caption-side: top;
+      color: var(--ink-mid);
+      font-size: .75rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .table-wrap table { width: 100%; border-collapse: collapse; font-size: .75rem; }
+    .table-wrap thead th {
+      padding: 9px 8px;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1.5px solid var(--ink);
+      background: var(--bg-paper);
+      color: var(--ink);
+      font-size: .65rem;
+      letter-spacing: .025em;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .table-wrap tbody td {
+      padding: 8px;
+      border-bottom: 1px solid var(--rule-light);
+      color: var(--ink-mid);
+      text-align: center;
+      vertical-align: middle;
+    }
+    .table-wrap tbody tr:nth-child(even) { background: var(--bg-stripe); }
+    .table-wrap tbody tr:last-child { border-bottom: 1.5px solid var(--ink); }
+    .table-wrap .col-name { color: var(--ink); font-weight: 600; text-align: left; }
+    code { font-family: var(--font-mono); font-size: .6875rem; }
+    .number { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .strong { color: var(--ink) !important; font-weight: 700; }
+    .cell-sub { display: block; margin-top: 1px; color: var(--ink-light); font-size: .6rem; }
+    .score-cell { font-weight: 600; }
+    .score-high { color: var(--score-high) !important; }
+    .score-mid { color: var(--score-mid) !important; }
+    .score-low { color: var(--score-low) !important; }
+    .case-link { color: var(--accent); font-weight: 700; text-decoration: none; }
+    .case-link:hover { text-decoration: underline; }
+    .note { margin-top: 6px; color: var(--ink-light); font-size: .6875rem; font-style: italic; }
+    .callout {
+      margin: 12px 0;
+      padding: 12px 16px;
+      border: 1px solid var(--rule-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      background: var(--bg-callout);
+      color: var(--ink-mid);
+      font-size: .75rem;
+    }
+    .callout.warning { border-left-color: var(--score-mid); }
+    .callout ul { margin: 5px 0 0 18px; }
+    .case-detail {
+      margin-bottom: 8px;
+      border: 1px solid var(--rule-light);
+      border-radius: 4px;
+      background: var(--bg-paper);
+    }
+    .case-detail[open] { border-left: 3px solid var(--accent); }
+    .case-detail summary {
+      display: grid;
+      grid-template-columns: minmax(100px, 160px) 90px 70px minmax(190px, 1fr) 90px 36px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 14px;
+      color: var(--ink-mid);
+      cursor: pointer;
+      font-size: .75rem;
+      list-style-position: inside;
+    }
+    .case-detail summary strong { color: var(--ink); text-align: right; }
+    .case-detail summary::after { content: "展开"; color: var(--accent); font-size: .625rem; }
+    .case-detail[open] summary::after { content: "收起"; }
+    .timing-detail summary { grid-template-columns: minmax(180px, 1fr) 110px 100px 36px; }
+    .case-index { color: var(--accent); font-weight: 700; }
+    .detail-grid { padding: 0 14px 14px; }
+    .detail-grid table { width: 100%; border-collapse: collapse; font-size: .6875rem; }
+    .detail-grid td { padding: 5px 7px; border-bottom: 1px solid var(--rule-light); }
+    .detail-grid .kv-k { width: 29%; color: var(--ink); font-weight: 600; }
+    .setup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+      align-items: start;
+    }
+    .setup-block {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--rule-light);
+      border-radius: 5px;
+      background: var(--bg-paper);
+    }
+    .setup-block h4 {
+      margin: 0;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rule-light);
+      background: var(--bg-callout);
+      font-size: .6875rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .setup-block table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: .6875rem;
+    }
+    .setup-block td {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--rule-light);
+      color: var(--ink-mid);
+      line-height: 1.45;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    .setup-block tr:last-child td { border-bottom: 0; }
+    .setup-block .kv-k {
+      width: 36%;
+      color: var(--ink);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .empty { padding: 24px !important; color: var(--ink-light) !important; text-align: center; }
+    .footnote {
+      margin-top: 28px;
+      padding: 14px var(--pad-h);
+      border-top: 1px solid var(--rule);
+      color: var(--ink-light);
+      font-size: .625rem;
+      line-height: 1.8;
+    }
+    @media (max-width: 760px) {
+      :root { --pad-h: 20px; }
+      body { padding: 0; }
+      .kpi-strip { flex-wrap: wrap; }
+      .kpi-item { flex: 1 1 50%; }
+      .setup-grid { grid-template-columns: 1fr; }
+      .case-detail summary { grid-template-columns: 70px 1fr; }
+      .case-detail summary::after { display: none; }
+      .case-detail summary strong { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<main class="report">
+  <div class="report-header">TILEOPS EVALUATION REPORT <span>· STRUCTURED NPU OPERATOR BENCHMARK</span></div>
+
+  <div class="title-area">
+    <h1>TileOPs 算子评测报告</h1>
+    <h2>Correctness-gated NPU Performance Evaluation</h2>
+    <div class="meta-line"><strong>BitwiseNotFwdOp</strong> · 5 Workloads · Profiler: msprof</div>
+    <div class="meta-line">2026-10-29T06:04:12.062167+08:00 <span class="status passed">PASSED</span></div>
+  </div>
+
+  <div class="abstract">
+    <h3>Abstract / 摘要</h3>
+    <p>本报告覆盖 <strong>1</strong> 个算子、<strong>9</strong> 个精度用例和 <strong>5</strong> 个性能 workload。精度由原有 pytest golden 对比判定，性能数据来自 BenchmarkReport 与 msprof；run.json 是机器可读的事实来源。</p>
+  </div>
+
+  <section class="section">
+    <h3><span class="sec-num">1.</span> Experiment Setup / 评测配置</h3>
+    <div class="setup-grid"><div class="setup-block"><h4>Metadata / 元信息</h4><table><tbody><tr><td class="kv-k">Framework</td><td>TileOPs Reporting 0.1.0</td></tr><tr><td class="kv-k">Date</td><td>2026-10-29T06:04:12.062167+08:00</td></tr><tr><td class="kv-k">Evaluation Scope</td><td>BitwiseNotFwdOp</td></tr><tr><td class="kv-k">Benchmark</td><td>TileOPs pytest operator suite</td></tr><tr><td class="kv-k">Profiler</td><td>msprof</td></tr><tr><td class="kv-k">Run ID</td><td>20261029_055054_204932_BitwiseNotFwdOp</td></tr><tr><td class="kv-k">Git Commit</td><td>2a94a29845e556ba0d75a07f699ceb9886544f63</td></tr><tr><td class="kv-k">Correctness Target</td><td>tests/ops/test_bitwise_not.py</td></tr><tr><td class="kv-k">Benchmark Target</td><td>benchmarks/ops/bench_bitwise_not.py</td></tr></tbody></table></div><div class="setup-block"><h4>Environment / 运行环境</h4><table><tbody><tr><td class="kv-k">NPU</td><td>Ascend910B3 x 1</td></tr><tr><td class="kv-k">CPU</td><td>aarch64</td></tr><tr><td class="kv-k">CANN</td><td>9.0.0</td></tr><tr><td class="kv-k">Driver</td><td>25.5.0</td></tr><tr><td class="kv-k">PyTorch</td><td>2.7.1+cpu</td></tr><tr><td class="kv-k">PyTorch NPU</td><td>2.7.1.post4</td></tr><tr><td class="kv-k">TileLang</td><td>0.1.1.10+ubuntu.20.4.cann900</td></tr><tr><td class="kv-k">Python</td><td>3.11.4</td></tr><tr><td class="kv-k">OS</td><td>Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31</td></tr><tr><td class="kv-k">Container</td><td>container</td></tr></tbody></table></div></div>
+  </section>
+
+  <section class="section">
+    <h3><span class="sec-num">2.</span> Results Overview / 结果总览</h3>
+    <div class="kpi-strip">
+      <div class="kpi-item"><div class="kpi-value">100.0%</div><div class="kpi-label">Pass Rate / 通过率</div><div class="kpi-sub">9 / 9 cases</div></div>
+      <div class="kpi-item"><div class="kpi-value">1</div><div class="kpi-label">Operators / 算子数</div><div class="kpi-sub">evaluated operators</div></div>
+      <div class="kpi-item"><div class="kpi-value">9</div><div class="kpi-label">Total Cases / 总用例</div><div class="kpi-sub">correctness cases</div></div>
+      <div class="kpi-item"><div class="kpi-value">0</div><div class="kpi-label">Failed Cases / 失败用例</div><div class="kpi-sub">failure + error</div></div>
+    </div>
+  </section>
+
+  
+
+  <section class="section">
+    <h3><span class="sec-num">3.</span> Operator Analysis / 算子分析</h3>
+    <div class="table-wrap">
+      <table>
+        <caption>Table 1. Results by operator</caption>
+        <thead><tr><th>#</th><th>Operator</th><th>Total Time / 总时间</th><th>Correctness</th><th>Avg Max Abs Error</th><th>Performance Shapes</th><th>Ratio Range</th></tr></thead>
+        <tbody><tr><td>1</td><td class="col-name"><a class="case-link" href="#operator-1">BitwiseNotFwdOp</a></td><td class="number strong">1h21m57s</td><td class="score-cell score-high">100.0% (9/9)</td><td class="number">0.00e+00</td><td>5</td><td>5.57% – 19.10%</td></tr></tbody>
+      </table>
+    </div>
+    <p class="note">Correctness 格式为通过率 (通过用例/总用例)；Avg Max Abs Error 来自正确性测试，数值越低越好；Ratio 展示各 shape 的最小值–最大值，不跨 shape 求平均。</p>
+  </section>
+
+  <section class="section"><h3><span class="sec-num">4.</span> Operator Details / 算子明细</h3><div class="operator-block" id="operator-1"><h4>4.1 BitwiseNotFwdOp</h4><details class="case-detail timing-detail" id="timing-1"><summary><span class="case-index">Session Timing / Session 耗时</span><strong>1h21m57s</strong><span>available</span></summary><div class="detail-grid"><div class="table-wrap"><table><thead><tr><th>Phase / 环节</th><th>Duration / 耗时</th><th>Ratio / 占比</th><th>Detail / 说明</th></tr></thead><tbody><tr><td>Stage 0 脚手架</td><td class="number">9m41s</td><td class="number">11.80%</td><td>scaffolder ses_e7bbb589 20:47:34→20:57:16，7 文件移植 + Tier 1 + meta</td></tr><tr><td>Stage 1 算子设计</td><td class="number">18m30s</td><td class="number">22.60%</td><td>designer ses_e7bb13139 20:58:39→21:17:10，DESIGN.md 617 行 + verify_equiv</td></tr><tr><td>Stage 1 门禁修复</td><td class="number">41.400s</td><td class="number">0.80%</td><td>designer ses_e7b9fb513 21:17:45→21:18:26，2 处 S1-PLACEHOLDER 字面量修复</td></tr><tr><td>Stage 2 设计检视</td><td class="number">12m26s</td><td class="number">15.20%</td><td>reviewer ses_e7b9ed5ba 21:18:42→21:31:09，9 维度 REVIEW.md 结论通过</td></tr><tr><td>Stage 3 算子开发</td><td class="number">13m37s</td><td class="number">16.60%</td><td>developer ses_e7b93184b 21:31:32→21:45:13，kernel + L0/L1/L2/Boundary 全过</td></tr><tr><td>Stage 5 集成验证</td><td class="number">20m34s</td><td class="number">25.10%</td><td>integrator ses_e7b85aa9a 21:46:12→22:06:46，集成 + 单算子 report passed</td></tr><tr><td>编排与校验开销</td><td class="number">6m24s</td><td class="number">7.80%</td><td>conductor 状态迁移/门禁/二次精度校验/kb 检索/export 导出等 20:45:32→22:07:29</td></tr></tbody></table></div></div></details><div class="table-wrap"><table><caption>Table 4.1. Per-shape performance results</caption><thead><tr><th>Label</th><th>Latency (us)</th><th>Ratio</th><th>Shape / Parameters</th><th>DType</th><th>Kernel</th><th>Bandwidth (TB/s)</th></tr></thead><tbody><tr><td class="col-name"><a class="case-link" href="#case-1-1">elementwise-16m</a></td><td class="number strong">455.509</td><td class="number score-cell score-low">8.42%</td><td><code>[4096, 4096]</code></td><td><code>int32</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-2">elementwise-16m</a></td><td class="number strong">501.970</td><td class="number score-cell score-low">19.10%</td><td><code>[4096, 4096]</code></td><td><code>int64</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-3">elementwise-64m</a></td><td class="number strong">1699.754</td><td class="number score-cell score-low">5.57%</td><td><code>[8192, 8192]</code></td><td><code>int16</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-4">elementwise-64m</a></td><td class="number strong">1801.016</td><td class="number score-cell score-low">13.80%</td><td><code>[8192, 8192]</code></td><td><code>int32</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr><tr><td class="col-name"><a class="case-link" href="#case-1-5">elementwise-256m</a></td><td class="number strong">7220.365</td><td class="number score-cell score-low">16.20%</td><td><code>[16384, 16384]</code></td><td><code>int32</code></td><td><code>main</code><span class="cell-sub">msprof</span></td><td class="number">1.750</td></tr></tbody></table></div><p class="note">Latency 是该 shape 重复测量后的统计值；Ratio 不跨 shape 求平均。</p><details class="case-detail" id="case-1-1"><summary><span class="case-index">elementwise-16m</span><strong>455.509 us</strong><span>8.42%</span><code>[4096, 4096]</code><span>int32</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>BitwiseNotFwdOp-d540b1a9333d</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;int32&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [4096, 4096]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 256}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>0.1251</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>0.0184</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>2.3040</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>455.5091 / 455.5091 / 455.5091</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_50j_308q</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-2"><summary><span class="case-index">elementwise-16m</span><strong>501.970 us</strong><span>19.10%</span><code>[4096, 4096]</code><span>int64</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>BitwiseNotFwdOp-52dc97ed3899</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;int64&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [4096, 4096]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 256}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>0.1000</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>0.0334</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>2.3040</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>501.9700 / 501.9700 / 501.9700</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_eflwymir</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-3"><summary><span class="case-index">elementwise-64m</span><strong>1699.754 us</strong><span>5.57%</span><code>[8192, 8192]</code><span>int16</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>BitwiseNotFwdOp-1c1a6c0abe73</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;int16&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [8192, 8192]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 256}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>0.1013</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>0.0099</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>2.3040</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>1699.7540 / 1699.7540 / 1699.7540</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main__wb6nyho</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-4"><summary><span class="case-index">elementwise-64m</span><strong>1801.016 us</strong><span>13.80%</span><code>[8192, 8192]</code><span>int32</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>BitwiseNotFwdOp-159d92070f68</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;int32&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [8192, 8192]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 256}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>0.0772</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>0.0186</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>2.3040</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>1801.0160 / 1801.0160 / 1801.0160</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_e1kh1tfj</code></td></tr></tbody></table></div></details><details class="case-detail" id="case-1-5"><summary><span class="case-index">elementwise-256m</span><strong>7220.365 us</strong><span>16.20%</span><code>[16384, 16384]</code><span>int32</span></summary><div class="detail-grid"><table><tbody><tr><td class="kv-k">Internal case ID</td><td><code>BitwiseNotFwdOp-29766591a6ed</code></td></tr><tr><td class="kv-k">Parameters</td><td><code>{&quot;dtype&quot;: &quot;int32&quot;, &quot;op_params&quot;: {}, &quot;shape&quot;: [16384, 16384]}</code></td></tr><tr><td class="kv-k">Kernel config</td><td><code>{&quot;block_size&quot;: 256}</code></td></tr><tr><td class="kv-k">Profiler / kernel</td><td><code>msprof / main</code></td></tr><tr><td class="kv-k">AI (Ops/Byte)</td><td><code>0.0656</code></td></tr><tr><td class="kv-k">Performance (TOPS)</td><td><code>0.0186</code></td></tr><tr><td class="kv-k">Computility (TOPS)</td><td><code>2.3040</code></td></tr><tr><td class="kv-k">Samples</td><td><code>1</code></td></tr><tr><td class="kv-k">Min / median / max (us)</td><td><code>7220.3647 / 7220.3647 / 7220.3647</code></td></tr><tr><td class="kv-k">Artifact</td><td><code>/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261029_055054_204932_BitwiseNotFwdOp/artifacts/msprof/main_zri8id1u</code></td></tr></tbody></table></div></details></div></section>
+
+  <div class="footnote">
+    <strong>Framework:</strong> TileOPs Reporting ·
+    <strong>Data Source:</strong> pytest JUnit, BenchmarkReport JSON, msprof artifacts ·
+    <strong>Canonical Record:</strong> run.json
+  </div>
+</main>
+</body>
+</html>

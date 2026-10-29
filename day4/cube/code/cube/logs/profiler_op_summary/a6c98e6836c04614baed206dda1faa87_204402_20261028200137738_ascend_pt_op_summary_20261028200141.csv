@@ -1,0 +1,6 @@
+Device_id,Model ID,Task ID,Stream ID,Op Name,OP Type,OP State,Task Type,Task Start Time(us),Task Duration(us),Task Wait Time(us),Block Num,Mix Block Num,HF32 Eligible,Input Shapes,Input Data Types,Input Formats,Output Shapes,Output Data Types,Output Formats,Context ID
+0,4294967295,11,46,main,N/A,N/A,N/A,1793188897806497.194	,1309.486,0,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,12,46,main,N/A,N/A,N/A,1793188897808351.791	,1315.306,545.014000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,13,46,main,N/A,N/A,N/A,1793188897810196.988	,1316.606,529.944000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,14,46,main,N/A,N/A,N/A,1793188897811986.303	,1317.827,472.644000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+0,4294967295,15,46,main,N/A,N/A,N/A,1793188897813730.338	,1306.786,426.173000,0,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A

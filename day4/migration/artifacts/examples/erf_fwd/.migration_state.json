@@ -1,0 +1,18 @@
+{
+  "family": "elementwise",
+  "functions": {
+    "erf_fwd_kernel": {
+      "stage_state": null,
+      "status": "done"
+    }
+  },
+  "integration": {
+    "attempts": 0,
+    "status": "pass"
+  },
+  "last_updated": "2026-10-28T20:15:23Z",
+  "meta_path": "examples/TileOPs/tileops/kernels/elementwise/erf_fwd/.migration_meta.json",
+  "op_name": "erf_fwd",
+  "op_slug": "erf_fwd",
+  "phase": "DONE"
+}

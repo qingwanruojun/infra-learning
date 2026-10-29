@@ -1,0 +1,60 @@
+{
+  "artifact_hashes": {
+    "examples/elu_fwd/_make_elu_kernel/DESIGN.md": "8821affc675f8034f1e3c93b27281d363ba5a1453b3d631bd54c668b02f265a1",
+    "examples/elu_fwd/_make_elu_kernel/REVIEW.md": "2ae3a7cfe79ff2bdda0db71f2a4fa7658f8854ed8ea995ceeb885bc34a5194d8",
+    "examples/elu_fwd/_make_elu_kernel/_make_elu_kernel.py": "27df0b1e39f622edaa4590f7b0b69e1052a209d9603a840ad1b15d9f4b672b7b"
+  },
+  "budget": {
+    "max_stage4_experiments": null,
+    "max_subagent_dispatches": null,
+    "max_wallclock_s": null
+  },
+  "current_stage": 3,
+  "design_md_path": "examples/elu_fwd/_make_elu_kernel/DESIGN.md",
+  "env_check_passed": false,
+  "failure_reason": null,
+  "final_artifact": "examples/elu_fwd/_make_elu_kernel/_make_elu_kernel.py",
+  "kernel_opt_py_path": "examples/elu_fwd/_make_elu_kernel/perf_opt/_make_elu_kernel.py",
+  "kernel_py_path": "examples/elu_fwd/_make_elu_kernel/_make_elu_kernel.py",
+  "last_failure_reason": null,
+  "last_updated": "2026-10-28T14:38:16Z",
+  "max_retry": 3,
+  "migration_mode": "harness",
+  "operator_name": "_make_elu_kernel",
+  "perf_feedback": null,
+  "perf_iteration": {
+    "consecutive_no_improvement": 0,
+    "count": 0,
+    "last_improvement": 0.0
+  },
+  "perf_tuning_requested": null,
+  "phase": "DONE",
+  "project_name": "elu_fwd",
+  "retry_count": 0,
+  "review_md_path": "examples/elu_fwd/_make_elu_kernel/REVIEW.md",
+  "scenario": "migration",
+  "stage3_failure_breakdown": {
+    "precision_fail": 0,
+    "runtime_fail": 0
+  },
+  "stage_plan": [
+    1,
+    2,
+    3
+  ],
+  "stage_retry_count": {
+    "0": 0,
+    "1": 1,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "stage_status": {
+    "1": "completed",
+    "2": "completed",
+    "3": "completed"
+  },
+  "task_id": "elu_fwd-_make_elu_kernel-20261028T132506Z",
+  "user_requirement": "迁移 EluFwdOp 提取函数 _make_elu_kernel（ELU: y=x if x>0 else alpha*(exp(x)-1)）到 NPUIR；dtype fp16/bf16/fp32，alpha=1.0；GPU factory tileops/kernels/elementwise/elu_fwd/_elu_fwd_kernels.py；规格 manifest workloads [2048,4096]/[2048,8192] fp16/bf16；编程模式 developer；参考 leaky_relu 可迁移教训"
+}

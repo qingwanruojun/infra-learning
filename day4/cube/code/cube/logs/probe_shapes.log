@@ -1,0 +1,27 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 17:51:36  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 17:51:36  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 17:51:36  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+
+=== 257x263x271 tile=100x100x64 -- tile 100x100: neither dim multiple of 16 ===
+AscendNPU IR compile success: 
+  compiled in 4.3s
+  OK  max_abs=1.5625e-02 (max_abs/max|C|=2.30e-04) max_rel=1.7007e-03 max_rel(|ref|>=1%max)=8.5543e-04 rmse=1.05e-04 n_err>1ulp=4/67591
+
+=== 257x263x271 tile=16x32x32 -- tile 16x32: minimal fractal tiles ===
+AscendNPU IR compile success: 
+  compiled in 2.3s
+  OK  max_abs=1.5625e-02 (max_abs/max|C|=2.21e-04) max_rel=8.2559e-03 max_rel(|ref|>=1%max)=9.2593e-04 rmse=1.03e-04 n_err>1ulp=4/67591
+
+=== 129x128x64 tile=128x128x64 -- N=129: single-column tail ===
+  compiled in 0.1s
+  OK  max_abs=1.5625e-02 (max_abs/max|C|=4.54e-04) max_rel=9.0498e-04 max_rel(|ref|>=1%max)=9.0498e-04 rmse=1.25e-04 n_err>1ulp=0/16512
+
+=== 64x64x15 tile=64x64x64 -- K=15 < one fractal row ===
+AscendNPU IR compile success: 
+  compiled in 2.5s
+  OK  max_abs=1.9531e-03 (max_abs/max|C|=1.20e-04) max_rel=7.9428e-04 max_rel(|ref|>=1%max)=7.9428e-04 rmse=3.05e-05 n_err>1ulp=0/4096
+
+0 failing case(s) out of 4
+probe_exit=0

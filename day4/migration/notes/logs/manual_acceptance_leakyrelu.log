@@ -1,0 +1,10 @@
+# 独立复验（Claude 本人执行，非框架自述），2026-10-28 21:12 左右
+# cmd: cd examples/TileOPs && PYTHONPATH=... TILELANG_ASCEND_MODE=Developer python -m pytest tests/ops/test_leaky_relu.py -q
+..............                                                           [100%]
+14 passed, 1 warning in 101.09s (0:01:41)
+
+# 同时核对：
+# - 集成目录 tileops/kernels/elementwise/leaky_relu/leaky_relu_kernel/_make_leaky_relu_kernel.py
+#   含 target="npuir" x2、alloc_ub x11（grep -c）
+# - GPU 源仓库 refs/TileOPs `git status --short` 为空（未污染上游）
+# 注：本 log 是事后据终端输出抄录；一键重跑见 experiments/rerun_leakyrelu_acceptance.sh

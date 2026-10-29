@@ -1,0 +1,18 @@
+{
+  "family": "elementwise",
+  "functions": {
+    "_make_elu_kernel": {
+      "stage_state": null,
+      "status": "done"
+    }
+  },
+  "integration": {
+    "attempts": 0,
+    "status": "pass"
+  },
+  "last_updated": "2026-10-28T15:02:35Z",
+  "meta_path": "examples/TileOPs/tileops/kernels/elementwise/elu_fwd/.migration_meta.json",
+  "op_name": "elu_fwd",
+  "op_slug": "elu_fwd",
+  "phase": "DONE"
+}

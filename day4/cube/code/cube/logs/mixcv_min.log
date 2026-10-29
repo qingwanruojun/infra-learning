@@ -1,0 +1,21 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-28 17:52:00  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-28 17:52:00  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-28 17:52:00  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+wrote /mnt/workspace/learn/tilelang-ascend/day4/code/logs/mixcv_min.mlir
+  ops in module: func_core_typex1, get_block_idxx1, mmadL1x1, module_core_typex1, set_ffts_base_addrx1, vexpx1
+    func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>},
+    %12 = hivm.hir.mmadL1 ins(%7, %11, %true, %c128, %c512, %c256 : tensor<128x512xf16>, tensor<512x256xf16>, i1, index, index, index) outs(%2 : tensor<12
+    %13 = hivm.hir.vexp ins(%12 : tensor<128x256xf32>) outs(%3 : tensor<128x256xf32>) -> tensor<128x256xf32>
+
+[official (unscaled)] scale=1  |C|max=111  exp 溢出 51 个元素（占 0.00%）
+  C=gemm: max_abs=5.3406e-05 max_abs/max|C|=4.798e-07 max_rel(|ref|>=1%max)=1.842e-05 rmse=5.171e-06
+  D=exp(gemm): max_abs=7.1191e+33 max_abs/max|C|=2.295e-05 max_rel(|ref|>=1%max)=5.345e-05 rmse=inf
+  official (unscaled): All check passed (rtol=1e-2, atol=1e-2)
+
+[scaled x0.36] scale=0.36  |C|max=17.2  exp 溢出 0 个元素（占 0.00%）
+  C=gemm: max_abs=7.6294e-06 max_abs/max|C|=4.428e-07 max_rel(|ref|>=1%max)=1.966e-05 rmse=6.706e-07
+  D=exp(gemm): max_abs=5.5000e+00 max_abs/max|C|=1.933e-06 max_rel(|ref|>=1%max)=7.608e-06 rmse=6.863e-03
+  scaled x0.36: All check passed (rtol=1e-2, atol=1e-2)
+mixcv_exit=0
