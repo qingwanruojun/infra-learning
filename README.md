@@ -209,3 +209,7 @@ Cube 部分：`day4/cube/code/`，入口见 [`day4/cube/code/cube/PACKAGE-README
 
 - `day*/` 下的 PDF 是导出的完整笔记（含截图）；Markdown 中的图片指向本地 Typora 路径，在 GitHub 上不会渲染。
 - `day3/code/logs/` 是原始实测输出，未做整理，便于对照正文数字。
+
+## 联系
+
+如有疑问，请联系：2133292721@qq.com
