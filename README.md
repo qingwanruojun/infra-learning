@@ -20,7 +20,10 @@ day3/   手写 Vector 算子（abs、rmsnorm）
   code/own_ops/        abs.py、rmsnorm.py（含 pytest 用例与 benchmark）
   code/experiments/    24 个运行时探针（host 预算、ABBA 对拍、device 阶梯、rstd 精度…）
   code/logs/           43 份实测日志 + 61 份 op_summary CSV
-skills/ 4 个 Claude Code skill：算子 guardrails / 对拍协议 / TileLang 套路 / 每日笔记
+day4/   Cube 算子 + TileOPs 5 算子迁移
+  cube/                GEMM 三档实现、memory-bound 对拍、mixcv_min（Cube+Vector 同核）
+  migration/           5 算子迁移交付包：报告、框架定义、集成代码、性能基线、独立复验日志
+skills/ 5 个 Claude Code skill：算子 guardrails / 对拍协议 / TileLang 套路 / 每日笔记 / 迁移框架
 ```
 
 ## 进度
@@ -30,7 +33,7 @@ skills/ 4 个 Claude Code skill：算子 guardrails / 对拍协议 / TileLang �
 | D1 | 10/26 | Codex/Agent 原理、申请机器、读三个仓库 README | `day1/day1学习指标.md` | ✅ |
 | D2 | 10/27 | 编译 TileLang、跑通 L2、TileLang DSL 全量速读 | `day2/day2学习指标.md` | ✅ |
 | D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标.md`](day3/note/day3学习指标.md)、`day3/code/`、`skills/` | ✅ |
-| D4 | 10/29 | **TileOPs 5 算子迁移**（Agent 框架 `migration-harness`）：BitwiseNot / Erf / Expm1 / Elu / LeakyRelu → 910B；CUBE 顺带 | `day4/`（待建） | 未开始 |
+| D4 | 10/29 | **TileOPs 5 算子迁移**（Agent 框架 `migration-harness`）：BitwiseNot / Erf / Expm1 / Elu / LeakyRelu → 910B；另完成 Cube 学习 | [`day4/migration/迁移报告.md`](day4/migration/迁移报告.md)、[`day4/cube/note/day4报告-Cube.md`](day4/cube/note/day4报告-Cube.md) | ✅ |
 | D5 | 10/30 | MixCV / FlashAttention、第一周收口 | — | 未开始 |
 | D6 | 11/02 | MLIR 与 AscendNPU-IR 入门 | — | 未开始 |
 | D7 | 11/03 | 编译链路追踪（TVM IR → TileLangIR → HIVM） | — | 未开始 |
@@ -101,6 +104,28 @@ rmsnorm（`logs/rmsnorm_bench.log`）：fp32 下裸 `rsqrt` 的 max_abs 是 1.3e
 > ④ “快 11% / 慢 29%”这类幅度仍不可引用，tile / buffer 结论需在 device 时间域复测。正确性、精度与 DSL 结论不受影响。
 > 完整版见 [day3 学习指标](day3/note/day3学习指标.md)，结论沿革见其附录 C。
 
+## Day 4 · Cube 算子 + TileOPs 5 算子迁移
+
+主线是 **TileOPs GPU 算子 → 910B3 NPUIR 的自动迁移**，用 conductor + subagent 的 Stage-Gate 框架跑
+`migration-harness` 场景（Stage 0 → (1→2→3)×每个函数 → Stage 5，不含 Stage 4 调优）。
+
+- **迁移结果**：LeakyReLU / ELU / Expm1 / Erf / BitwiseNot 全部迁完，框架侧 5/5 通过。
+  算子自身正确性 14/14、14/14、8/8、8/8、9/9；不经框架 CLI 独立复跑 4 个测试文件，**53 passed / 0 failed**。
+- **性能**：43 条 msprof device kernel 记录，全部是**未调优基线**（如 LeakyReLU 约 470–480 GB/s）。
+  框架的 `Bandwidth/Ratio` 字段口径未确认，不作为结论引用。
+- **已知缺口**：迁移代码在 `tilelang-mlir-ascend` 仓仍为 untracked；Erf 报告混入 10 条 Expm1 的 bench 记录。
+
+Cube 部分（顺带完成）：GEMM 三档实现（含动态尾块）、4096³ 实测 104.71 TFLOPs（约 torch.matmul 的 2.6 倍）、
+超 L2 的 memory-bound 对拍 3.7–4.4x（配对/单独两种口径）；`mixcv_min` 验证 Cube 与 Vector 可同核
+（同一 `func.func` 内同时出现 `mmadL1` 与 `vexp`），是 Day 5 FlashAttention 的骨架。
+
+迁移中确认的坑：`T.verf` 实际是 7 阶泰勒而非硬件 erf（|x|≥1 失真）；原生 `dtype="bool"` 编译通过但执行挂死；
+uint8 的 `out_idx=[1]` 会把输出分配成 fp32；`vbrc` 标量必须绑在 `@T.prim_func` 体内；2D grid 会被静默串行化。
+另外官方 mixcv 示例的 `assert_close` 在未缩放输入下是退化的（`exp` 溢出成 inf，`inf==inf` 判过）。
+
+完整结果见 [`day4/migration/迁移报告.md`](day4/migration/迁移报告.md)，Cube 见
+[`day4/cube/note/day4报告-Cube.md`](day4/cube/note/day4报告-Cube.md)。
+
 ## Skills（可被 Claude Code 直接加载）
 
 `skills/` 下的五个 skill 是把 Day3 的返工与 Day4 的迁移框架固化成检查表，不是总结文档。
@@ -149,6 +174,30 @@ python experiments/probe_abba_hbm.py 134217728    # 512 MiB，ABBA×10
 
 `probe_abba_hbm.py` 的 `BLOCK, NCORE, ROUNDS` 写死在文件头，改配置要改源码重编译；
 `NCORE=40` 是 910B3 的实测值，换卡先查接口。
+
+## 如何复现 Day 4
+
+在迁移机（已装 `tilelang-mlir-ascend` + 910B）上，于 `day4/migration/` 目录：
+
+```bash
+export CANNBOT_GUI=1
+export GPU_REPO=/mnt/workspace/learn/refs/TileOPs
+export PYTHONPATH=/mnt/workspace/learn/tilelang-ascend:/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+export TILELANG_ASCEND_MODE=Developer
+
+# 独立复验 4 个测试文件（53 passed），日志写到 notes/logs/independent/
+bash notes/experiments/rerun_all_acceptance.sh
+
+# 单算子重跑框架
+cd /mnt/workspace/learn/refs/tilelang-mlir-ascend
+opencode run --agent tilelang-op-conductor --auto --command migrate-op ErfFwdOp
+
+# 只重跑集成报告
+cd examples/TileOPs
+python -m tileops.reporting.cli run --op ErfFwdOp --prof-mode msprof
+```
+
+Cube 部分：`day4/cube/code/`，入口见 [`day4/cube/code/cube/PACKAGE-README.md`](day4/cube/code/cube/PACKAGE-README.md)。
 
 ## 外部资料
 
