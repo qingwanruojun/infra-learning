@@ -1,0 +1,44 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-29 11:02:08  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 11:02:08  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 11:02:08  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+Traceback (most recent call last):
+  File "/mnt/workspace/learn/tilelang-ascend/examples/flash_attn_npuir.py", line 324, in <module>
+    run_test(args)
+  File "/mnt/workspace/learn/tilelang-ascend/examples/flash_attn_npuir.py", line 274, in run_test
+    kernel = flash_attn_kernel(
+             ^^^^^^^^^^^^^^^^^^
+  File "/mnt/workspace/learn/tilelang-ascend/tilelang/jit/__init__.py", line 151, in wrapper
+    kernel_result = compile(
+                    ^^^^^^^^
+  File "/mnt/workspace/learn/tilelang-ascend/tilelang/jit/__init__.py", line 66, in compile
+    return cached_npu(
+           ^^^^^^^^^^^
+  File "/mnt/workspace/learn/tilelang-ascend/tilelang/cache/__init__.py", line 29, in cached_npu
+    return _kernel_cache_instance.cached_npu(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/workspace/learn/tilelang-ascend/tilelang/cache/kernel_cache.py", line 181, in cached_npu
+    kernel = compiler_npu().compile(func, out_idx, pass_configs=pass_configs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/workspace/learn/tilelang-ascend/tilelang/jit/jit_npu.py", line 1194, in compile
+    self.metadata["kernel_src"] = self._npuir_to_bin_enable_npu_compile()
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/workspace/learn/tilelang-ascend/tilelang/jit/jit_npu.py", line 1529, in _npuir_to_bin_enable_npu_compile
+    raise RuntimeError("\n".join(err_lines))
+RuntimeError: AscendNPU IR compile reported success but output object was not generated.
+Expected output: /tmp/tmp4d5qb7ck/kernel.o
+cmd: /mnt/workspace/learn/tilelang-ascend/3rdparty/AscendNPU-IR/build/bin/bishengir-compile /tmp/tmp4d5qb7ck/kernel.npuir --enable-auto-multi-buffer=true --disable-hivm-auto-inject-sync=false --enable-triton-kernel-compile=true --enable-hivm-compile=true --disable-hivm-tensor-compile=true -o /tmp/tmp4d5qb7ck/kernel
+stderr:
+loc("/tmp/bishengir-compile-933238/module.hivm.opt.mlir":59:7): error: failed to legalize operation 'hivm.hir.nd2nz' that was explicitly marked illegal
+loc("/tmp/bishengir-compile-933238/module.hivm.opt.mlir":2:1): error: Failed to run BiShengHIR HIVM To LLVM pipeline
+
+Failed to compile HIVM IR
+[ERROR] Executing: /tmp/fa_repo_wrap/hivmc /tmp/bishengir-compile-933238/module.hivm.opt.mlir --enable-debug-info=false --enable-static-bare-ptr=true --enable-bin-relocation=true --enable-cpu-trace-intrinsic=false --enable-hivm-inject-barrier-all-sync=false --enable-sanitizer=false --enable-lir-compile=true -o /tmp/tmp4d5qb7ck/kernel
+
+[ERROR] 2026-10-29-11:02:15 (PID:7098, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+
+real	0m18.498s
+user	0m15.106s
+sys	0m2.010s

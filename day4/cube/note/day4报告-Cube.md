@@ -1,16 +1,4 @@
-# Day 4 报告：Cube（GEMM）
-
-日期：2026-10-28 · Ascend910B3（`get_aicube_core_num()=20`，40 AIV）· CANN 9.0.0 ·
-tilelang-ascend `npuir` 分支 · AscendNPU-IR 19.1.7
-详细指标：`note/day4学习指标.md` · 时间线：`note/worklog.md` · 原始输出：`code/logs/`
-（下文路径均相对交付包根目录，即 `day4/`）
-
-证据分级沿用 Day 3：**【实测】**=本机日志可查；**【源码】**=仓库/CANN 源码行号；
-**【未验】**=推理或改完未跑。
-
----
-
-### 今天学习总结
+## 今天学习总结
 
 今天第一次离开 Vector 核，手写 Cube 侧的 GEMM。做了三档实现（单块 → 多块 → 动态尾块），
 **7 个用例全部通过（`pytest_all.log`：7 passed in 12.97 s）**【实测】，加上边缘形状探针
@@ -18,7 +6,7 @@ tilelang-ascend `npuir` 分支 · AscendNPU-IR 19.1.7
 比值 **2.617x**）【实测】；memory-bound 的 16384²×64 单独测 **19.32 TFLOPs / 4.425x**，
 配对测 16.25 TFLOPs / 3.698x，两者差 12–30%，只报“**3.7–4.5x ±20%**”。
 
-今天真正值钱的三件事都不在“把 kernel 写出来”：
+今天收获：
 
 1. **2D `T.Kernel` 在 NPU 后端会静默串行化**：语义对、编译过、结果对，但第二维变成块内
    `scf.for`，并行度从 64 块掉到 8 块。只有 1D grid 并行，这是“跑对但慢 8 倍”的坑，
@@ -29,8 +17,8 @@ tilelang-ascend `npuir` 分支 · AscendNPU-IR 19.1.7
    4096³ 的 1580 µs 是入队反压（=device×1.2），16384²×64 的 4667 µs 才是真实提交成本
    （≈0.26 µs/块 × 16384 块，和 Day 3 的 host 律一致）【实测】。
 
-另外，今天还复核并**作废**了一个 memory-bound 对拍点（8192²×64），并把大尺寸基准的
-正确性检查从“跳过”改成设备侧参考——后者**改完还没上机跑**，见 §4.4【未验】。
+另外，今天还复核并**作废**了一个 memory-bound 对拍点（8192²×64）。大尺寸基准的正确性检查
+已从“跳过”改为设备侧参考，但**改完尚未上机验证**，见 §4.4【未验】。
 
 ---
 
@@ -183,7 +171,6 @@ fractal 整倍数 extent。代价是每次多几次标量计算，可忽略【�
 
 `mixcv_min.py` 的 IR 里同一个 `func.func @main` 同时有 `mmadL1` 和 `vexp`，
 模块带 `module_core_type<MIX>` / `mix_mode="mix"`，跨核同步由 TileLang 插【实测】。
-这是 Day 5 FlashAttention 的骨架（Q·Kᵀ 在 Cube、softmax 在 Vector）。
 
 **顺带发现官方示例的断言是退化的**：不缩放输入时 `|C|max=111`，`exp` 溢出成 `inf`
 （51 个元素），`assert_close` 对 `inf==inf` 判过，误差指标全 NaN。缩放 ×0.36 后
@@ -298,8 +285,6 @@ python code/own_ops/probe_pair_bias.py
 python code/own_ops/mixcv_min.py
 ```
 
-（若包放在 `day4/` 目录下，路径前缀换成 `day4/code/...`。）
-
 ## 附录 B：证据索引
 
 | 结论 | 日志/文件 |
@@ -322,5 +307,3 @@ python code/own_ops/mixcv_min.py
 | `gemm.py` 模块 docstring 档 B | 2D grid 描述改为 1D 扁平 grid + 指向 `probe_grid.py` | 原描述与实现/实测不符 | 已改 |
 | `gemm.py` `abba()` 正确性分支 | 大形状从“跳过”改为设备侧 `torch.matmul` 结构性检查；小形状仍用 fp64 CPU 参考 | `pytest` 覆盖不到 4096³/16384²×64，原日志的 “checked by pytest” 不成立 | 【未验】需上机 |
 | `gemm.py` `bench_main()` 8192²×64 行 | 加注释标记“仅留档，L2 常驻不作 HBM 结论” | 防止后人把作废行当有效数据 | 已改 |
-
-> 原 `note/learning-report.md` 与 `note/day4学习指标.md` 保持不动；本文件是独立汇总版。

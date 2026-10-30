@@ -1,0 +1,13 @@
+file,case,run,device_total_us_per_call,ops
+ours_512_r1.csv,ours_512,r1,27.33,1 ops
+ours_1024_r2.csv,ours_1024,r2,55.08,1 ops
+ours_1024_r3.csv,ours_1024,r3,56.60,1 ops
+ours_2048_r2.csv,ours_2048,r2,203.32,1 ops
+ours_2048_r3.csv,ours_2048,r3,208.61,1 ops
+ours_4096_r1.csv,ours_4096,r1,824.57,1 ops
+torch_512_r1.csv,torch_512,r1,44.34,4 ops
+torch_1024_r2.csv,torch_1024,r2,40.17,4 ops
+torch_1024_r3.csv,torch_1024,r3,39.97,4 ops
+torch_2048_r2.csv,torch_2048,r2,92.56,4 ops
+torch_2048_r3.csv,torch_2048,r3,93.91,4 ops
+torch_4096_r1.csv,torch_4096,r1,219.48,4 ops

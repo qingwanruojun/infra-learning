@@ -1,0 +1,137 @@
+diff --git a/tilelang/jit/jit_npu.py b/tilelang/jit/jit_npu.py
+index 6ff4c72..d799fec 100644
+--- a/tilelang/jit/jit_npu.py
++++ b/tilelang/jit/jit_npu.py
+@@ -1,8 +1,10 @@
+ # Copyright (c) Huawei Technologies Co., Ltd. 2025.
+ import ctypes
++import functools
+ import os
+ import re
+ import subprocess
++import sys
+ import tempfile
+ from pathlib import Path
+ from typing import Any, Dict, List, Union
+@@ -1105,6 +1107,54 @@ class JitKernel_NPU:
+         }
+ 
+ 
++# AscendNPU-IR renamed the HIVM sync-block attribute `syn_instr_mode` to
++# `sync_instr_mode`. The in-tree AscendNPU-IR build pinned by this branch still
++# uses the old spelling, while the CANN 9.0.0 toolchain only accepts the new
++# one and rejects expert-mode IR with:
++#   error: Dialect `' not found for custom op 'syn_instr_mode'
++# The JIT rewrites the attribute when it detects a new-style compiler.
++_NPUIR_SYNC_ATTR_OLD = "syn_instr_mode"
++_NPUIR_SYNC_ATTR_NEW = "sync_instr_mode"
++
++# CANN 9.0.0's bishengir-compile can die with SIGSEGV inside the
++# ConvertHFusionToHIVM pass on MIX (expert-mode) modules. The crash is not
++# deterministic: the same input compiles on a later attempt. Retry
++# signal-terminated compiles instead of surfacing a spurious failure.
++_NPUIR_COMPILE_MAX_ATTEMPTS = 8
++
++
++@functools.lru_cache(maxsize=None)
++def _npuir_compiler_version(compiler_path: str) -> str:
++    """First line of `<compiler> --version`, or "" when it cannot be read."""
++    try:
++        proc = subprocess.run(
++            [compiler_path, "--version"],
++            capture_output=True,
++            check=False,
++            text=True,
++            timeout=60,
++        )
++    except (OSError, subprocess.SubprocessError):
++        return ""
++    first_line = proc.stdout.strip().splitlines()
++    return first_line[0] if first_line else ""
++
++
++@functools.lru_cache(maxsize=None)
++def _npuir_needs_sync_attr_rename(compiler_path: str) -> bool:
++    """Whether the compiler expects `sync_instr_mode` instead of `syn_instr_mode`.
++
++    The in-tree AscendNPU-IR build reports
++    ``bishengir-compile version 19.1.7 (...)``; the CANN 9.0.0 toolchain
++    reports ``bishengir-compile 1.1.0 (...)``. When the version is unknown we
++    keep the old spelling and fall back to renaming after a parse failure.
++    """
++    version_line = _npuir_compiler_version(compiler_path)
++    if not version_line:
++        return False
++    return "bishengir-compile version" not in version_line
++
++
+ class compiler_npu:
+     def __init__(self) -> None:
+         pass
+@@ -1446,12 +1496,17 @@ class compiler_npu:
+         linalg = self.mlir_content
+         with tempfile.TemporaryDirectory() as tmpdir:
+             ttadapter_path = os.path.join(tmpdir, "kernel.npuir")
+-            Path(ttadapter_path).write_text(linalg)
+             bin_file = os.path.join(tmpdir, "kernel")
+             bin_path = os.path.join(tmpdir, "kernel.o")
+             so_path = os.path.join(tmpdir, "libkernel.so")
+ 
+             npu_compiler_path = get_npucompiler_path()
++            # CANN 9.x renamed syn_instr_mode -> sync_instr_mode in the HIVM
++            # dialect; rewrite the IR for compilers that expect the new name.
++            sync_attr_renamed = _npuir_needs_sync_attr_rename(npu_compiler_path)
++            if sync_attr_renamed:
++                linalg = linalg.replace(_NPUIR_SYNC_ATTR_OLD, _NPUIR_SYNC_ATTR_NEW)
++            Path(ttadapter_path).write_text(linalg)
+             # TileLang Ascend JIT Runtime now follows Triton JIT style.
+             # bishengir-compile --enable-triton-kernel-compile=true make sure the way.
+ 
+@@ -1496,21 +1551,38 @@ class compiler_npu:
+                 + _compile_option_list
+                 + ["-o", bin_file]
+             )
+-            try:
++            ret = None
++            for attempt in range(1, _NPUIR_COMPILE_MAX_ATTEMPTS + 1):
+                 ret = subprocess.run(
+-                    cmd_list, capture_output=True, check=True, text=True
++                    cmd_list, capture_output=True, check=False, text=True
+                 )
+-                print("AscendNPU IR compile success:", ret.stdout)
+-            except subprocess.CalledProcessError as e:
++                if ret.returncode == 0:
++                    print("AscendNPU IR compile success:", ret.stdout)
++                    break
++                # Older compiler revisions reject the new attribute spelling.
++                if _NPUIR_SYNC_ATTR_OLD in ret.stderr and not sync_attr_renamed:
++                    sync_attr_renamed = True
++                    linalg = linalg.replace(_NPUIR_SYNC_ATTR_OLD, _NPUIR_SYNC_ATTR_NEW)
++                    Path(ttadapter_path).write_text(linalg)
++                    continue
++                # bishengir-compile can intermittently SIGSEGV on MIX kernels.
++                if ret.returncode < 0:
++                    print(
++                        f"[TileLang] bishengir-compile was killed by signal "
++                        f"{-ret.returncode} (attempt {attempt}/"
++                        f"{_NPUIR_COMPILE_MAX_ATTEMPTS}); retrying.",
++                        file=sys.stderr,
++                    )
++                    continue
++                break
++            if ret.returncode != 0:
+                 # print ir
+                 print("AscendNPU IR:\n")
+                 print(self.mlir_content)
+                 # print error info
+                 print("err cmd:", " ".join(cmd_list))
+-                print(f"err code: {e.returncode}")
+-                raise RuntimeError(f"NPU IR opt failed: {e.stderr}") from e
+-            except Exception as e:
+-                raise RuntimeError(f"NPU IR opt failed: {e.stderr}") from e
++                print(f"err code: {ret.returncode}")
++                raise RuntimeError(f"NPU IR opt failed: {ret.stderr}")
+             result = self._get_workspace_size(
+                 so_path, "_infer_workspace_shape_function"
+             )
+

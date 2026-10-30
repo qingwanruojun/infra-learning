@@ -34,7 +34,7 @@ skills/ 5 个 Claude Code skill：算子 guardrails / 对拍协议 / TileLang �
 | D2 | 10/27 | 编译 TileLang、跑通 L2、TileLang DSL 全量速读 | `day2/day2学习指标.md` | ✅ |
 | D3 | 10/28 | 手写 abs / rmsnorm，精度对齐 + 参数实验，测量口径复盘 | [`day3/note/day3学习指标.md`](day3/note/day3学习指标.md)、`day3/code/`、`skills/` | ✅ |
 | D4 | 10/29 | **TileOPs 5 算子迁移**（Agent 框架 `migration-harness`）：BitwiseNot / Erf / Expm1 / Elu / LeakyRelu → 910B；另完成 Cube 学习 | [`day4/migration/迁移报告.md`](day4/migration/迁移报告.md)、[`day4/cube/note/day4报告-Cube.md`](day4/cube/note/day4报告-Cube.md) | ✅ |
-| D5 | 10/30 | MixCV / FlashAttention、第一周收口 | — | 未开始 |
+| D5 | 10/30 | MixCV / FlashAttention、第一周收口 | `day5/day5-flashatten/` | 已完成（expert/dev 正确性通过，dev 性能已测） |
 | D6 | 11/02 | MLIR 与 AscendNPU-IR 入门 | — | 未开始 |
 | D7 | 11/03 | 编译链路追踪（TVM IR → TileLangIR → HIVM） | — | 未开始 |
 | D8 | 11/04 | CANNBot Skills 与 Agent 生成算子 | — | 未开始 |

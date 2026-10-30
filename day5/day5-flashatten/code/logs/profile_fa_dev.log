@@ -1,0 +1,49 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-29 11:05:29  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 11:05:29  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 11:05:29  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+
+=== seq_len=512 ours ===
+[2026-10-29 11:05:32] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:32] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:32] [WARNING] [9072] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-29 11:05:33] [INFO] [9222] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/day5-flashattn/logs/profiler/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_9072_20261029110532808_ascend_pt
+|/-\[2026-10-29 11:05:36] [INFO] [9231] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032534
+[2026-10-29 11:05:37] [INFO] [9222] profiler.py: All profiling data parsed in a total time of 0:00:03.678981
+  flash_attention                          n= 10 median=     27.33 us
+=== seq_len=512 torch manual chain ===
+[2026-10-29 11:05:38] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:38] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:38] [WARNING] [9072] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-29 11:05:38] [INFO] [9538] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/day5-flashattn/logs/profiler/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_9072_20261029110538093_ascend_pt
+|/-[2026-10-29 11:05:40] [INFO] [9547] profiler.py: CANN profiling data parsed in a total time of 0:00:02.027703
+[2026-10-29 11:05:41] [INFO] [9538] profiler.py: All profiling data parsed in a total time of 0:00:02.648372
+  aclnnSoftmax_SoftmaxAiCore_SoftmaxV2     n= 10 median=     15.51 us
+  aclnnInplaceCopy_CastAiCore_Cast         n= 20 median=      7.21 us
+  aclnnMuls_MulAiCore_Mul                  n= 10 median=      5.43 us
+  aclnnMatmul_MatMulCommon_MatMulV2        n= 20 median=      4.49 us
+
+=== seq_len=4096 ours ===
+[2026-10-29 11:05:42] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:42] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:42] [WARNING] [9072] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-29 11:05:42] [INFO] [9862] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/day5-flashattn/logs/profiler/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_9072_20261029110542039_ascend_pt
+|/-[2026-10-29 11:05:44] [INFO] [9871] profiler.py: CANN profiling data parsed in a total time of 0:00:02.028286
+[2026-10-29 11:05:45] [INFO] [9862] profiler.py: All profiling data parsed in a total time of 0:00:02.652994
+  flash_attention                          n= 10 median=    824.57 us
+=== seq_len=4096 torch manual chain ===
+[2026-10-29 11:05:45] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:45] [WARNING] [9072] profiler.py: Please use level1 or level2 if you want to collect aic metrics, reset aic metrics to None!
+[2026-10-29 11:05:45] [WARNING] [9072] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-10-29 11:05:46] [INFO] [10166] profiler.py: Start parsing profiling data in sync mode at: /mnt/workspace/learn/tilelang-ascend/day5-flashattn/logs/profiler/export_only_prof_dir/a6c98e6836c04614baed206dda1faa87_9072_20261029110545835_ascend_pt
+|/-[2026-10-29 11:05:48] [INFO] [10175] profiler.py: CANN profiling data parsed in a total time of 0:00:02.027758
+[2026-10-29 11:05:49] [INFO] [10166] profiler.py: All profiling data parsed in a total time of 0:00:02.653326
+  aclnnSoftmax_SoftmaxAiCore_SoftmaxV2     n= 10 median=     97.58 us
+  aclnnMatmul_MatMulCommon_MatMulV2        n= 20 median=     28.31 us
+  aclnnMuls_MulAiCore_Mul                  n= 10 median=     27.56 us
+  aclnnInplaceCopy_CastAiCore_Cast         n= 20 median=     18.86 us
+
+real	0m34.708s
+user	0m21.970s
+sys	0m7.818s

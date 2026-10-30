@@ -1,0 +1,26 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+[W1029 11:09:54.285473470 ToKernelNpu.cpp:41] Warning: Device do not support double dtype now, dtype cast replace with float. (function operator())
+2026-10-29 11:09:31  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 11:09:31  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 11:09:31  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+output:
+tensor([[ 0.0478, -0.0663, -0.0737,  ..., -0.0295,  0.0369,  0.0108],
+        [ 0.0659, -0.0517, -0.0344,  ..., -0.0507, -0.0377,  0.0352],
+        [-0.0004, -0.1005, -0.0998,  ..., -0.1487, -0.0146,  0.0362],
+        ...,
+        [ 0.0293, -0.0396,  0.0193,  ..., -0.0242, -0.0696,  0.0194],
+        [ 0.0508, -0.0011,  0.1158,  ..., -0.0079,  0.0804,  0.0774],
+        [-0.0181, -0.0588, -0.0873,  ..., -0.0466,  0.0304, -0.0850]],
+       device='npu:0', dtype=torch.float16)
+ref_output:
+tensor([[ 0.0477, -0.0663, -0.0737,  ..., -0.0294,  0.0369,  0.0108],
+        [ 0.0659, -0.0517, -0.0344,  ..., -0.0506, -0.0377,  0.0352],
+        [-0.0003, -0.1004, -0.0999,  ..., -0.1487, -0.0147,  0.0362],
+        ...,
+        [ 0.0293, -0.0396,  0.0193,  ..., -0.0242, -0.0696,  0.0194],
+        [ 0.0508, -0.0012,  0.1159,  ..., -0.0077,  0.0804,  0.0773],
+        [-0.0180, -0.0588, -0.0873,  ..., -0.0466,  0.0304, -0.0850]],
+       device='npu:0', dtype=torch.float16)
+All check passed.

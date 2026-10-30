@@ -1,0 +1,36 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-10-29 11:03:38  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-10-29 11:03:38  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-10-29 11:03:38  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+
+=== seq_len=512 dim=128 block=64/64/32 ===
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+compile: 43.5 s
+correctness: assert_close passed, max_abs=3.662e-04
+host=358.9 us/call  device=0.486 ms [IQR 0.022]  e2e=0.42 ms  torch device=0.345 ms  ratio=1.41x  0.28 TFLOPs
+
+=== seq_len=1024 dim=128 block=64/64/32 ===
+AscendNPU IR compile success: 
+compile: 5.1 s
+correctness: assert_close passed, max_abs=2.441e-04
+host=388.3 us/call  device=0.5 ms [IQR 0.022]  e2e=0.452 ms  torch device=0.354 ms  ratio=1.41x  1.07 TFLOPs
+
+=== seq_len=2048 dim=128 block=64/64/32 ===
+AscendNPU IR compile success: 
+compile: 5.2 s
+correctness: assert_close passed, max_abs=1.411e-04
+host=562.6 us/call  device=0.678 ms [IQR 0.018]  e2e=0.631 ms  torch device=0.379 ms  ratio=1.79x  3.17 TFLOPs
+
+=== seq_len=4096 dim=128 block=64/64/32 ===
+AscendNPU IR compile success: 
+compile: 5.2 s
+correctness: assert_close passed, max_abs=3.662e-04
+host=1211.5 us/call  device=1.329 ms [IQR 0.033]  e2e=1.275 ms  torch device=0.378 ms  ratio=3.51x  6.46 TFLOPs
+
+wrote day5-flashattn/logs/bench_fa_dev.csv
+
+real	1m16.944s
+user	1m11.055s
+sys	0m6.781s

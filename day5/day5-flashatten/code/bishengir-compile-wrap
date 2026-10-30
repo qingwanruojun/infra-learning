@@ -1,0 +1,27 @@
+#!/bin/bash
+# CANN 9.0.0 compatibility shim for tilelang npuir expert-mode IR.
+#
+# TileLang's expert codegen emits `syn_instr_mode = <...>` on
+# hivm.hir.sync_block_set. That attribute exists in the AscendNPU-IR version
+# pinned by the repo (19.1.7, repo 3rdparty build) but not in CANN 9.0.0's
+# HIVM dialect, whose parser rejects it before any pass runs.
+#
+# This shim strips the attribute from the input .npuir in place and forwards
+# everything else to the real CANN compiler. It is a measurement workaround,
+# not a fix: the sync instruction mode falls back to the dialect default.
+# Correctness is checked independently against torch in the Day 5 notes.
+set -euo pipefail
+real=/home/developer/Ascend/cann-9.0.0/bin/bishengir-compile
+args=()
+for a in "$@"; do
+  case "$a" in
+    *.npuir)
+      sed -E -i 's/ syn_instr_mode = <[^>]*>//g' "$a"
+      args+=("$a")
+      ;;
+    *)
+      args+=("$a")
+      ;;
+  esac
+done
+exec "$real" "${args[@]}"
