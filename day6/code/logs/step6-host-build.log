@@ -1,0 +1,1 @@
+$ g++ main.cpp -Ihostshim -I/home/developer/Ascend/cann-9.0.0/include -I/home/developer/Ascend/cann-9.0.0/include/experiment/msprof -I/home/developer/Ascend/cann-9.0.0/pkg_inc -L/home/developer/Ascend/cann-9.0.0/lib64 -lruntime -lascendcl -Wl,-rpath,/home/developer/Ascend/cann-9.0.0/lib64 -o hivm-vec-add

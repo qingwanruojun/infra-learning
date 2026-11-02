@@ -1,0 +1,40 @@
+[success] initialize success
+[success] file:./kernel.o read succ, 2648 bytes
+[success] register kernel success: ./kernel.o (add)
+[info] running case0-official
+i0	 Expect: 1				Result: 1
+i1	 Expect: 2				Result: 2
+i2	 Expect: 3				Result: 3
+i3	 Expect: 4				Result: 4
+i4	 Expect: 5				Result: 5
+i5	 Expect: 6				Result: 6
+i6	 Expect: 7				Result: 7
+i7	 Expect: 8				Result: 8
+i8	 Expect: 9				Result: 9
+i9	 Expect: 10				Result: 10
+i10	 Expect: 11				Result: 11
+i11	 Expect: 12				Result: 12
+i12	 Expect: 13				Result: 13
+i13	 Expect: 14				Result: 14
+i14	 Expect: 15				Result: 15
+i15	 Expect: 16				Result: 16
+[success] case case0-official: all 16 elements match
+[info] running case1-mixed
+i0	 Expect: -5				Result: -5
+i1	 Expect: -6				Result: -6
+i2	 Expect: 0				Result: 0
+i3	 Expect: 10				Result: 10
+i4	 Expect: 0				Result: 0
+i5	 Expect: 0				Result: 0
+i6	 Expect: 0				Result: 0
+i7	 Expect: 0				Result: 0
+i8	 Expect: 0				Result: 0
+i9	 Expect: 0				Result: 0
+i10	 Expect: 0				Result: 0
+i11	 Expect: -1				Result: -1
+i12	 Expect: 0				Result: 0
+i13	 Expect: 0				Result: 0
+i14	 Expect: 0				Result: 0
+i15	 Expect: 0				Result: 0
+[success] case case1-mixed: all 16 elements match
+[success] compare output success: 2 cases x 16 elements

@@ -1,0 +1,12 @@
+$ /mnt/workspace/learn/tilelang-ascend/3rdparty/AscendNPU-IR/build/bin/bishengir-opt /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/mul-hfusion-host.mlir --lower-hfusion-pipeline --convert-to-hivm-pipeline --optimize-hivm-pipeline -o /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/mul-hfusion.optimized.mlir
+$ python3 -I /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/extract-device-kernel.py /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/mul-hfusion.optimized.mlir /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/mul-hfusion.device.hivm.mlir
+$ bishengir-compile /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/mul-hfusion.device.hivm.mlir --enable-hivm-compile -o /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/bad-kernel.o
+HFUSION_PIPELINE=PASS mul-hfusion-host.mlir
+kept DEVICE entry, dropped HOST function(s): add
+DEVICE_EXTRACT=PASS mul-hfusion.device.hivm.mlir
+warning: overriding the module target triple with aarch64-unknown-linux-gnu [-Woverride-module]
+1 warning generated.
+warning: overriding the module target triple with aarch64-unknown-linux-gnu [-Woverride-module]
+1 warning generated.
+loc("/mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/mul-hfusion.device.hivm.mlir":18:10): DEVICE_ELF=PASS bad-kernel.o (2752 bytes)
+    50: 0000000000000000   244 FUNC    GLOBAL DEFAULT    1 add_single_outlined_0_0_0

@@ -1,0 +1,3 @@
+KERNEL_SYMBOL=add_single_outlined_0_0_0
+ADD_KERNEL=/mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/kernel.o
+BAD_KERNEL=/mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/bad-kernel.o

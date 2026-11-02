@@ -1,0 +1,18 @@
+$ file ./kernel.o ...
+./kernel.o:                                                           ELF 64-bit LSB executable, *unknown arch 0x1029* version 1 (SYSV), statically linked, not stripped
+/mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/kernel.o:     ELF 64-bit LSB executable, *unknown arch 0x1029* version 1 (SYSV), statically linked, not stripped
+/mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/bad-kernel.o: ELF 64-bit LSB executable, *unknown arch 0x1029* version 1 (SYSV), statically linked, not stripped
+$ readelf -sW kernel.o | grep FUNC | grep -v UND
+    50: 0000000000000000   212 FUNC    GLOBAL DEFAULT    1 add
+$ readelf -sW hfusion-vecadd/kernel.o | grep FUNC | grep -v UND
+    50: 0000000000000000   244 FUNC    GLOBAL DEFAULT    1 add_single_outlined_0_0_0
+$ sha256sum ...
+8648e77ea908bf87749e786ccaf77ed76155176b3a72454800e91b31c8627f4f  ./kernel.o
+fb092d7ea6d4a968721e889e8c7090682f9fb7a3f47c14ccaf6437b55f7c618f  /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/kernel.o
+19eed9826079a295c7fc388f0d986610f30ed6a5dbce1082e48d8859a8d5880e  /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/bad-kernel.o
+$ ls -l ./hivm-vec-add
+-rwxr-xr-x 1 developer developer 26744 Nov  2 08:58 ./hivm-vec-add
+$ ldd ./hivm-vec-add | grep -E "runtime|ascendcl"
+	libruntime.so => /home/developer/Ascend/cann-9.0.0/lib64/libruntime.so (0x0000ffff966c8000)
+	libascendcl.so => /home/developer/Ascend/cann-9.0.0/lib64/libascendcl.so (0x0000ffff96676000)
+	libruntime_common.so => /home/developer/Ascend/cann-9.0.0/lib64/libruntime_common.so (0x0000ffff96192000)

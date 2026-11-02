@@ -1,0 +1,71 @@
+[success] initialize success
+[success] file:/mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/bad-kernel.o read succ, 2752 bytes
+[success] register kernel success: /mnt/workspace/learn/infra-learning/day6/hfusion-vecadd/bad-kernel.o (add_single_outlined_0_0_0)
+[info] running case0-official
+i0	 Expect: 1				Result: 0
+[failed] case case0-official: i0 expect 1, got 0
+i1	 Expect: 2				Result: 1
+[failed] case case0-official: i1 expect 2, got 1
+i2	 Expect: 3				Result: 2
+[failed] case case0-official: i2 expect 3, got 2
+i3	 Expect: 4				Result: 3
+[failed] case case0-official: i3 expect 4, got 3
+i4	 Expect: 5				Result: 4
+[failed] case case0-official: i4 expect 5, got 4
+i5	 Expect: 6				Result: 5
+[failed] case case0-official: i5 expect 6, got 5
+i6	 Expect: 7				Result: 6
+[failed] case case0-official: i6 expect 7, got 6
+i7	 Expect: 8				Result: 7
+[failed] case case0-official: i7 expect 8, got 7
+i8	 Expect: 9				Result: 8
+[failed] case case0-official: i8 expect 9, got 8
+i9	 Expect: 10				Result: 9
+[failed] case case0-official: i9 expect 10, got 9
+i10	 Expect: 11				Result: 10
+[failed] case case0-official: i10 expect 11, got 10
+i11	 Expect: 12				Result: 11
+[failed] case case0-official: i11 expect 12, got 11
+i12	 Expect: 13				Result: 12
+[failed] case case0-official: i12 expect 13, got 12
+i13	 Expect: 14				Result: 13
+[failed] case case0-official: i13 expect 14, got 13
+i14	 Expect: 15				Result: 14
+[failed] case case0-official: i14 expect 15, got 14
+i15	 Expect: 16				Result: 15
+[failed] case case0-official: i15 expect 16, got 15
+[failed] case case0-official: 16/16 elements mismatch
+[info] running case1-mixed
+i0	 Expect: -5				Result: -50
+[failed] case case1-mixed: i0 expect -5, got -50
+i1	 Expect: -6				Result: 5
+[failed] case case1-mixed: i1 expect -6, got 5
+i2	 Expect: 0				Result: 0
+i3	 Expect: 10				Result: 21
+[failed] case case1-mixed: i3 expect 10, got 21
+i4	 Expect: 0				Result: -49
+[failed] case case1-mixed: i4 expect 0, got -49
+i5	 Expect: 0				Result: -144
+[failed] case case1-mixed: i5 expect 0, got -144
+i6	 Expect: 0				Result: -10000
+[failed] case case1-mixed: i6 expect 0, got -10000
+i7	 Expect: 0				Result: -10000
+[failed] case case1-mixed: i7 expect 0, got -10000
+i8	 Expect: 0				Result: -15428
+[failed] case case1-mixed: i8 expect 0, got -15428
+i9	 Expect: 0				Result: -15428
+[failed] case case1-mixed: i9 expect 0, got -15428
+i10	 Expect: 0				Result: -1
+[failed] case case1-mixed: i10 expect 0, got -1
+i11	 Expect: -1				Result: -32768
+[failed] case case1-mixed: i11 expect -1, got -32768
+i12	 Expect: 0				Result: -1764
+[failed] case case1-mixed: i12 expect 0, got -1764
+i13	 Expect: 0				Result: -1764
+[failed] case case1-mixed: i13 expect 0, got -1764
+i14	 Expect: 0				Result: -49
+[failed] case case1-mixed: i14 expect 0, got -49
+i15	 Expect: 0				Result: 0
+[failed] case case1-mixed: 14/16 elements mismatch
+[failed] compare output failed: 30 mismatched element(s)
+NEGATIVE_CONTROL=PASS validator rejected a wrong kernel (exit 1)

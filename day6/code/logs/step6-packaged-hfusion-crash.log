@@ -1,0 +1,9 @@
+$ bishengir-compile hfusion-vecadd/add-hfusion-host.mlir --enable-hfusion-compile --block-dim=1 -o /tmp/packaged-hfusion.o
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace.
+ #0 0x0000aaaaea688ba8 (/home/developer/Ascend/cann-9.0.0/tools/bishengir/bin/bishengir-compile+0x5648ba8)
+ #1 0x0000aaaaea68671c (/home/developer/Ascend/cann-9.0.0/tools/bishengir/bin/bishengir-compile+0x564671c)
+ #2 0x0000aaaaea689370 (/home/developer/Ascend/cann-9.0.0/tools/bishengir/bin/bishengir-compile+0x5649370)
+ #3 0x0000ffffa71c68dc (linux-vdso.so.1+0x8dc)
+ #4 0x0000aaaae88cafe4 (/home/developer/Ascend/cann-9.0.0/tools/bishengir/bin/bishengir-compile+0x388afe4)
+exit=139 (SIGSEGV=139)
+NOTE: the packaged 1.1.0 compiler also segfaults on upstream HFusion tests (e.g. bishengir/test/bishengir-compile/hfusion/compile-pure-elemwise-1d.mlir), so this is not input-specific.

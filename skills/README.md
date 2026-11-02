@@ -1,6 +1,6 @@
 # Skills · 昇腾算子开发与评测
 
-五个可被 Claude Code / 兼容 harness 直接加载的 skill。每个 skill 是一个目录：
+六个可按需加载的 skill。每个 skill 是一个目录：
 
 ```
 skills/<name>/SKILL.md            # frontmatter: name / description，正文是检查表
@@ -19,6 +19,7 @@ skills/<name>/references/*.md     # 可选：失败案例、细节
 | [`tilelang-npuir`](tilelang-npuir/SKILL.md) | 在 910B 上新增或修改 TileLang 算子 | UB 预算与多缓冲、Expert/Developer 模式、动态 shape 尾部、环境与缓存陷阱、launcher/NPUGraph 限制 |
 | [`ascend-tileops-migration`](ascend-tileops-migration/SKILL.md) | 用 conductor 框架把 GPU / TileOPs 算子迁移到 910B（Day4 主线） | 场景路由（plain vs harness）、Stage 0–5 门禁与信号、GPU 线程模型 → 40 核/UB 重写表、5 个算子的由易到难路径、`INTEGRATE_COMPLETED` 验收 |
 | [`study-notes-daily`](study-notes-daily/SKILL.md) | 一天收尾、写汇报、结论被推翻要同步多处文档 | `dayN/note` + `dayN/code` 结构与索引、笔记 v1.x 版本化 + 修正对照表 |
+| [`experiment-report-editor`](experiment-report-editor/SKILL.md) | 已有代码和日志，要核对证据、重写自然的学习报告并整理交付包 | 先分清转换/编译/执行/数值验证，再写 1–2 点贡献；整理 `code/`、`note/`、根 README，并核对路径 |
 
 ## 安装
 
@@ -49,6 +50,8 @@ BitwiseNot / Erf / Expm1 / Elu / LeakyRelu 迁到 910B。框架事实读自该�
 （2026-10-28），GPU 侧语义读自 TileOPs 的 `tileops/kernels/elementwise.py`；
 尚未在那里跑通的门禁命令在正文标了【未验】。
 
+`experiment-report-editor` 来自 Day 6 报告重写和交付包整理。它负责已有实验的证据核对、写作与归档；`study-notes-daily` 仍用于每日笔记的版本维护和结论翻转记录。
+
 配套笔记：[`day3/note/day3学习指标.md`](../day3/note/day3学习指标.md)
 （第 7 节列出全部产出与证据）。
 
@@ -56,7 +59,7 @@ BitwiseNot / Erf / Expm1 / Elu / LeakyRelu 迁到 910B。框架事实读自该�
 
 - 一次只做一件事：`guardrails` 管"别踩坑"、`benchmark` 管"怎么量"、
   `tilelang-npuir` 管"怎么写"、`ascend-tileops-migration` 管"怎么把 GPU 算子搬过来"、
-  `study-notes-daily` 管"怎么记录"。
+  `study-notes-daily` 管"怎么记录"，`experiment-report-editor` 管"怎么把已有实验写成可读报告并交付"。
   有冲突时以 `guardrails` 为准（它是 Day3 事后复盘的最终版）：迁移任务里的任何
   性能数字也服从它的证据分级。
 - 规则写"可执行的动作"，不写"要注意"。例：不写"注意尾块"，写

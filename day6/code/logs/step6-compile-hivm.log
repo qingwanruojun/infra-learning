@@ -1,0 +1,1 @@
+$ bishengir-compile add.mlir --enable-hivm-compile -o kernel.o

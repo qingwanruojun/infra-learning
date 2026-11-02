@@ -1,0 +1,14 @@
+$ bishengir-compile --version
+bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) 
+llvm 19.1.7 e4ce5939f6e1
+Release build
+$ built bishengir-compile --version
+bishengir-compile version 19.1.7 (https://gitcode.com/Ascend/AscendNPU-IR.git 31f690369d1247fbd5529a3f88b758f7d470ae4f 2026-10-26)
+Optimized build
+
+$ built bishengir-opt --version
+bishengir-opt version 19.1.7 (https://gitcode.com/Ascend/AscendNPU-IR.git 31f690369d1247fbd5529a3f88b758f7d470ae4f 2026-10-26)
+Optimized build
+
+$ python3 --version
+Python 3.11.4

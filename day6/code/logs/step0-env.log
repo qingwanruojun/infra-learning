@@ -1,0 +1,40 @@
+date: 2026-10-31T17:50:38+08:00
+host: Linux a6c98e6836c04614baed206dda1faa87 5.10.0-182.0.0.95.r2673_211.hce2.aarch64 #1 SMP Sat Mar 15 08:57:21 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
+cwd: /mnt/workspace/learn/infra-learning/day6
+ASCEND_HOME_PATH=/home/developer/Ascend/cann-9.0.0
+=== npu-smi
++------------------------------------------------------------------------------------------------+
+| npu-smi 25.5.0                   Version: 25.5.0                                               |
++---------------------------+---------------+----------------------------------------------------+
+| NPU   Name                | Health        | Power(W)    Temp(C)           Hugepages-Usage(page)|
+| Chip                      | Bus-Id        | AICore(%)   Memory-Usage(MB)  HBM-Usage(MB)        |
++===========================+===============+====================================================+
+| 7     910B3               | OK            | 86.7        35                0    / 0             |
+| 0                         | 0000:0A:00.0  | 0           0    / 0          3403 / 65536         |
++===========================+===============+====================================================+
++---------------------------+---------------+----------------------------------------------------+
+| NPU     Chip              | Process id    | Process name             | Process memory(MB)      |
++===========================+===============+====================================================+
+| No running processes found in NPU 7                                                            |
++===========================+===============+====================================================+
+=== versions
+bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) 
+llvm 19.1.7 e4ce5939f6e1
+Release build
+
+bishengir-opt 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) 
+llvm 19.1.7 e4ce5939f6e1
+Release build
+
+LLVM (http://llvm.org/):
+  LLVM version 19.1.7
+  Optimized build.
+=== repos
+87ea6c4 !4308 merge fix/hfusion-simplify-precision-casts-min into master
+31f690369 !414 merge master into master
+legacy-interface-342-g31f690369
+=== artifacts
+-rwxr-xr-x 1 developer developer 26368 Oct 31 17:49 vecadd/hivm-vec-add
+-rwxr-xr-x 1 developer developer  2648 Oct 31 17:49 vecadd/kernel.o
+8648e77ea908bf87749e786ccaf77ed76155176b3a72454800e91b31c8627f4f  vecadd/kernel.o
+72eb6a392384be08af29eafe6d4c9e6cdf134fa4dfce34dd2b939cff24e19dfd  vecadd/hivm-vec-add

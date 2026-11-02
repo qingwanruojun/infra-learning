@@ -1,0 +1,23 @@
+[success] initialize success
+[success] file:./kernel.o read succ!
+[success] register kernel success
+[success] memcpy host to device success
+[success] stream synchronize success
+[success] memcpy device to host success
+i0	 Expect: 1				Result: 1
+i1	 Expect: 2				Result: 2
+i2	 Expect: 3				Result: 3
+i3	 Expect: 4				Result: 4
+i4	 Expect: 5				Result: 5
+i5	 Expect: 6				Result: 6
+i6	 Expect: 7				Result: 7
+i7	 Expect: 8				Result: 8
+i8	 Expect: 9				Result: 9
+i9	 Expect: 10				Result: 10
+i10	 Expect: 11				Result: 11
+i11	 Expect: 12				Result: 12
+i12	 Expect: 13				Result: 13
+i13	 Expect: 14				Result: 14
+i14	 Expect: 15				Result: 15
+i15	 Expect: 16				Result: 16
+[success] compare output success

@@ -1,0 +1,2 @@
+$ /mnt/workspace/learn/tilelang-ascend/3rdparty/AscendNPU-IR/build/bin/mlir-opt mlir-demo/demo.mlir > logs/step1-before.mlir
+exit=0

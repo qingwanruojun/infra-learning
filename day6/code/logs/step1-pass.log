@@ -1,0 +1,2 @@
+$ /mnt/workspace/learn/tilelang-ascend/3rdparty/AscendNPU-IR/build/bin/mlir-opt --pass-pipeline='builtin.module(func.func(canonicalize,cse))' mlir-demo/demo.mlir > logs/step1-after.mlir
+exit=0

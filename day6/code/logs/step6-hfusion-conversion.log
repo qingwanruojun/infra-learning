@@ -1,0 +1,21 @@
+$ bishengir-opt hfusion-vecadd/add-hfusion-host.mlir --lower-hfusion-pipeline --convert-to-hivm-pipeline --optimize-hivm-pipeline --mlir-print-ir-after-all -o /dev/null
+# full dump: logs/step6-hfusion-passdump.log
+
+--- before: after hfusion-decompose (input op is still linalg.elemwise_binary) ---
+// -----// IR Dump After Decompose (hfusion-decompose) //----- //
+func.func @add_single_outlined_0_0_0(%arg0: tensor<16xi16> {hacc.arg_type = #hacc.arg_type<input>, hacc.input_idx = #hacc.input_idx<0>}, %arg1: tensor<16xi16> {hacc.arg_type = #hacc.arg_type<input>, hacc.input_idx = #hacc.input_idx<1>}, %arg2: tensor<16xi16> {hacc.arg_type = #hacc.arg_type<output>, hacc.output_idx = #hacc.output_idx<0>}) -> tensor<16xi16> attributes {enable_auto_mark_buffer_size, hacc.block_dim = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hacc.get_tiling_struct_size_function = #hacc.get_tiling_struct_size_function<@add_get_tiling_struct_size_function>, hfusion.fusion_kind = #hfusion.fusion_kind<PURE_ELEMWISE>} {
+  %3 = linalg.elemwise_binary {__intermediate_producer__, fun = #linalg.binary_fn<add>} ins(%1, %2 : tensor<16xi16>, tensor<16xi16>) outs(%0 : tensor<16xi16>) -> tensor<16xi16>
+
+--- after: ConvertHFusionToHIVM ---
+// -----// IR Dump After ConvertHFusionToHIVM (convert-hfusion-to-hivm) //----- //
+    %1 = hivm.hir.load ins(%arg0 : tensor<16xi16>) outs(%0 : tensor<16xi16>) init_out_buffer = false may_implicit_transpose_with_last_axis = false -> tensor<16xi16>
+    %2 = hivm.hir.load ins(%arg1 : tensor<16xi16>) outs(%0 : tensor<16xi16>) init_out_buffer = false may_implicit_transpose_with_last_axis = false -> tensor<16xi16>
+    %3 = hivm.hir.vadd ins(%1, %2 : tensor<16xi16>, tensor<16xi16>) outs(%0 : tensor<16xi16>) -> tensor<16xi16>
+    %4 = hivm.hir.store ins(%3 : tensor<16xi16>) outs(%arg2 : tensor<16xi16>) atomic = <none> -> tensor<16xi16>
+
+--- final optimized HIVM, DEVICE function (memrefs, UB staging) ---
+  func.func @add_single_outlined_0_0_0(%arg0: memref<16xi16, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<input>, hacc.input_idx = #hacc.input_idx<0>}, %arg1: memref<16xi16, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<input>, hacc.input_idx = #hacc.input_idx<1>}, %arg2: memref<16xi16, #hivm.address_space<gm>> {hacc.arg_type = #hacc.arg_type<output>, hacc.output_idx = #hacc.output_idx<0>}) attributes {enable_auto_mark_buffer_size, hacc.block_dim = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hacc.get_tiling_struct_size_function = #hacc.get_tiling_struct_size_function<@add_get_tiling_struct_size_function>, hfusion.fusion_kind = #hfusion.fusion_kind<PURE_ELEMWISE>, hivm.func_core_type = #hivm.func_core_type<AIV>, hivm.storage_aligned} {
+    hivm.hir.load ins(%arg0 : memref<16xi16, #hivm.address_space<gm>>) outs(%0 : memref<16xi16, #hivm.address_space<ub>>) init_out_buffer = false may_implicit_transpose_with_last_axis = false
+    hivm.hir.load ins(%arg1 : memref<16xi16, #hivm.address_space<gm>>) outs(%1 : memref<16xi16, #hivm.address_space<ub>>) init_out_buffer = false may_implicit_transpose_with_last_axis = false
+    hivm.hir.vadd ins(%0, %1 : memref<16xi16, #hivm.address_space<ub>>, memref<16xi16, #hivm.address_space<ub>>) outs(%2 : memref<16xi16, #hivm.address_space<ub>>)
+    hivm.hir.store ins(%2 : memref<16xi16, #hivm.address_space<ub>>) outs(%arg2 : memref<16xi16, #hivm.address_space<gm>>) atomic = <none>

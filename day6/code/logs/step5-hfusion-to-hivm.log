@@ -1,0 +1,2 @@
+$ bishengir-opt -convert-hfusion-to-hivm mlir-demo/hfusion-elemwise.mlir > mlir-demo/hfusion-elemwise.hivm.mlir
+exit=0
