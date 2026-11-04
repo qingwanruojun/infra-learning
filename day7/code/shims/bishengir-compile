@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+"""Day 7 PATH shim for bishengir-compile.
+
+The TileLang JIT invokes bishengir-compile inside a TemporaryDirectory and
+deletes the directory afterwards, so the original argv and kernel.o are lost.
+This shim is prepended to PATH only by run_vecadd_dev.sh.  It records the real
+argv/exit code and copies the compiler's input and outputs into
+$DAY7_JIT_CAPTURE_DIR before the JIT removes the temp directory.
+
+It deliberately preserves the child's signal exit status: jit_npu.py retries
+when returncode < 0 (SIGSEGV on MIX kernels), and a naive wrapper would turn
+that into a positive 139 and disable the retry.
+"""
+
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+
+capture_dir = os.environ.get("DAY7_JIT_CAPTURE_DIR")
+real_compiler = os.environ.get("DAY7_REAL_BISHENGIR_COMPILE")
+
+if not capture_dir or not real_compiler:
+    sys.stderr.write(
+        "day7 bishengir-compile shim: DAY7_JIT_CAPTURE_DIR and "
+        "DAY7_REAL_BISHENGIR_COMPILE must be set\n"
+    )
+    sys.exit(127)
+
+if not os.path.isfile(real_compiler) or not os.access(real_compiler, os.X_OK):
+    sys.stderr.write(
+        f"day7 bishengir-compile shim: real compiler not executable: {real_compiler}\n"
+    )
+    sys.exit(127)
+
+argv = sys.argv[1:]
+
+# The JIT passes "-o <tmpdir>/kernel"; bishengir-compile then writes
+# <tmpdir>/kernel.o and <tmpdir>/libkernel.so.  Keep both naming conventions
+# covered here so the shim also works if the compiler starts honoring the
+# exact -o path.
+out_base = None
+for index, arg in enumerate(argv[:-1]):
+    if arg == "-o":
+        out_base = argv[index + 1]
+        break
+
+
+def sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def describe(path):
+    return {
+        "path": path,
+        "size": os.path.getsize(path),
+        "sha256": sha256(path),
+    }
+
+
+record = {
+    "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+    "cwd": os.getcwd(),
+    "real_compiler": real_compiler,
+    "argv": argv,
+    "out_base": out_base,
+}
+
+capture_enabled = True
+try:
+    os.makedirs(capture_dir, exist_ok=True)
+    input_path = argv[0] if argv else None
+    if input_path and os.path.isfile(input_path):
+        captured_input = os.path.join(capture_dir, "jit-kernel.npuir")
+        shutil.copyfile(input_path, captured_input)
+        record["input"] = describe(captured_input)
+except Exception as exc:  # capture must never break the real compile
+    capture_enabled = False
+    sys.stderr.write(f"day7 bishengir-compile shim: warning: capture setup failed: {exc}\n")
+
+proc = subprocess.run(
+    [real_compiler] + argv,
+    capture_output=True,
+    text=True,
+    errors="replace",
+)
+
+# Preserve the streams the JIT would have seen without the shim.
+if proc.stdout:
+    sys.stdout.write(proc.stdout)
+if proc.stderr:
+    sys.stderr.write(proc.stderr)
+
+record["returncode"] = proc.returncode
+record["stdout_tail"] = proc.stdout[-4000:]
+record["stderr_tail"] = proc.stderr[-4000:]
+
+try:
+    if capture_enabled and proc.returncode == 0 and out_base:
+        dirname = os.path.dirname(out_base) or "."
+        basename = os.path.basename(out_base)
+        device_candidates = [out_base + ".o", out_base]
+        host_candidates = [
+            os.path.join(dirname, "lib" + basename + ".so"),
+            out_base + ".so",
+            os.path.join(dirname, "libkernel.so"),
+        ]
+        for candidate in device_candidates:
+            if os.path.isfile(candidate):
+                captured = os.path.join(capture_dir, "jit-kernel.o")
+                shutil.copyfile(candidate, captured)
+                record["device_object"] = describe(captured)
+                break
+        for candidate in host_candidates:
+            if os.path.isfile(candidate):
+                captured = os.path.join(capture_dir, "jit-libkernel.so")
+                shutil.copyfile(candidate, captured)
+                record["host_so"] = describe(captured)
+                break
+except Exception as exc:  # capture must never break the real compile
+    sys.stderr.write(f"day7 bishengir-compile shim: warning: output capture failed: {exc}\n")
+
+try:
+    if capture_enabled:
+        with open(os.path.join(capture_dir, "jit-compile-argv.log"), "a") as handle:
+            handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+except Exception as exc:  # capture must never break the real compile
+    sys.stderr.write(f"day7 bishengir-compile shim: warning: log write failed: {exc}\n")
+
+if proc.returncode < 0:
+    os.kill(os.getpid(), -proc.returncode)
+
+sys.exit(proc.returncode)

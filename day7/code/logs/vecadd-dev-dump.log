@@ -1,0 +1,172 @@
+2026-11-02 16:29:35  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-02 16:29:35  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-02 16:29:35  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+====== TVM IR ======
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(A: T.Buffer((4096,), "float32"), B: T.Buffer((4096,), "float32"), C: T.Buffer((4096,), "float32"), shape: T.int32):
+        T.func_attr({"target": T.target({"host": {"keys": ["cpu"], "kind": "stackvm", "tag": ""}, "keys": [], "kind": "npuir", "tag": ""})})
+        cid = T.launch_thread("blockIdx.x", 1)
+        _ = T.launch_thread("blockIdx.z", 2)
+        A_VEC = T.decl_buffer((4096,), scope="shared")
+        B_VEC = T.decl_buffer((4096,), scope="shared")
+        C_VEC = T.decl_buffer((4096,), scope="shared")
+        T.copy(T.region(A[0], 1, T.min(4096, shape)), T.region(A_VEC[0], 2, T.min(4096, shape)))
+        T.copy(T.region(B[0], 1, T.min(4096, shape)), T.region(B_VEC[0], 2, T.min(4096, shape)))
+        T.npuir_add(T.region(A_VEC[0], 1, 4096), T.region(B_VEC[0], 1, 4096), T.region(C_VEC[0], 2, 4096))
+        T.copy(T.region(C_VEC[0], 1, T.min(4096, shape)), T.region(C[0], 2, T.min(4096, shape)))
+
+====== npuir ======
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf32>, %arg4: memref<?xf32>, %arg5: memref<?xf32>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32, %arg12: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    hivm.hir.set_ffts_base_addr %arg0
+    %c1_i32 = arith.constant 1 : i32
+    %0 = arith.index_cast %c1_i32 : i32 to index
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [4096], strides: [%0] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [4096], strides: [%0] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [4096], strides: [%0] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %1 = hivm.hir.get_block_idx -> i64
+    %2 = arith.trunci %1 : i64 to i32
+    %3 = tensor.empty() : tensor<4096xf32>
+    %4 = tensor.empty() : tensor<4096xf32>
+    %5 = tensor.empty() : tensor<4096xf32>
+    %c4096_i32 = arith.constant 4096 : i32
+    %6 = arith.minsi %c4096_i32, %arg6 : i32
+    %7 = arith.index_cast %6 : i32 to index
+    %subview = memref.subview %reinterpret_cast[0] [%7] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc = memref.alloc() : memref<4096xf32>
+    %subview_2 = memref.subview %alloc[0] [%7] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview, %subview_2 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %8 = bufferization.to_tensor %subview_2 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice = tensor.insert_slice %8 into %3[0] [%7] [1] : tensor<?xf32> into tensor<4096xf32>
+    %subview_3 = memref.subview %reinterpret_cast_1[0] [%7] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc_4 = memref.alloc() : memref<4096xf32>
+    %subview_5 = memref.subview %alloc_4[0] [%7] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview_3, %subview_5 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %9 = bufferization.to_tensor %subview_5 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice_6 = tensor.insert_slice %9 into %4[0] [%7] [1] : tensor<?xf32> into tensor<4096xf32>
+    %10 = hivm.hir.vadd ins(%inserted_slice, %inserted_slice_6 : tensor<4096xf32>, tensor<4096xf32>) outs(%5 : tensor<4096xf32>) -> tensor<4096xf32>
+    %extracted_slice = tensor.extract_slice %10[0] [%7] [1] : tensor<4096xf32> to tensor<?xf32>
+    %subview_7 = memref.subview %reinterpret_cast_0[0] [%7] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    bufferization.materialize_in_destination %extracted_slice in writable %subview_7 : (tensor<?xf32>, memref<?xf32, strided<[1]>>) -> ()
+    return
+  }
+}
+
+// -----// IR Dump After Canonicalizer (canonicalize) ('builtin.module' operation) //----- //
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf32>, %arg4: memref<?xf32>, %arg5: memref<?xf32>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32, %arg12: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1 = arith.constant 1 : index
+    %c4096_i32 = arith.constant 4096 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %0 = tensor.empty() : tensor<4096xf32>
+    %1 = tensor.empty() : tensor<4096xf32>
+    %2 = tensor.empty() : tensor<4096xf32>
+    %3 = arith.minsi %arg6, %c4096_i32 : i32
+    %4 = arith.index_cast %3 : i32 to index
+    %subview = memref.subview %reinterpret_cast[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc = memref.alloc() : memref<4096xf32>
+    %subview_2 = memref.subview %alloc[0] [%4] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview, %subview_2 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %5 = bufferization.to_tensor %subview_2 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice = tensor.insert_slice %5 into %0[0] [%4] [1] : tensor<?xf32> into tensor<4096xf32>
+    %subview_3 = memref.subview %reinterpret_cast_1[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc_4 = memref.alloc() : memref<4096xf32>
+    %subview_5 = memref.subview %alloc_4[0] [%4] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview_3, %subview_5 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %6 = bufferization.to_tensor %subview_5 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice_6 = tensor.insert_slice %6 into %1[0] [%4] [1] : tensor<?xf32> into tensor<4096xf32>
+    %7 = hivm.hir.vadd ins(%inserted_slice, %inserted_slice_6 : tensor<4096xf32>, tensor<4096xf32>) outs(%2 : tensor<4096xf32>) -> tensor<4096xf32>
+    %extracted_slice = tensor.extract_slice %7[0] [%4] [1] : tensor<4096xf32> to tensor<?xf32>
+    %subview_7 = memref.subview %reinterpret_cast_0[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    bufferization.materialize_in_destination %extracted_slice in writable %subview_7 : (tensor<?xf32>, memref<?xf32, strided<[1]>>) -> ()
+    return
+  }
+}
+
+
+// -----// IR Dump After AdaptTritonKernel (adapt-triton-kernel) ('builtin.module' operation) //----- //
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf32>, %arg4: memref<?xf32>, %arg5: memref<?xf32>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32, %arg12: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1 = arith.constant 1 : index
+    %c4096_i32 = arith.constant 4096 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %0 = tensor.empty() : tensor<4096xf32>
+    %1 = tensor.empty() : tensor<4096xf32>
+    %2 = tensor.empty() : tensor<4096xf32>
+    %3 = arith.minsi %arg6, %c4096_i32 : i32
+    %4 = arith.index_cast %3 : i32 to index
+    %subview = memref.subview %reinterpret_cast[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc = memref.alloc() : memref<4096xf32>
+    %subview_2 = memref.subview %alloc[0] [%4] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview, %subview_2 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %5 = bufferization.to_tensor %subview_2 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice = tensor.insert_slice %5 into %0[0] [%4] [1] : tensor<?xf32> into tensor<4096xf32>
+    %subview_3 = memref.subview %reinterpret_cast_1[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc_4 = memref.alloc() : memref<4096xf32>
+    %subview_5 = memref.subview %alloc_4[0] [%4] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview_3, %subview_5 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %6 = bufferization.to_tensor %subview_5 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice_6 = tensor.insert_slice %6 into %1[0] [%4] [1] : tensor<?xf32> into tensor<4096xf32>
+    %7 = hivm.hir.vadd ins(%inserted_slice, %inserted_slice_6 : tensor<4096xf32>, tensor<4096xf32>) outs(%2 : tensor<4096xf32>) -> tensor<4096xf32>
+    %extracted_slice = tensor.extract_slice %7[0] [%4] [1] : tensor<4096xf32> to tensor<?xf32>
+    %subview_7 = memref.subview %reinterpret_cast_0[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    bufferization.materialize_in_destination %extracted_slice in writable %subview_7 : (tensor<?xf32>, memref<?xf32, strided<[1]>>) -> ()
+    return
+  }
+}
+
+
+====== final npuir ======
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf32>, %arg4: memref<?xf32>, %arg5: memref<?xf32>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32, %arg12: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1 = arith.constant 1 : index
+    %c4096_i32 = arith.constant 4096 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_0 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [4096], strides: [%c1] : memref<?xf32> to memref<4096xf32, strided<[1]>>
+    %0 = tensor.empty() : tensor<4096xf32>
+    %1 = tensor.empty() : tensor<4096xf32>
+    %2 = tensor.empty() : tensor<4096xf32>
+    %3 = arith.minsi %arg6, %c4096_i32 : i32
+    %4 = arith.index_cast %3 : i32 to index
+    %subview = memref.subview %reinterpret_cast[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc = memref.alloc() : memref<4096xf32>
+    %subview_2 = memref.subview %alloc[0] [%4] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview, %subview_2 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %5 = bufferization.to_tensor %subview_2 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice = tensor.insert_slice %5 into %0[0] [%4] [1] : tensor<?xf32> into tensor<4096xf32>
+    %subview_3 = memref.subview %reinterpret_cast_1[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %alloc_4 = memref.alloc() : memref<4096xf32>
+    %subview_5 = memref.subview %alloc_4[0] [%4] [1] : memref<4096xf32> to memref<?xf32, strided<[1]>>
+    memref.copy %subview_3, %subview_5 : memref<?xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    %6 = bufferization.to_tensor %subview_5 restrict : memref<?xf32, strided<[1]>>
+    %inserted_slice_6 = tensor.insert_slice %6 into %1[0] [%4] [1] : tensor<?xf32> into tensor<4096xf32>
+    %7 = hivm.hir.vadd ins(%inserted_slice, %inserted_slice_6 : tensor<4096xf32>, tensor<4096xf32>) outs(%2 : tensor<4096xf32>) -> tensor<4096xf32>
+    %extracted_slice = tensor.extract_slice %7[0] [%4] [1] : tensor<4096xf32> to tensor<?xf32>
+    %subview_7 = memref.subview %reinterpret_cast_0[0] [%4] [1] : memref<4096xf32, strided<[1]>> to memref<?xf32, strided<[1]>>
+    bufferization.materialize_in_destination %extracted_slice in writable %subview_7 : (tensor<?xf32>, memref<?xf32, strided<[1]>>) -> ()
+    return
+  }
+}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+[W1102 16:30:28.075744273 ToKernelNpu.cpp:41] Warning: Device do not support double dtype now, dtype cast replace with float. (function operator())
+tensor([-1.6385,  1.5861,  1.7502,  ..., -2.0176, -1.0017, -1.9540],
+       device='npu:0')
+tensor([-1.6385,  1.5861,  1.7502,  ..., -2.0176, -1.0017, -1.9540],
+       device='npu:0')
+All check passed

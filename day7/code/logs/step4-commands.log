@@ -1,0 +1,9 @@
+date=2026-11-02T16:30:35+08:00
+bishengir-opt=/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt
+bishengir-compile=/home/developer/Ascend/cann-9.0.0/bin/bishengir-compile
+tilelangir-opt=/mnt/workspace/learn/tilelang-ascend/build/tilelangir/tools/tilelangir-opt/tilelangir-opt
+input=ir/step3-final-npuir.mlir sha256=9044090cb94fdd8ef213d921dcbef3e8f22ef5e386a9624bc289c1f72c47543e
+bishengir-opt 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) 
+llvm 19.1.7 e4ce5939f6e1
+Release build
+

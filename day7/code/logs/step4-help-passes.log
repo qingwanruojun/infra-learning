@@ -1,0 +1,9 @@
+      --adapt-triton-kernel                                  -   Adapt the triton kernel
+      --canonicalize                                         -   Canonicalize operations
+      --canonicalize-ext                                     -   Canonicalize operations
+      --canonicalize-module                                  -   CanonicalizeModule operations
+      --canonicalize-tensor-reshape                          -   Canonicalize tensor reshape
+      --convert-hivm-to-std                                  -   Convert the operations from the hivm dialect into the Standard dialect
+      --hivm-flatten-ops                                     -   Flatten HIVM ops.
+      --hivm-infer-mem-scope                                 -   Infer memory scope for HIVM Ops
+      --hivm-plan-memory                                     -   Plan memory for HIVM Ops

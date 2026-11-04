@@ -1,0 +1,13 @@
+ir/step3-final-npuir.mlir:15:14: error: Alloc buffer not at UB space! 
+    %alloc = memref.alloc() : memref<4096xf32>
+             ^
+ir/step3-final-npuir.mlir:15:14: note: see current operation: %11 = "memref.alloc"() <{operandSegmentSizes = array<i32: 0, 0>}> : () -> memref<4096xf32>
+ir/step3-final-npuir.mlir:21:16: error: 'memref.alloc' op error: read before first write
+    %alloc_4 = memref.alloc() : memref<4096xf32>
+               ^
+ir/step3-final-npuir.mlir:21:16: note: see current operation: %16 = "memref.alloc"() <{operandSegmentSizes = array<i32: 0, 0>}> : () -> memref<4096xf32>
+ir/step3-final-npuir.mlir:15:14: error: 'memref.alloc' op error: read before first write
+    %alloc = memref.alloc() : memref<4096xf32>
+             ^
+ir/step3-final-npuir.mlir:15:14: note: see current operation: %11 = "memref.alloc"() <{operandSegmentSizes = array<i32: 0, 0>}> : () -> memref<4096xf32>
+plan_memory_exit=0

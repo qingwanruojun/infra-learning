@@ -1,0 +1,9 @@
+date=2026-11-02T16:30:38+08:00
+353ba709ee8c258d1ceb9ca920b207f8b6a0087adc7572c50f4a4b863d184876  logs/jit-kernel.npuir
+bae006312aa6e3a19dd94f998e296f8564d63ddbaab98d8fadf17c56aec3b3ea  logs/jit-kernel.o
+bae006312aa6e3a19dd94f998e296f8564d63ddbaab98d8fadf17c56aec3b3ea  artifacts-vecadd.o
+84f8f137dbf9cc86e6547abb94ade6e68afa306e065e1633bbcfd374a62d4083  logs/jit-libkernel.so
+84f8f137dbf9cc86e6547abb94ade6e68afa306e065e1633bbcfd374a62d4083  libartifacts-vecadd.so
+logs/jit-kernel.o: ELF 64-bit LSB executable, *unknown arch 0x1029* version 1 (SYSV), statically linked, not stripped
+JIT_VS_RECOMPILED=IDENTICAL
+HOST_SO=IDENTICAL

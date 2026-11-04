@@ -1,0 +1,7 @@
+source_log= /mnt/workspace/learn/infra-learning/day7/code/logs/vecadd-dev-dump.log
+tvm_ir_lines= 17
+initial_npuir_lines= 35
+canonicalize_after_lines= 33
+adapt_after_lines= 33
+final_npuir_lines= 32
+EXTRACT=PASS

@@ -1,0 +1,5 @@
+bishengir_compile_exit=0
+bae006312aa6e3a19dd94f998e296f8564d63ddbaab98d8fadf17c56aec3b3ea  artifacts-vecadd.o
+artifacts-vecadd.o: ELF 64-bit LSB executable, *unknown arch 0x1029* version 1 (SYSV), statically linked, not stripped
+    50: 0000000000000000   340 FUNC    GLOBAL DEFAULT    1 main
+    51: 0000000000000000     4 OBJECT  WEAK   DEFAULT    3 main__

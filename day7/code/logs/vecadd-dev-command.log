@@ -1,0 +1,10 @@
+date=2026-11-02T16:29:35+08:00
+cwd=/mnt/workspace/learn/tilelang-ascend
+TILELANG_ASCEND_MODE=Developer
+TILELANG_DUMP_IR=TRUE
+ASCEND_HOME_PATH=/home/developer/Ascend/cann-9.0.0
+bishengir_compile_resolved=/home/developer/Ascend/cann-9.0.0/bin/bishengir-compile
+bishengir_compile_shim=/mnt/workspace/learn/infra-learning/day7/code/shims/bishengir-compile
+PATH=/mnt/workspace/learn/infra-learning/day7/code/shims:/home/developer/Ascend/cann-9.0.0/bin:/home/developer/Ascend/cann-9.0.0/tools/ccec_compiler/bin:/home/developer/Ascend/cann-9.0.0/tools/profiler/bin:/home/developer/Ascend/cann-9.0.0/tools/ascend_system_advisor/asys:/home/developer/Ascend/cann-9.0.0/tools/show_kernel_debug_data:/home/developer/Ascend/cann-9.0.0/tools/msobjdump:/home/developer/.local/share/opencode/bin:/home/developer/.git-ai/bin:/home/developer/.opencode/bin:/opt/buildtools/Python-3.11.4/bin:/home/developer/.nvm/versions/node/v18.19.1/bin:/home/developer/.opencode/bin:/opt/buildtools/Python-3.11.4/bin:/home/developer/.local/bin:/home/developer/bin:/usr/local/cmake/bin:/opt/buildtools/python-3.11.4/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/jvm/default-java/bin:/mnt/workspace/learn/tilelang-ascend/3rdparty/AscendNPU-IR/build/bin
+python=/opt/buildtools/Python-3.11.4/bin/python3 Python 3.11.4
+command=python3 examples/elementwise/vec_add_1d.py

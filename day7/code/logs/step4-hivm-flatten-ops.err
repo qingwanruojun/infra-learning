@@ -1,0 +1,28 @@
+LLVM ERROR: SmallVector unable to grow. Requested capacity (8589934593) is larger than maximum value for size type (4294967295)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /home/developer/Ascend/cann-9.0.0/bin/bishengir-opt ir/step3-final-npuir.mlir --hivm-flatten-ops
+ #0 0x0000aaaac991931c (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5b1931c)
+ #1 0x0000aaaac9916e90 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5b16e90)
+ #2 0x0000aaaac9919ad8 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5b19ad8)
+ #3 0x0000ffffa877e8dc (linux-vdso.so.1+0x8dc)
+ #4 0x0000ffffa81b5d88 raise /build/glibc-fci4Zo/glibc-2.31/signal/../sysdeps/unix/sysv/linux/raise.c:51:1
+ #5 0x0000ffffa81a2aac abort /build/glibc-fci4Zo/glibc-2.31/stdlib/abort.c:81:7
+ #6 0x0000aaaac98c0c40 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5ac0c40)
+ #7 0x0000aaaac98db100 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5adb100)
+ #8 0x0000aaaac98dadfc (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5adadfc)
+ #9 0x0000aaaac560110c (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x180110c)
+#10 0x0000aaaac59789f0 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x1b789f0)
+#11 0x0000aaaac597cd18 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x1b7cd18)
+#12 0x0000aaaac5972eec (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x1b72eec)
+#13 0x0000aaaac5a09764 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x1c09764)
+#14 0x0000aaaac5db3048 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x1fb3048)
+#15 0x0000aaaac93d45d8 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x55d45d8)
+#16 0x0000aaaac93d18dc (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x55d18dc)
+#17 0x0000aaaac93b841c (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x55b841c)
+#18 0x0000aaaac93b6658 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x55b6658)
+#19 0x0000aaaac5db2dac (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x1fb2dac)
+#20 0x0000aaaac9506310 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5706310)
+#21 0x0000aaaac9506b24 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x5706b24)
+#22 0x0000aaaac95087f4 (/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt+0x57087f4)
+flatten_ops_exit=134

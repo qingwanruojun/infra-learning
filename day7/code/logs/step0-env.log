@@ -1,0 +1,46 @@
+date=2026-11-02T15:37:35+08:00
+host=Linux a6c98e6836c04614baed206dda1faa87 5.10.0-182.0.0.95.r2673_211.hce2.aarch64 #1 SMP Sat Mar 15 08:57:21 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
+ASCEND_HOME_PATH=/home/developer/Ascend/cann-9.0.0
+python=/opt/buildtools/Python-3.11.4/bin/python3 Python 3.11.4
+tilelang_repo=/mnt/workspace/learn/tilelang-ascend
+tilelang_commit=bd7c60c312b0721885c78d1ce03c62be9225314c
+tilelang_status_local_changes:
+ M 3rdparty/AscendNPU-IR
+ M tilelang/jit/jit_npu.py
+?? 01_before.png
+?? 02_after.png
+?? 03_summary.png
+?? day4/
+?? day5-flashattn/
+?? day5/
+?? export_only_prof_dir/
+?? notes/
+?? own_ops/
+?? "\344\273\212\346\227\245\346\261\207\346\212\245.md"
+AscendNPU-IR_source_commit=87ea6c4509a994a90b1d019bd91e39356c537203
+AscendNPU-IR_built_commit=31f690369d1247fbd5529a3f88b758f7d470ae4f
+bishengir-opt=/home/developer/Ascend/cann-9.0.0/bin/bishengir-opt
+bishengir-opt 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) 
+llvm 19.1.7 e4ce5939f6e1
+Release build
+
+bishengir-compile=/home/developer/Ascend/cann-9.0.0/bin/bishengir-compile
+bishengir-compile 1.1.0 (/usr1/BiSheng/AscendNPU-IR/bishengir 428ab8fdab46 2026-04-30) 
+llvm 19.1.7 e4ce5939f6e1
+Release build
+tilelangir-opt=/mnt/workspace/learn/tilelang-ascend/build/tilelangir/tools/tilelangir-opt/tilelangir-opt
+npu-smi:
++------------------------------------------------------------------------------------------------+
+| npu-smi 25.5.0                   Version: 25.5.0                                               |
++---------------------------+---------------+----------------------------------------------------+
+| NPU   Name                | Health        | Power(W)    Temp(C)           Hugepages-Usage(page)|
+| Chip                      | Bus-Id        | AICore(%)   Memory-Usage(MB)  HBM-Usage(MB)        |
++===========================+===============+====================================================+
+| 3     910B3               | OK            | 81.7        35                0    / 0             |
+| 0                         | 0000:0A:00.0  | 0           0    / 0          3403 / 65536         |
++===========================+===============+====================================================+
++---------------------------+---------------+----------------------------------------------------+
+| NPU     Chip              | Process id    | Process name             | Process memory(MB)      |
++===========================+===============+====================================================+
+| No running processes found in NPU 3                                                            |
++===========================+===============+====================================================+

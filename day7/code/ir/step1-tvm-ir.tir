@@ -1,0 +1,17 @@
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(A: T.Buffer((4096,), "float32"), B: T.Buffer((4096,), "float32"), C: T.Buffer((4096,), "float32"), shape: T.int32):
+        T.func_attr({"target": T.target({"host": {"keys": ["cpu"], "kind": "stackvm", "tag": ""}, "keys": [], "kind": "npuir", "tag": ""})})
+        cid = T.launch_thread("blockIdx.x", 1)
+        _ = T.launch_thread("blockIdx.z", 2)
+        A_VEC = T.decl_buffer((4096,), scope="shared")
+        B_VEC = T.decl_buffer((4096,), scope="shared")
+        C_VEC = T.decl_buffer((4096,), scope="shared")
+        T.copy(T.region(A[0], 1, T.min(4096, shape)), T.region(A_VEC[0], 2, T.min(4096, shape)))
+        T.copy(T.region(B[0], 1, T.min(4096, shape)), T.region(B_VEC[0], 2, T.min(4096, shape)))
+        T.npuir_add(T.region(A_VEC[0], 1, 4096), T.region(B_VEC[0], 1, 4096), T.region(C_VEC[0], 2, 4096))
+        T.copy(T.region(C_VEC[0], 1, T.min(4096, shape)), T.region(C[0], 2, T.min(4096, shape)))
