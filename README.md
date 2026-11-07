@@ -14,13 +14,14 @@
 | Day 6 · 10/31–11/02 | MLIR 基础、HFusion/HIVM、设备产物与 host 验收 | [MLIR 到 NPU](day6/README.md) |
 | Day 7 · 11/02 | 跟踪同一次 VecAdd 的 TIR、NPUIR、pass 和设备产物 | [编译链追踪](day7/README.md) |
 | Day 8 · 11/04 | 按 CANNBot 工作流材料组织 Agent 生成 RMSNorm，修复 UB 并独立验收 | [生成与验收](day8/README.md) |
-| Day 9–10 · 11/05–11/06 | 归纳 profiling、交错对照、分支生效检查与 Ratio 口径 | [两周学习小结](学习总结.md)，具体算子评测见任务索引 |
+
+公开学习记录截至 Day 8（11 月 4 日）。阶段收获见 [学习总结](学习总结.md)。
 
 ## 复现与归档
 
 - 算子和实验代码按原日期保存在对应目录。运行前按各实验 README 核对 CANN、TileLang 及设备配置。
 - Day 6 从 `day6/code/repro.sh` 开始，检查设备运行与独立数值校验。Day 7 从 `day7/code/run_vecadd_dev.sh` 开始，按该日 README 提取 IR 并核对原 JIT 和复编产物。
-- [每日记录](每日学习文档/README.md)按实际日期归档，其中 11 月 6 日是算子工作任务记录。早期 PDF、周会和飞书整理稿保留各自记录时间。
+- 早期 PDF、周会和飞书整理稿保留各自记录时间。
 - [Skills](skills/README.md)汇总算子开发、性能测量、报告与任务迁移流程。
 
 ## 相关项目
