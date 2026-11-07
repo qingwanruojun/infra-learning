@@ -1,6 +1,6 @@
 # infra-learning
 
-昇腾 910B3 上的 TileLang NPUIR 学习与实验记录。学习主线从环境与 DSL 起步，经过 Vector、Cube、MixCV、MLIR 编译和 Agent 生成，最后归纳设备性能测量与验收方法。算子迁移及随后的交付、调优和复核归入 [工作任务](任务记录.md)，按任务口径汇报。
+昇腾 910B3 上的 TileLang NPUIR 学习与实验记录。学习主线从环境与 DSL 起步，经过 Vector、Cube、MixCV、MLIR 编译和 Agent 生成，最后归纳设备性能测量与验收方法。
 
 ## 学习路线
 
@@ -15,13 +15,12 @@
 | Day 7 · 11/02 | 跟踪同一次 VecAdd 的 TIR、NPUIR、pass 和设备产物 | [编译链追踪](day7/README.md) |
 | Day 8 · 11/04 | 按 CANNBot 工作流材料组织 Agent 生成 RMSNorm，修复 UB 并独立验收 | [生成与验收](day8/README.md) |
 
-公开学习记录截至 Day 8（11 月 4 日）。阶段收获见 [学习总结](学习总结.md)。
+公开学习记录截至 Day 8（11 月 4 日）。
 
 ## 复现与归档
 
 - 算子和实验代码按原日期保存在对应目录。运行前按各实验 README 核对 CANN、TileLang 及设备配置。
 - Day 6 从 `day6/code/repro.sh` 开始，检查设备运行与独立数值校验。Day 7 从 `day7/code/run_vecadd_dev.sh` 开始，按该日 README 提取 IR 并核对原 JIT 和复编产物。
-- 早期 PDF、周会和飞书整理稿保留各自记录时间。
 - [Skills](skills/README.md)汇总算子开发、性能测量、报告与任务迁移流程。
 
 ## 相关项目
