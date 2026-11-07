@@ -1,0 +1,13 @@
+{
+  "operator_name": "rmsnorm",
+  "env_check_passed": true,
+  "current_stage": 3,
+  "stage_status": {"1": "completed", "2": "completed"},
+  "stage_retry_count": {"1": 0, "2": 0, "3": 0},
+  "stage2_failure_breakdown": {"runtime_fail": 0, "precision_fail": 0},
+  "design_revision_count": 0,
+  "perf_tuning_requested": "no",
+  "perf_iteration": {"count": 0, "last_improvement": 0.0, "consecutive_no_improvement": 0},
+  "status": "SUCCESS",
+  "last_updated": "2026-11-04T09:33:00Z"
+}

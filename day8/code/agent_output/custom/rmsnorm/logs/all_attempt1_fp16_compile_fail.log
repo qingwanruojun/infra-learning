@@ -1,0 +1,348 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+[09:26:41] /mnt/workspace/learn/tilelang-ascend/src/transform/npu_loop_vectorize.cc:801: Warning: Parallel cast lowering uses fixed round mode 'rint'; non-default floor/trunc cast expectations are not preserved for cast expr: T.Cast("float32", x_sh[i, j])
+[09:26:41] /mnt/workspace/learn/tilelang-ascend/src/transform/npu_loop_vectorize.cc:801: Warning: Parallel cast lowering uses fixed round mode 'rint'; non-default floor/trunc cast expectations are not preserved for cast expr: T.Cast("float32", w_sh[j])
+2026-11-04 09:26:24  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 09:26:24  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 09:26:24  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+[PRECISION_PASS] l0 l0_basic shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=1.430511e-06 max_rel=2.489888e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_fp32_base shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.572596e-07 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR:
+
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf16>, %arg4: memref<?xf16>, %arg5: memref<?xf16>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1024 = arith.constant 1024 : index
+    %c1 = arith.constant 1 : index
+    %cst = arith.constant 9.99999974E-6 : f32
+    %cst_0 = arith.constant 9.765625E-4 : f32
+    %c16_i32 = arith.constant 16 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [1024, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<1024x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [1024, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<1024x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_2 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [1024], strides: [%c1] : memref<?xf16> to memref<1024xf16, strided<[1]>>
+    %0 = hivm.hir.get_block_idx -> i64
+    %1 = arith.trunci %0 : i64 to i32
+    %2 = tensor.empty() : tensor<16x1024xf32>
+    %3 = tensor.empty() : tensor<16x1xf32>
+    %4 = tensor.empty() : tensor<16x1xf32>
+    %5 = tensor.empty() : tensor<16x1024xf32>
+    %6 = tensor.empty() : tensor<16x1024xf32>
+    %7 = tensor.empty() : tensor<16x1xf32>
+    %8 = tensor.empty() : tensor<16x1024xf32>
+    %9 = tensor.empty() : tensor<16x1024xf32>
+    %10 = tensor.empty() : tensor<16x1024xf32>
+    %11 = tensor.empty() : tensor<16x1024xf16>
+    %12 = tensor.empty() : tensor<16x1024xf32>
+    %13 = arith.muli %1, %c16_i32 : i32
+    %14 = arith.index_cast %13 : i32 to index
+    %subview = memref.subview %reinterpret_cast[%14, 0] [16, 1024] [1, 1] : memref<1024x1024xf16, strided<[1024, 1]>> to memref<16x1024xf16, strided<[1024, 1], offset: ?>>
+    %alloc = memref.alloc() : memref<16x1024xf16>
+    memref.copy %subview, %alloc : memref<16x1024xf16, strided<[1024, 1], offset: ?>> to memref<16x1024xf16>
+    %15 = bufferization.to_tensor %alloc restrict : memref<16x1024xf16>
+    %alloc_3 = memref.alloc() : memref<1024xf16>
+    memref.copy %reinterpret_cast_2, %alloc_3 : memref<1024xf16, strided<[1]>> to memref<1024xf16>
+    %16 = bufferization.to_tensor %alloc_3 restrict : memref<1024xf16>
+    %17 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%5 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %18 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%6 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %19 = hivm.hir.vmul ins(%17, %18 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%2 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %20 = hivm.hir.vreduce <sum> ins(%19 : tensor<16x1024xf32>) outs(%3 : tensor<16x1xf32>) reduce_dims = [1] -> tensor<16x1xf32>
+    %21 = hivm.hir.vmul ins(%20, %cst_0 : tensor<16x1xf32>, f32) outs(%7 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %22 = hivm.hir.vadd ins(%21, %cst : tensor<16x1xf32>, f32) outs(%20 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %23 = hivm.hir.vsqrt ins(%22 : tensor<16x1xf32>) outs(%4 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %24 = hivm.hir.vrec ins(%23 : tensor<16x1xf32>) outs(%23 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %25 = hivm.hir.vbrc ins(%24 : tensor<16x1xf32>) outs(%9 : tensor<16x1024xf32>) broadcast_dims = [1] -> tensor<16x1024xf32>
+    %expanded = tensor.expand_shape %16 [[0, 1]] output_shape [1, 1024] : tensor<1024xf16> into tensor<1x1024xf16>
+    %26 = hivm.hir.vbrc ins(%expanded : tensor<1x1024xf16>) outs(%11 : tensor<16x1024xf16>) broadcast_dims = [0] -> tensor<16x1024xf16>
+    %27 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%8 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %28 = hivm.hir.vmul ins(%27, %25 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%10 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %29 = hivm.hir.vcast ins(%26 : tensor<16x1024xf16>) outs(%12 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %30 = hivm.hir.vmul ins(%28, %29 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%19 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %31 = hivm.hir.vcast ins(%30 : tensor<16x1024xf32>) outs(%15 : tensor<16x1024xf16>) -> tensor<16x1024xf16>
+    %subview_4 = memref.subview %reinterpret_cast_1[%14, 0] [16, 1024] [1, 1] : memref<1024x1024xf16, strided<[1024, 1]>> to memref<16x1024xf16, strided<[1024, 1], offset: ?>>
+    bufferization.materialize_in_destination %31 in writable %subview_4 : (tensor<16x1024xf16>, memref<16x1024xf16, strided<[1024, 1], offset: ?>>) -> ()
+    return
+  }
+}
+err cmd: /home/developer/Ascend/cann-9.0.0/bin/bishengir-compile /tmp/tmp106cci1h/kernel.npuir --enable-auto-multi-buffer=true --disable-hivm-auto-inject-sync=false --enable-triton-kernel-compile=true --enable-hivm-compile=true -o /tmp/tmp106cci1h/kernel
+err code: 1
+[PRECISION_FAIL] l1 l1_fp16_base shape=(1024,1024) dtype=float16 eps=1e-05: RuntimeError: NPU IR opt failed: loc("/tmp/tmp106cci1h/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmp106cci1h/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmp106cci1h/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmp106cci1h/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmp106cci1h/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmp106cci1h/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmp106cci1h/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmp106cci1h/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmp106cci1h/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmp106cci1h/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+[ERROR] Failed to run BiShengIR pipeline
+
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_tail_1023 shape=(1023,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.642761e-07 n_exceed=0/1047552 mask_match=True -> PASS
+AscendNPU IR:
+
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf16>, %arg4: memref<?xf16>, %arg5: memref<?xf16>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1024 = arith.constant 1024 : index
+    %c1 = arith.constant 1 : index
+    %cst = arith.constant 9.99999974E-6 : f32
+    %cst_0 = arith.constant 9.765625E-4 : f32
+    %c1023_i32 = arith.constant 1023 : i32
+    %c16_i32 = arith.constant 16 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [1023, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<1023x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [1023, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<1023x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_2 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [1024], strides: [%c1] : memref<?xf16> to memref<1024xf16, strided<[1]>>
+    %0 = hivm.hir.get_block_idx -> i64
+    %1 = arith.trunci %0 : i64 to i32
+    %2 = tensor.empty() : tensor<16x1024xf16>
+    %3 = tensor.empty() : tensor<16x1024xf32>
+    %4 = tensor.empty() : tensor<16x1xf32>
+    %5 = tensor.empty() : tensor<16x1xf32>
+    %6 = tensor.empty() : tensor<16x1024xf32>
+    %7 = tensor.empty() : tensor<16x1024xf32>
+    %8 = tensor.empty() : tensor<16x1xf32>
+    %9 = tensor.empty() : tensor<16x1024xf32>
+    %10 = tensor.empty() : tensor<16x1024xf32>
+    %11 = tensor.empty() : tensor<16x1024xf32>
+    %12 = tensor.empty() : tensor<16x1024xf16>
+    %13 = tensor.empty() : tensor<16x1024xf32>
+    %14 = arith.muli %1, %c16_i32 : i32
+    %15 = arith.index_cast %14 : i32 to index
+    %16 = arith.subi %c1023_i32, %14 : i32
+    %17 = arith.minsi %16, %c16_i32 : i32
+    %18 = arith.index_cast %17 : i32 to index
+    %subview = memref.subview %reinterpret_cast[%15, 0] [%18, 1024] [1, 1] : memref<1023x1024xf16, strided<[1024, 1]>> to memref<?x1024xf16, strided<[1024, 1], offset: ?>>
+    %alloc = memref.alloc() : memref<16x1024xf16>
+    %subview_3 = memref.subview %alloc[0, 0] [%18, 1024] [1, 1] : memref<16x1024xf16> to memref<?x1024xf16, strided<[1024, 1]>>
+    memref.copy %subview, %subview_3 : memref<?x1024xf16, strided<[1024, 1], offset: ?>> to memref<?x1024xf16, strided<[1024, 1]>>
+    %19 = bufferization.to_tensor %subview_3 restrict : memref<?x1024xf16, strided<[1024, 1]>>
+    %inserted_slice = tensor.insert_slice %19 into %2[0, 0] [%18, 1024] [1, 1] : tensor<?x1024xf16> into tensor<16x1024xf16>
+    %alloc_4 = memref.alloc() : memref<1024xf16>
+    memref.copy %reinterpret_cast_2, %alloc_4 : memref<1024xf16, strided<[1]>> to memref<1024xf16>
+    %20 = bufferization.to_tensor %alloc_4 restrict : memref<1024xf16>
+    %21 = hivm.hir.vcast ins(%inserted_slice : tensor<16x1024xf16>) outs(%6 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %22 = hivm.hir.vcast ins(%inserted_slice : tensor<16x1024xf16>) outs(%7 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %23 = hivm.hir.vmul ins(%21, %22 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%3 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %24 = hivm.hir.vreduce <sum> ins(%23 : tensor<16x1024xf32>) outs(%4 : tensor<16x1xf32>) reduce_dims = [1] -> tensor<16x1xf32>
+    %25 = hivm.hir.vmul ins(%24, %cst_0 : tensor<16x1xf32>, f32) outs(%8 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %26 = hivm.hir.vadd ins(%25, %cst : tensor<16x1xf32>, f32) outs(%24 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %27 = hivm.hir.vsqrt ins(%26 : tensor<16x1xf32>) outs(%5 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %28 = hivm.hir.vrec ins(%27 : tensor<16x1xf32>) outs(%27 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %29 = hivm.hir.vbrc ins(%28 : tensor<16x1xf32>) outs(%10 : tensor<16x1024xf32>) broadcast_dims = [1] -> tensor<16x1024xf32>
+    %expanded = tensor.expand_shape %20 [[0, 1]] output_shape [1, 1024] : tensor<1024xf16> into tensor<1x1024xf16>
+    %30 = hivm.hir.vbrc ins(%expanded : tensor<1x1024xf16>) outs(%12 : tensor<16x1024xf16>) broadcast_dims = [0] -> tensor<16x1024xf16>
+    %31 = hivm.hir.vcast ins(%inserted_slice : tensor<16x1024xf16>) outs(%9 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %32 = hivm.hir.vmul ins(%31, %29 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%11 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %33 = hivm.hir.vcast ins(%30 : tensor<16x1024xf16>) outs(%13 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %34 = hivm.hir.vmul ins(%32, %33 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%23 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %35 = hivm.hir.vcast ins(%34 : tensor<16x1024xf32>) outs(%inserted_slice : tensor<16x1024xf16>) -> tensor<16x1024xf16>
+    %extracted_slice = tensor.extract_slice %35[0, 0] [%18, 1024] [1, 1] : tensor<16x1024xf16> to tensor<?x1024xf16>
+    %subview_5 = memref.subview %reinterpret_cast_1[%15, 0] [%18, 1024] [1, 1] : memref<1023x1024xf16, strided<[1024, 1]>> to memref<?x1024xf16, strided<[1024, 1], offset: ?>>
+    bufferization.materialize_in_destination %extracted_slice in writable %subview_5 : (tensor<?x1024xf16>, memref<?x1024xf16, strided<[1024, 1], offset: ?>>) -> ()
+    return
+  }
+}
+err cmd: /home/developer/Ascend/cann-9.0.0/bin/bishengir-compile /tmp/tmpv9zam7cn/kernel.npuir --enable-auto-multi-buffer=true --disable-hivm-auto-inject-sync=false --enable-triton-kernel-compile=true --enable-hivm-compile=true -o /tmp/tmpv9zam7cn/kernel
+err code: 1
+[PRECISION_FAIL] l1 l1_fp16_tail_1023 shape=(1023,1024) dtype=float16 eps=1e-05: RuntimeError: NPU IR opt failed: loc("/tmp/tmpv9zam7cn/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpv9zam7cn/kernel.npuir":2:3): error: ub overflow, requires 2114048 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpv9zam7cn/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpv9zam7cn/kernel.npuir":2:3): error: ub overflow, requires 2114048 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpv9zam7cn/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpv9zam7cn/kernel.npuir":2:3): error: ub overflow, requires 2114048 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpv9zam7cn/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpv9zam7cn/kernel.npuir":2:3): error: ub overflow, requires 2114048 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpv9zam7cn/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpv9zam7cn/kernel.npuir":2:3): error: ub overflow, requires 2114048 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+[ERROR] Failed to run BiShengIR pipeline
+
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_tail_1025 shape=(1025,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.502856e-07 n_exceed=0/1049600 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_tail_1032 shape=(1032,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.713687e-07 n_exceed=0/1056768 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_prime_1009 shape=(1009,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.588879e-07 n_exceed=0/1033216 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_edge_1xN shape=(1,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=1.192093e-07 max_rel=1.231955e-07 n_exceed=0/1024 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_edge_Nx1 shape=(1024,1) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=7.450581e-09 max_rel=1.183144e-07 n_exceed=0/1024 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_valrange_M shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.645504e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_valrange_L shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.439110e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_valrange_ASYM shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=2.384186e-07 max_rel=2.383086e-07 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_eps_1e-3 shape=(1024,1024) dtype=float32 eps=0.001 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.414711e-07 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR:
+
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf16>, %arg4: memref<?xf16>, %arg5: memref<?xf16>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1024 = arith.constant 1024 : index
+    %c1 = arith.constant 1 : index
+    %cst = arith.constant 9.99999993E-9 : f32
+    %cst_0 = arith.constant 9.765625E-4 : f32
+    %c16_i32 = arith.constant 16 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [1024, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<1024x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [1024, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<1024x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_2 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [1024], strides: [%c1] : memref<?xf16> to memref<1024xf16, strided<[1]>>
+    %0 = hivm.hir.get_block_idx -> i64
+    %1 = arith.trunci %0 : i64 to i32
+    %2 = tensor.empty() : tensor<16x1024xf32>
+    %3 = tensor.empty() : tensor<16x1xf32>
+    %4 = tensor.empty() : tensor<16x1xf32>
+    %5 = tensor.empty() : tensor<16x1024xf32>
+    %6 = tensor.empty() : tensor<16x1024xf32>
+    %7 = tensor.empty() : tensor<16x1xf32>
+    %8 = tensor.empty() : tensor<16x1024xf32>
+    %9 = tensor.empty() : tensor<16x1024xf32>
+    %10 = tensor.empty() : tensor<16x1024xf32>
+    %11 = tensor.empty() : tensor<16x1024xf16>
+    %12 = tensor.empty() : tensor<16x1024xf32>
+    %13 = arith.muli %1, %c16_i32 : i32
+    %14 = arith.index_cast %13 : i32 to index
+    %subview = memref.subview %reinterpret_cast[%14, 0] [16, 1024] [1, 1] : memref<1024x1024xf16, strided<[1024, 1]>> to memref<16x1024xf16, strided<[1024, 1], offset: ?>>
+    %alloc = memref.alloc() : memref<16x1024xf16>
+    memref.copy %subview, %alloc : memref<16x1024xf16, strided<[1024, 1], offset: ?>> to memref<16x1024xf16>
+    %15 = bufferization.to_tensor %alloc restrict : memref<16x1024xf16>
+    %alloc_3 = memref.alloc() : memref<1024xf16>
+    memref.copy %reinterpret_cast_2, %alloc_3 : memref<1024xf16, strided<[1]>> to memref<1024xf16>
+    %16 = bufferization.to_tensor %alloc_3 restrict : memref<1024xf16>
+    %17 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%5 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %18 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%6 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %19 = hivm.hir.vmul ins(%17, %18 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%2 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %20 = hivm.hir.vreduce <sum> ins(%19 : tensor<16x1024xf32>) outs(%3 : tensor<16x1xf32>) reduce_dims = [1] -> tensor<16x1xf32>
+    %21 = hivm.hir.vmul ins(%20, %cst_0 : tensor<16x1xf32>, f32) outs(%7 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %22 = hivm.hir.vadd ins(%21, %cst : tensor<16x1xf32>, f32) outs(%20 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %23 = hivm.hir.vsqrt ins(%22 : tensor<16x1xf32>) outs(%4 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %24 = hivm.hir.vrec ins(%23 : tensor<16x1xf32>) outs(%23 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %25 = hivm.hir.vbrc ins(%24 : tensor<16x1xf32>) outs(%9 : tensor<16x1024xf32>) broadcast_dims = [1] -> tensor<16x1024xf32>
+    %expanded = tensor.expand_shape %16 [[0, 1]] output_shape [1, 1024] : tensor<1024xf16> into tensor<1x1024xf16>
+    %26 = hivm.hir.vbrc ins(%expanded : tensor<1x1024xf16>) outs(%11 : tensor<16x1024xf16>) broadcast_dims = [0] -> tensor<16x1024xf16>
+    %27 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%8 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %28 = hivm.hir.vmul ins(%27, %25 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%10 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %29 = hivm.hir.vcast ins(%26 : tensor<16x1024xf16>) outs(%12 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %30 = hivm.hir.vmul ins(%28, %29 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%19 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %31 = hivm.hir.vcast ins(%30 : tensor<16x1024xf32>) outs(%15 : tensor<16x1024xf16>) -> tensor<16x1024xf16>
+    %subview_4 = memref.subview %reinterpret_cast_1[%14, 0] [16, 1024] [1, 1] : memref<1024x1024xf16, strided<[1024, 1]>> to memref<16x1024xf16, strided<[1024, 1], offset: ?>>
+    bufferization.materialize_in_destination %31 in writable %subview_4 : (tensor<16x1024xf16>, memref<16x1024xf16, strided<[1024, 1], offset: ?>>) -> ()
+    return
+  }
+}
+err cmd: /home/developer/Ascend/cann-9.0.0/bin/bishengir-compile /tmp/tmpq8lr228g/kernel.npuir --enable-auto-multi-buffer=true --disable-hivm-auto-inject-sync=false --enable-triton-kernel-compile=true --enable-hivm-compile=true -o /tmp/tmpq8lr228g/kernel
+err code: 1
+[PRECISION_FAIL] l1 l1_eps_1e-8 shape=(1024,1024) dtype=float16 eps=1e-08: RuntimeError: NPU IR opt failed: loc("/tmp/tmpq8lr228g/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpq8lr228g/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpq8lr228g/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpq8lr228g/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpq8lr228g/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpq8lr228g/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpq8lr228g/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpq8lr228g/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpq8lr228g/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpq8lr228g/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+[ERROR] Failed to run BiShengIR pipeline
+
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_n_1000 shape=(1024,1000) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=3.229842e-07 n_exceed=0/1024000 mask_match=True -> PASS
+[BOUNDARY_PASS] l2 l2_dtype_bf16: correctly rejected (ValueError: unsupported dtype 'bfloat16'; expected ('float32', 'float16'))
+[BOUNDARY_PASS] l2 l2_mixed_dtype: correctly rejected (ValueError: X and W must share a dtype, got torch.float32 and torch.float16)
+[BOUNDARY_PASS] l2 l2_rank3: correctly rejected (ValueError: rmsnorm expects a rank-2 X, got rank 3)
+[BOUNDARY_PASS] l2 l2_w_len: correctly rejected (ValueError: W.shape[0] (512) must equal X.shape[1] (1024))
+[BOUNDARY_PASS] l2 l2_n_too_large: correctly rejected (ValueError: rmsnorm requires 1 <= N <= 8192, got N=16384)
+[BOUNDARY_PASS] l2 l2_m_zero: correctly rejected (ValueError: rmsnorm requires M > 0, got M=0)
+AscendNPU IR compile success: 
+[BOUNDARY_PASS] boundary bnd_inf shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.491663e-07 n_exceed=0/131070 mask_match=True -> PASS
+[BOUNDARY_PASS] boundary bnd_nan shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.491663e-07 n_exceed=0/130048 mask_match=True -> PASS
+[BOUNDARY_PASS] boundary bnd_zero shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=0.000000e+00 max_rel=0.000000e+00 n_exceed=0/131072 mask_match=True -> PASS
+AscendNPU IR:
+
+module attributes {hivm.module_core_type = #hivm.module_core_type<AIV>, memref.memref_as_ptr} {
+  func.func @main(%arg0: i64 {hacc.arg_type = #hacc.arg_type<ffts_base_address>}, %arg1: memref<?xi8> {hacc.arg_type = #hacc.arg_type<sync_block_lock>}, %arg2: memref<?xi8> {hacc.arg_type = #hacc.arg_type<workspace>}, %arg3: memref<?xf16>, %arg4: memref<?xf16>, %arg5: memref<?xf16>, %arg6: i32, %arg7: i32, %arg8: i32, %arg9: i32, %arg10: i32, %arg11: i32) attributes {SyncBlockLockArgIdx = 0 : i64, WorkspaceArgIdx = 1 : i64, hacc.entry, hacc.function_kind = #hacc.function_kind<DEVICE>, hivm.func_core_type = #hivm.func_core_type<AIV>, mix_mode = "aiv"} {
+    %c1024 = arith.constant 1024 : index
+    %c1 = arith.constant 1 : index
+    %cst = arith.constant 9.99999974E-6 : f32
+    %cst_0 = arith.constant 9.765625E-4 : f32
+    %c16_i32 = arith.constant 16 : i32
+    hivm.hir.set_ffts_base_addr %arg0
+    %reinterpret_cast = memref.reinterpret_cast %arg3 to offset: [0], sizes: [128, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<128x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_1 = memref.reinterpret_cast %arg5 to offset: [0], sizes: [128, 1024], strides: [%c1024, %c1] : memref<?xf16> to memref<128x1024xf16, strided<[1024, 1]>>
+    %reinterpret_cast_2 = memref.reinterpret_cast %arg4 to offset: [0], sizes: [1024], strides: [%c1] : memref<?xf16> to memref<1024xf16, strided<[1]>>
+    %0 = hivm.hir.get_block_idx -> i64
+    %1 = arith.trunci %0 : i64 to i32
+    %2 = tensor.empty() : tensor<16x1024xf32>
+    %3 = tensor.empty() : tensor<16x1xf32>
+    %4 = tensor.empty() : tensor<16x1xf32>
+    %5 = tensor.empty() : tensor<16x1024xf32>
+    %6 = tensor.empty() : tensor<16x1024xf32>
+    %7 = tensor.empty() : tensor<16x1xf32>
+    %8 = tensor.empty() : tensor<16x1024xf32>
+    %9 = tensor.empty() : tensor<16x1024xf32>
+    %10 = tensor.empty() : tensor<16x1024xf32>
+    %11 = tensor.empty() : tensor<16x1024xf16>
+    %12 = tensor.empty() : tensor<16x1024xf32>
+    %13 = arith.muli %1, %c16_i32 : i32
+    %14 = arith.index_cast %13 : i32 to index
+    %subview = memref.subview %reinterpret_cast[%14, 0] [16, 1024] [1, 1] : memref<128x1024xf16, strided<[1024, 1]>> to memref<16x1024xf16, strided<[1024, 1], offset: ?>>
+    %alloc = memref.alloc() : memref<16x1024xf16>
+    memref.copy %subview, %alloc : memref<16x1024xf16, strided<[1024, 1], offset: ?>> to memref<16x1024xf16>
+    %15 = bufferization.to_tensor %alloc restrict : memref<16x1024xf16>
+    %alloc_3 = memref.alloc() : memref<1024xf16>
+    memref.copy %reinterpret_cast_2, %alloc_3 : memref<1024xf16, strided<[1]>> to memref<1024xf16>
+    %16 = bufferization.to_tensor %alloc_3 restrict : memref<1024xf16>
+    %17 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%5 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %18 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%6 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %19 = hivm.hir.vmul ins(%17, %18 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%2 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %20 = hivm.hir.vreduce <sum> ins(%19 : tensor<16x1024xf32>) outs(%3 : tensor<16x1xf32>) reduce_dims = [1] -> tensor<16x1xf32>
+    %21 = hivm.hir.vmul ins(%20, %cst_0 : tensor<16x1xf32>, f32) outs(%7 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %22 = hivm.hir.vadd ins(%21, %cst : tensor<16x1xf32>, f32) outs(%20 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %23 = hivm.hir.vsqrt ins(%22 : tensor<16x1xf32>) outs(%4 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %24 = hivm.hir.vrec ins(%23 : tensor<16x1xf32>) outs(%23 : tensor<16x1xf32>) -> tensor<16x1xf32>
+    %25 = hivm.hir.vbrc ins(%24 : tensor<16x1xf32>) outs(%9 : tensor<16x1024xf32>) broadcast_dims = [1] -> tensor<16x1024xf32>
+    %expanded = tensor.expand_shape %16 [[0, 1]] output_shape [1, 1024] : tensor<1024xf16> into tensor<1x1024xf16>
+    %26 = hivm.hir.vbrc ins(%expanded : tensor<1x1024xf16>) outs(%11 : tensor<16x1024xf16>) broadcast_dims = [0] -> tensor<16x1024xf16>
+    %27 = hivm.hir.vcast ins(%15 : tensor<16x1024xf16>) outs(%8 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %28 = hivm.hir.vmul ins(%27, %25 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%10 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %29 = hivm.hir.vcast ins(%26 : tensor<16x1024xf16>) outs(%12 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %30 = hivm.hir.vmul ins(%28, %29 : tensor<16x1024xf32>, tensor<16x1024xf32>) outs(%19 : tensor<16x1024xf32>) -> tensor<16x1024xf32>
+    %31 = hivm.hir.vcast ins(%30 : tensor<16x1024xf32>) outs(%15 : tensor<16x1024xf16>) -> tensor<16x1024xf16>
+    %subview_4 = memref.subview %reinterpret_cast_1[%14, 0] [16, 1024] [1, 1] : memref<128x1024xf16, strided<[1024, 1]>> to memref<16x1024xf16, strided<[1024, 1], offset: ?>>
+    bufferization.materialize_in_destination %31 in writable %subview_4 : (tensor<16x1024xf16>, memref<16x1024xf16, strided<[1024, 1], offset: ?>>) -> ()
+    return
+  }
+}
+err cmd: /home/developer/Ascend/cann-9.0.0/bin/bishengir-compile /tmp/tmpthtxflh3/kernel.npuir --enable-auto-multi-buffer=true --disable-hivm-auto-inject-sync=false --enable-triton-kernel-compile=true --enable-hivm-compile=true -o /tmp/tmpthtxflh3/kernel
+err code: 1
+[BOUNDARY_WARN] boundary bnd_db_fp16 dtype=float16: RuntimeError: NPU IR opt failed: loc("/tmp/tmpthtxflh3/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpthtxflh3/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpthtxflh3/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpthtxflh3/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpthtxflh3/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpthtxflh3/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpthtxflh3/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpthtxflh3/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+loc("/tmp/tmpthtxflh3/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline
+
+loc("/tmp/tmpthtxflh3/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what user expect due to multi-buffer feature is enabled and some ops need extra local buffer.)
+[ERROR] Failed to run BiShengIR pipeline
+
+[BOUNDARY_PASS] boundary bnd_db_fp32 shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=1.907349e-06 max_rel=2.491663e-07 n_exceed=0/131072 mask_match=True -> PASS

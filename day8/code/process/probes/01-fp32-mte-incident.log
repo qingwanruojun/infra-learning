@@ -1,0 +1,65 @@
+# 原始故障记录：fp32 UB 超限，运行时 MTE 地址越界
+# 来源：Stage 2 developer 子代理 transcript
+#   /home/developer/.claude/projects/-mnt-workspace-learn/28c0ec5d-fbdb-49d5-83b3-ee91b139775d/subagents/agent-aef1a5819d615aed7.jsonl
+#   记录行: 130 (命令) / 131 (输出)
+# 设备时间: 2026-11-04T01:24:26.618Z (UTC) = 2026-11-04 09:24:26 +08:00
+# 复现脚本: probes/rmsnorm_compile_check.py
+# 说明: 该脚本编译 block_m=16 的 design-literal kernel，编译成功，
+#       第一次执行 kernel 时 aivec 报 MTE out of range，进程退出 134。
+# 原命令（verbatim）:
+cat > /tmp/rmsnorm_compile_check.py <<'EOF'
+import sys, torch
+import tilelang
+from rmsnorm import rmsnorm
+
+k = rmsnorm(1024, 1024, "float32", 1e-5, block_m=16)
+print("COMPILED_FP32_OK")
+x = torch.randn(1024, 1024, dtype=torch.float32)
+w = torch.randn(1024, dtype=torch.float32)
+y = k(x, w)
+print("RAN_FP32_OK", y.shape, y.dtype)
+EOF
+cd /mnt/workspace/learn/tilelang-ascend && TILELANG_ASCEND_MODE=Developer PYTHONPATH=/mnt/workspace/learn/tilelang-ascend:/mnt/workspace/learn/infra-learning/day8/code/agent_output/custom/rmsnorm python /tmp/rmsnorm_compile_check.py 2>&1 | tail -40; echo "EXIT=${PIPESTATUS[0]}"
+# 进程退出码: 134（命令末尾的 EXIT=${PIPESTATUS[0]} 输出）
+--- stdout (verbatim) ---
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:4, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 7, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x1de419e858080, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:5, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 8, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x103923c3b87c0, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:46, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 9, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x7f22207e00400, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:7, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 10, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x6e2fd1e3300, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:48, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 11, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x7206e59529a00, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:9, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 14, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x533ab6a0cd400, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:10, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 15, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x5efa01a31d980, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:51, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 20, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x36154bd962300, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:52, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 21, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3002425, ifu error info: 0x5be36f0003040, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3002425, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:53, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 22, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x7b655dc2fc000, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:54, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 23, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x5e050596861c0, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:55, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 24, error code = 0, dump info: pc start: 0x124000000000, current: 0, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x499e9f80c63c0, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:56, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       The error from device(chipId:2, dieId:0), serial number is 1, there is an exception of aivec error, core id is 49, error code = 0x800000, dump info: pc start: 0x124000000000, current: 0x124000000138, vec error info: 0x800000417, mte error info: 0x3000025, ifu error info: 0x6a557362c2400, ccu error info: 0xcdce0000b80004b, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100600000.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]
+       The extend info: errcode:(0x800000, 0, 0) errorStr: The DDR address of the MTE instruction is out of range. fixp_error0 info: 0x3000025, fixp_error1 info: 0, fsmId:1, tslot:0, thread:0, ctxid:0, blk:37, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]
+       Kernel task happen error, retCode=0x31, [vector core exception].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1729]
+       rtStreamSynchronizeWithTimeout execution failed, reason=suspect remote error[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]
+       synchronize stream with timeout failed, runtime result = 507057[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]
+
+Exception raised from RunOpApi at ../torch_npu/csrc/framework/OpCommand.cpp:228 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xd4 (0xffff84084ea4 in /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) + 0xe4 (0xffff84024e44 in /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #2: at_npu::native::OpCommand::RunOpApi(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::function<int ()>, bool) + 0x1348 (0xffff2a79cb88 in /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libtorch_npu.so)
+frame #3: <unknown function> + 0x27ac4 (0xfffeda6eeac4 in /home/developer/.tilelang/cache/4fe3bcc1b62b6fe5fb0839872c59a5dd21673a3a37d310c7a786dc6bf68c6137/main.so)
+frame #4: <unknown function> + 0x280b0 (0xfffeda6ef0b0 in /home/developer/.tilelang/cache/4fe3bcc1b62b6fe5fb0839872c59a5dd21673a3a37d310c7a786dc6bf68c6137/main.so)
+<omitting python frames>
+frame #20: __libc_start_main + 0xe8 (0xffff90449e10 in /lib/aarch64-linux-gnu/libc.so.6)
+
+EXIT=134--- stderr (verbatim) ---

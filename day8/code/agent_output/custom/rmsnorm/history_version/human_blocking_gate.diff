@@ -1,0 +1,71 @@
+--- history_version/test_rmsnorm_pre_blocking_gate.py	2026-11-04 09:26:44.653451193 +0800
++++ history_version/test_rmsnorm_post_blocking_gate.py	2026-11-04 10:13:33.663249189 +0800
+@@ -353,8 +353,9 @@
+         print(
+             f"[BOUNDARY_PASS] l2 {name}: correctly rejected ({type(exc).__name__}: {exc})"
+         )
+-        return
++        return True
+     print(f"[BOUNDARY_WARN] l2 {name}: illegal input was silently accepted")
++    return False
+ 
+ 
+ def test_rmsnorm_l2():
+@@ -374,11 +375,13 @@
+         "l2_n_too_large": lambda: rmsnorm(1024, 16384, "float32", 1e-5),
+         "l2_m_zero": lambda: validate_inputs(x_empty, w),
+     }
++    ok = True
+     for name, _tags in L2_CASES:
+-        _run_exception(name, cases[name])
++        ok &= _run_exception(name, cases[name])
++    return ok
+ 
+ 
+-# ========== Boundary: legal special values (precision compared, non-blocking) ==========
++# ========== Boundary: legal special values (precision compared, blocking) ==========
+ # (name, M, N, dtype, eps, kind, tags)
+ BOUNDARY_CASES = [
+     ("bnd_inf", 128, 1024, "float32", 1e-5, "inf", ["D-SPECIAL-INF"]),
+@@ -406,16 +409,20 @@
+             f"mask_match={m['masks_match']} -> "
+             f"{'PASS' if m['passed'] else 'WARN'}"
+         )
+-    except Exception as exc:  # noqa: BLE001 - boundary cases never block
++        return bool(m["passed"])
++    except Exception as exc:  # noqa: BLE001 - a boundary warning must fail the run
+         print(
+             f"[BOUNDARY_WARN] boundary {name} dtype={dtype}: {type(exc).__name__}: {exc}"
+         )
++        return False
+ 
+ 
+ def test_rmsnorm_boundary():
+     """Boundary tests: INF/NAN/zero/dtype-bound values (precision-compared)."""
++    ok = True
+     for name, M, N, dtype, eps, kind, _tags in BOUNDARY_CASES:
+-        _run_boundary(name, M, N, dtype, eps, kind)
++        ok &= _run_boundary(name, M, N, dtype, eps, kind)
++    return ok
+ 
+ 
+ # ========== Coverage bookkeeping (machine-checkable) ==========
+@@ -459,15 +466,15 @@
+     torch.manual_seed(0)
+     torch.npu.set_device(0)
+ 
+-    blocking_ok = True  # only L0/L1 feed the exit code
++    blocking_ok = True  # all four layers feed the exit code
+     if args.level in ("l0", "all"):
+         blocking_ok &= test_rmsnorm_l0()
+     if args.level in ("l1", "all"):
+         blocking_ok &= test_rmsnorm_l1()
+     if args.level in ("l2", "all"):
+-        test_rmsnorm_l2()  # non-blocking
++        blocking_ok &= test_rmsnorm_l2()
+     if args.level in ("boundary", "all"):
+-        test_rmsnorm_boundary()  # non-blocking
++        blocking_ok &= test_rmsnorm_boundary()
+ 
+     if blocking_ok:
+         print("Test Passed!")

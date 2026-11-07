@@ -1,0 +1,22 @@
+== Coverage Matrix: rmsnorm ==
+   category=Normalization
+[PASS] D-DTYPE-fp16           need>=1 got 3
+[PASS] D-DTYPE-fp32           need>=1 got 1
+[PASS] D-EXC-DTYPE            need>=1 got 2
+[PASS] D-EXC-SHAPE            need>=1 got 4
+[PASS] D-PARAM-eps            need>=1 got 2
+[PASS] D-SHAPE-ALIGNED        need>=1 got 2
+[PASS] D-SHAPE-EDGE           need>=1 got 2
+[PASS] D-SHAPE-PRIME          need>=1 got 1
+[PASS] D-SHAPE-TAIL-1         need>=1 got 1
+[PASS] D-SHAPE-TAIL-MID       need>=1 got 3
+[PASS] D-SPECIAL-DBOUND       need>=1 got 2
+[PASS] D-SPECIAL-INF          need>=1 got 1
+[PASS] D-SPECIAL-NAN          need>=1 got 1
+[PASS] D-SPECIAL-ZERO         need>=1 got 1
+[PASS] D-VALRANGE-ASYM        need>=1 got 1
+[PASS] D-VALRANGE-L           need>=1 got 1
+[PASS] D-VALRANGE-M           need>=1 got 1
+[PASS] D-VALRANGE-S           need>=1 got 3
+COVERAGE: 18 PASS / 0 MISS / 0 N/A  -> PASS
+EXIT_CODE=0

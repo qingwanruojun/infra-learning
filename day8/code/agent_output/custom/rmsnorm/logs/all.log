@@ -1,0 +1,50 @@
+2026-11-04 09:31:37  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 09:31:37  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 09:31:37  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+AscendNPU IR compile success: 
+[PRECISION_PASS] l0 l0_basic shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=1.430511e-06 max_rel=2.489888e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_fp32_base shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.572596e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[09:31:54] /mnt/workspace/learn/tilelang-ascend/src/transform/npu_loop_vectorize.cc:801: Warning: Parallel cast lowering uses fixed round mode 'rint'; non-default floor/trunc cast expectations are not preserved for cast expr: T.Cast("float32", x_sh[i, j])
+[09:31:54] /mnt/workspace/learn/tilelang-ascend/src/transform/npu_loop_vectorize.cc:801: Warning: Parallel cast lowering uses fixed round mode 'rint'; non-default floor/trunc cast expectations are not preserved for cast expr: T.Cast("float32", w_sh[j])
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_fp16_base shape=(1024,1024) dtype=float16 eps=1e-05 | atol=0.01 rtol=0.01 max_abs_limit=0.1 req_ratio=0.99 | matched_ratio=1.000000 max_abs=9.765625e-04 max_rel=9.615385e-04 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_tail_1023 shape=(1023,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.642761e-07 n_exceed=0/1047552 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_fp16_tail_1023 shape=(1023,1024) dtype=float16 eps=1e-05 | atol=0.01 rtol=0.01 max_abs_limit=0.1 req_ratio=0.99 | matched_ratio=1.000000 max_abs=9.765625e-04 max_rel=9.680542e-04 n_exceed=0/1047552 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_tail_1025 shape=(1025,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.502856e-07 n_exceed=0/1049600 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_tail_1032 shape=(1032,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.713687e-07 n_exceed=0/1056768 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_prime_1009 shape=(1009,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.588879e-07 n_exceed=0/1033216 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_edge_1xN shape=(1,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=1.192093e-07 max_rel=1.231955e-07 n_exceed=0/1024 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_edge_Nx1 shape=(1024,1) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=7.450581e-09 max_rel=1.183144e-07 n_exceed=0/1024 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_valrange_M shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.645504e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_valrange_L shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.439110e-07 n_exceed=0/1048576 mask_match=True -> PASS
+[PRECISION_PASS] l1 l1_valrange_ASYM shape=(1024,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=2.384186e-07 max_rel=2.383086e-07 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_eps_1e-3 shape=(1024,1024) dtype=float32 eps=0.001 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.414711e-07 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_eps_1e-8 shape=(1024,1024) dtype=float16 eps=1e-08 | atol=0.01 rtol=0.01 max_abs_limit=0.1 req_ratio=0.99 | matched_ratio=1.000000 max_abs=9.765625e-04 max_rel=9.606148e-04 n_exceed=0/1048576 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[PRECISION_PASS] l1 l1_n_1000 shape=(1024,1000) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 req_ratio=0.99 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=3.229842e-07 n_exceed=0/1024000 mask_match=True -> PASS
+[BOUNDARY_PASS] l2 l2_dtype_bf16: correctly rejected (ValueError: unsupported dtype 'bfloat16'; expected ('float32', 'float16'))
+[BOUNDARY_PASS] l2 l2_mixed_dtype: correctly rejected (ValueError: X and W must share a dtype, got torch.float32 and torch.float16)
+[BOUNDARY_PASS] l2 l2_rank3: correctly rejected (ValueError: rmsnorm expects a rank-2 X, got rank 3)
+[BOUNDARY_PASS] l2 l2_w_len: correctly rejected (ValueError: W.shape[0] (512) must equal X.shape[1] (1024))
+[BOUNDARY_PASS] l2 l2_n_too_large: correctly rejected (ValueError: rmsnorm requires 1 <= N <= 8192, got N=16384)
+[BOUNDARY_PASS] l2 l2_m_zero: correctly rejected (ValueError: rmsnorm requires M > 0, got M=0)
+AscendNPU IR compile success: 
+[BOUNDARY_PASS] boundary bnd_inf shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.491663e-07 n_exceed=0/131070 mask_match=True -> PASS
+[BOUNDARY_PASS] boundary bnd_nan shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=3.576279e-07 max_rel=2.491663e-07 n_exceed=0/130048 mask_match=True -> PASS
+[BOUNDARY_PASS] boundary bnd_zero shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=0.000000e+00 max_rel=0.000000e+00 n_exceed=0/131072 mask_match=True -> PASS
+AscendNPU IR compile success: 
+[BOUNDARY_PASS] boundary bnd_db_fp16 shape=(128,1024) dtype=float16 eps=1e-05 | atol=0.01 rtol=0.01 max_abs_limit=0.1 | matched_ratio=1.000000 max_abs=9.765625e-04 max_rel=8.410429e-04 n_exceed=0/131072 mask_match=True -> PASS
+[BOUNDARY_PASS] boundary bnd_db_fp32 shape=(128,1024) dtype=float32 eps=1e-05 | atol=0.0001 rtol=0.0001 max_abs_limit=0.01 | matched_ratio=1.000000 max_abs=1.907349e-06 max_rel=2.491663e-07 n_exceed=0/131072 mask_match=True -> PASS
+Test Passed!
+EXIT_CODE=0

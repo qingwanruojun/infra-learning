@@ -1,0 +1,19 @@
+operator:
+  name: rmsnorm
+  category: Normalization
+  formula: |
+    Y = X * rsqrt(mean(X^2, dim=-1, keepdim=True) + eps) * W
+  attrs:
+    - name: eps
+      type: Float
+      default: 1.0e-5
+      required: false
+  inputs:
+    - name: x
+      dtype: [float32, float16]
+    - name: w
+      dtype: [float32, float16]
+  outputs:
+    - name: y
+      dtype: [float32, float16]
+  schema: "rmsnorm(Tensor x, Tensor w, float eps=1e-5) -> Tensor y"

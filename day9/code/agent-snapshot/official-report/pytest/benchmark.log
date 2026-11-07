@@ -1,0 +1,53 @@
+command: /opt/buildtools/Python-3.11.4/bin/python3 -m pytest benchmarks/ops/bench_amin_fwd.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/benchmark.xml -m not smoke
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /opt/buildtools/Python-3.11.4/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-11-05 19:01:26  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-05 19:01:26  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-05 19:01:26  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 7 items
+
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[smoke-amin-float16] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_975tujma/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_975tujma/prof_script.py
+=== [msprof] latency_us: 1.54, roofline: {'Ratio(%)': 0.6174, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.5230769515037537, 'Perf(TOps/s)': 0.005651948507875204, 'Computility(TOps/s)': 7.833600044250488}
+PASSED
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[smoke-amin-bfloat16] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_tqbe38dp/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_tqbe38dp/prof_script.py
+=== [msprof] latency_us: 1.58, roofline: {'Ratio(%)': 0.6018, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.0461539030075073, 'Perf(TOps/s)': 0.011017722077667713, 'Computility(TOps/s)': 4.413295745849609}
+PASSED
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[smoke-amin-float32] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_tnrd6yx9/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_tnrd6yx9/prof_script.py
+=== [msprof] latency_us: 1.48, roofline: {'Ratio(%)': 1.2751000000000001, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.26356589794158936, 'Perf(TOps/s)': 0.005881081335246563, 'Computility(TOps/s)': 4.3520002365112305}
+PASSED
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[hidden-state-reduce-float16] AminFwdKernel initialized with config: {'block_m': 4, 'tile_n': 0}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_zus7ldj4/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_zus7ldj4/prof_script.py
+=== [msprof] latency_us: 14.06, roofline: {'Ratio(%)': 68.1867, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.5060080885887146, 'Perf(TOps/s)': 0.6038030982017517, 'Computility(TOps/s)': 8.89881706237793}
+PASSED
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[hidden-state-reduce-bfloat16] AminFwdKernel initialized with config: {'block_m': 4, 'tile_n': 0}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_8d4to4le/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_8d4to4le/prof_script.py
+=== [msprof] latency_us: 15.02, roofline: {'Ratio(%)': 63.8286, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.0151976346969604, 'Perf(TOps/s)': 1.1339759826660156, 'Computility(TOps/s)': 4.551223278045654}
+PASSED
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[long-seq-reduce-bfloat16] AminFwdKernel initialized with config: {'block_m': 1, 'tile_n': 16384}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --output=/tmp/tileops_msprof_7lb6g0sv/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_7lb6g0sv/prof_script.py
+=== [msprof] latency_us: 7.12, roofline: {'Ratio(%)': 33.663199999999996, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 1.0103451013565063, 'Perf(TOps/s)': 0.5952000021934509, 'Computility(TOps/s)': 4.574288368225098}
+PASSED
+benchmarks/ops/bench_amin_fwd.py::test_amin_bench[3d-multidim-reduce-float16] AminFwdKernel initialized with config: {'block_m': 1, 'tile_n': 0}
+msprof command:  /home/developer/Ascend/cann-9.0.0/bin/msprof op --kernel-name=main --output=/tmp/tileops_msprof_mnb_rlx0/msprof_output --launch-count=10 --warm-up=5 --aic-metrics=Roofline --dump=off /opt/buildtools/Python-3.11.4/bin/python3 /tmp/tileops_msprof_mnb_rlx0/prof_script.py
+=== [msprof] latency_us: 5.68, roofline: {'Ratio(%)': 42.1975, 'Bandwidth(TB/s)': 1.75, 'AI(Ops/Byte)': 0.5084073543548584, 'Perf(TOps/s)': 0.37543660402297974, 'Computility(TOps/s)': 8.77965259552002}
+PASSED
+Benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/benchmark.md
+Structured benchmark report saved to /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/benchmark.json
+
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/benchmark.xml -
+=================== 7 passed, 1 warning in 155.41s (0:02:35) ===================

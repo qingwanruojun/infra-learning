@@ -1,0 +1,75 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-05 18:56:40  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-05 18:56:40  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-05 18:56:40  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+[L0] PASS: shape=(32,256) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(32,256) dtype=bfloat16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(32,256) dtype=float32 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(2048,4096) dtype=float16 block_m=4 max_diff=0.00e+00
+[L0] PASS: shape=(2048,4096) dtype=bfloat16 block_m=4 max_diff=0.00e+00
+[L0] PASS: shape=(128,16384) dtype=float16 block_m=1 max_diff=0.00e+00
+[L0] PASS: shape=(33,256) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(128,300) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(128,300) dtype=bfloat16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(129,512) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(1,256) dtype=float16 block_m=1 max_diff=0.00e+00
+[L0] PASS: shape=(2,1) dtype=float16 block_m=1 max_diff=0.00e+00
+[L0] ALL PASS: 12 cases, max_diff=0.00e+00
+[L1] PASS: shape=(128,512) dtype=float16 block_m=8 max_diff=0.00e+00
+[L1] PASS: shape=(128,512) dtype=float32 block_m=8 max_diff=0.00e+00
+[L1] PASS: shape=(128,512) dtype=bfloat16 block_m=8 max_diff=0.00e+00
+[L1] PASS: shape=(256,4096) dtype=float16 block_m=4 max_diff=0.00e+00
+[L1] PASS: shape=(256,4096) dtype=bfloat16 block_m=4 max_diff=0.00e+00
+[L1] PASS: shape=(130,256) dtype=float16 block_m=8 max_diff=0.00e+00
+[L1] PASS: shape=(17,128) dtype=float16 block_m=16 max_diff=0.00e+00
+[L1] PASS: shape=(64,1024) dtype=bfloat16 block_m=4 max_diff=0.00e+00
+[L1] PASS: shape=(8,512) dtype=float16 block_m=8 max_diff=0.00e+00
+[L1] PASS: shape=(256,1024) dtype=float32 block_m=8 max_diff=0.00e+00
+[L1] PASS: shape=(3,300) dtype=bfloat16 block_m=2 max_diff=0.00e+00
+[L1] PASS: shape=(4096,256) dtype=bfloat16 block_m=8 max_diff=0.00e+00
+[L1] ALL PASS: 12 cases, max_diff=0.00e+00
+[L2] PASS: shape=(1,1) dtype=float16 block_m=1 max_diff=0.00e+00
+[L2] PASS: shape=(9,256) dtype=float16 block_m=8 max_diff=0.00e+00
+[L2] PASS: shape=(32,1) dtype=float16 block_m=4 max_diff=0.00e+00
+[L2] PASS: shape=(256,4096) dtype=float32 block_m=4 max_diff=0.00e+00
+[L2] PASS: shape=(4,32512) dtype=float16 block_m=1 max_diff=0.00e+00
+[Boundary] PASS: all +inf
+[Boundary] PASS: all -inf
+[Boundary] PASS: +-0 mix
+[Boundary] NaN record: kernel=[nan, -2.94140625, -2.947265625, -2.69140625] torch=[nan, -2.94140625, -2.947265625, -2.69140625]
+[L0] PASS: shape=(64,32768) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L0] PASS: shape=(64,32768) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L0] PASS: shape=(64,32768) dtype=float32 tile_n=16384 tn_eff=10752 full/tail=3/512 max_diff=0.00e+00
+[L0] PASS: shape=(8,33000) dtype=bfloat16 tile_n=31232 tn_eff=16384 full/tail=2/232 max_diff=0.00e+00
+[L0] PASS: shape=(8,33000) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/232 max_diff=0.00e+00
+[L0] PASS: shape=(128,40000) dtype=bfloat16 tile_n=8192 tn_eff=8192 full/tail=4/7232 max_diff=0.00e+00
+[L0] PASS: shape=(65,32768) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L0] PASS: shape=(1,102400) dtype=float16 tile_n=25600 tn_eff=25600 full/tail=4/0 max_diff=0.00e+00
+[L0] PASS: shape=(33,65536) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=4/0 max_diff=0.00e+00
+[L0] PASS: shape=(4,32513) dtype=float16 tile_n=16384 tn_eff=16128 full/tail=2/257 max_diff=0.00e+00
+[L0] ALL PASS: 10 cases, max_diff=0.00e+00
+[L1] PASS: shape=(16,32768) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L1] PASS: shape=(32,65536) dtype=float32 tile_n=16384 tn_eff=10752 full/tail=6/1024 max_diff=0.00e+00
+[L1] PASS: shape=(64,33000) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/232 max_diff=0.00e+00
+[L1] PASS: shape=(128,32768) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L1] PASS: shape=(3,32768) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L1] PASS: shape=(2,65536) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=4/0 max_diff=0.00e+00
+[L1] PASS: shape=(17,32768) dtype=float32 tile_n=16384 tn_eff=10752 full/tail=3/512 max_diff=0.00e+00
+[L1] PASS: shape=(1,32768) dtype=float32 tile_n=16384 tn_eff=10752 full/tail=3/512 max_diff=0.00e+00
+[L1] PASS: shape=(33,32769) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=2/1 max_diff=0.00e+00
+[L1] PASS: shape=(256,40000) dtype=float16 tile_n=8192 tn_eff=8192 full/tail=4/7232 max_diff=0.00e+00
+[L1] ALL PASS: 10 cases, max_diff=0.00e+00
+[L2] PASS: shape=(4,49151) dtype=bfloat16 tile_n=24576 tn_eff=16128 full/tail=3/767 max_diff=0.00e+00
+[L2] PASS: shape=(1,65536) dtype=float32 tile_n=16384 tn_eff=10752 full/tail=6/1024 max_diff=0.00e+00
+[L2] PASS: shape=(2,1) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=0/1 max_diff=0.00e+00
+[L2] PASS: shape=(1,40000) dtype=bfloat16 tile_n=16384 tn_eff=13312 full/tail=3/64 max_diff=0.00e+00
+[L2] PASS: shape=(16,65536) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=4/0 max_diff=0.00e+00
+[Boundary] PASS: all +inf (fp16, tail=0)
+[Boundary] PASS: all -inf (fp16, tail=0)
+[Boundary] PASS: all -inf (fp16, tail=232)
+[Boundary] PASS: all +inf (bf16, tail=232)
+[Boundary] WARN (record only): mixed +-inf rows: name '_boundary_case' is not defined
+[Boundary] WARN (record only): +-0 mix: name '_boundary_case' is not defined
+[Boundary] NaN record: kernel=[nan, nan, -4.203125, -4.08984375] torch=[nan, nan, -4.203125, -4.08984375]
+[92mAll check passed![0m

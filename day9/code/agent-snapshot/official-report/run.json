@@ -1,0 +1,568 @@
+{
+  "schema_version": 2,
+  "operator": "AminFwdOp",
+  "status": "passed",
+  "metadata": {
+    "run_id": "20261105_190051_728147_AminFwdOp",
+    "generated_at": "2026-11-05T19:04:06.943646+08:00",
+    "project_root": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs",
+    "git_commit": "a83796be77897cfb57274d0758f00ef50b9c27a0",
+    "python": "3.11.4",
+    "platform": "Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31",
+    "test_file": "tests/ops/test_amin_fwd.py",
+    "benchmark_file": "benchmarks/ops/bench_amin_fwd.py",
+    "prof_mode_requested": "msprof",
+    "kernel_name_requested": null,
+    "commands": {
+      "correctness": [
+        "/opt/buildtools/Python-3.11.4/bin/python3",
+        "-m",
+        "pytest",
+        "tests/ops/test_amin_fwd.py",
+        "-sv",
+        "--junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/correctness.xml"
+      ],
+      "benchmark": [
+        "/opt/buildtools/Python-3.11.4/bin/python3",
+        "-m",
+        "pytest",
+        "benchmarks/ops/bench_amin_fwd.py",
+        "-sv",
+        "--junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/benchmark.xml",
+        "-m",
+        "not smoke"
+      ]
+    },
+    "exit_codes": {
+      "correctness": 0,
+      "benchmark": 0
+    }
+  },
+  "setup": {
+    "metadata": {
+      "framework": "TileOPs Reporting 0.1.0",
+      "date": "2026-11-05T19:04:06.943646+08:00",
+      "evaluation_scope": "AminFwdOp",
+      "benchmark": "TileOPs pytest operator suite",
+      "profiler": "msprof",
+      "run_id": "20261105_190051_728147_AminFwdOp",
+      "git_commit": "a83796be77897cfb57274d0758f00ef50b9c27a0",
+      "correctness_target": "tests/ops/test_amin_fwd.py",
+      "benchmark_target": "benchmarks/ops/bench_amin_fwd.py"
+    },
+    "environment": {
+      "npu": "Ascend910B3 x 1",
+      "cpu": "aarch64",
+      "cann": "9.0.0",
+      "driver": "25.5.0",
+      "pytorch": "2.7.1+cpu",
+      "pytorch_npu": "2.7.1.post4",
+      "tilelang": "0.1.1.10+ubuntu.20.4.cann900",
+      "python": "3.11.4",
+      "os": "Linux-5.10.0-182.0.0.95.r2673_211.hce2.aarch64-aarch64-with-glibc2.31",
+      "container": "container"
+    }
+  },
+  "summary": {
+    "correctness_passed": true,
+    "correctness_tests": 14,
+    "correctness_failed": 0,
+    "operator_count": 1,
+    "total_cases": 14,
+    "passed_cases": 14,
+    "failed_cases": 0,
+    "pass_rate": 1.0,
+    "benchmark_requested": true,
+    "benchmark_passed": true,
+    "benchmark_tests": 7,
+    "benchmark_failed": 0,
+    "case_count": 4,
+    "msprof_case_count": 4,
+    "profiler_fallback_count": 0,
+    "kernel_filter_fallback_count": 0,
+    "invalid_profile_count": 0
+  },
+  "correctness": {
+    "path": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/correctness.xml",
+    "status": "passed",
+    "tests": 14,
+    "passed": 14,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[128-512-dtype0]",
+        "name": "test_amin_op[128-512-dtype0]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 1.528,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[128-512-dtype1]",
+        "name": "test_amin_op[128-512-dtype1]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.093,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[128-512-dtype2]",
+        "name": "test_amin_op[128-512-dtype2]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.1,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[256-4096-dtype3]",
+        "name": "test_amin_op[256-4096-dtype3]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.092,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[256-4096-dtype4]",
+        "name": "test_amin_op[256-4096-dtype4]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.095,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[128-300-dtype5]",
+        "name": "test_amin_op[128-300-dtype5]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.091,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[128-300-dtype6]",
+        "name": "test_amin_op[128-300-dtype6]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.095,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_op[129-512-dtype7]",
+        "name": "test_amin_op[129-512-dtype7]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.091,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "max_abs_err": "0.00e+00"
+        }
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_spec_dim[shape0--1-False-dtype0]",
+        "name": "test_amin_spec_dim[shape0--1-False-dtype0]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.085,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_spec_dim[shape1--1-False-dtype1]",
+        "name": "test_amin_spec_dim[shape1--1-False-dtype1]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.09,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_spec_dim[shape2--1-True-dtype2]",
+        "name": "test_amin_spec_dim[shape2--1-True-dtype2]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.089,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_spec_dim[shape3-0-False-dtype3]",
+        "name": "test_amin_spec_dim[shape3-0-False-dtype3]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 3.476,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_spec_dim[shape4-1-False-dtype4]",
+        "name": "test_amin_spec_dim[shape4-1-False-dtype4]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 2.832,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      },
+      {
+        "nodeid": "tests.ops.test_amin_fwd::test_amin_spec_dim[shape5--1-True-dtype5]",
+        "name": "test_amin_spec_dim[shape5--1-True-dtype5]",
+        "classname": "tests.ops.test_amin_fwd",
+        "time_s": 0.09,
+        "outcome": "passed",
+        "message": null,
+        "properties": {}
+      }
+    ]
+  },
+  "benchmark_tests": {
+    "path": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/benchmark.xml",
+    "status": "passed",
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[smoke-amin-float16]",
+        "name": "test_amin_bench[smoke-amin-float16]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 22.66,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "1.5400"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[smoke-amin-bfloat16]",
+        "name": "test_amin_bench[smoke-amin-bfloat16]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 21.413,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "1.5800"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[smoke-amin-float32]",
+        "name": "test_amin_bench[smoke-amin-float32]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 21.745,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "1.4800"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[hidden-state-reduce-float16]",
+        "name": "test_amin_bench[hidden-state-reduce-float16]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 21.742,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "14.0600"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[hidden-state-reduce-bfloat16]",
+        "name": "test_amin_bench[hidden-state-reduce-bfloat16]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 21.742,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "15.0200"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[long-seq-reduce-bfloat16]",
+        "name": "test_amin_bench[long-seq-reduce-bfloat16]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 21.743,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "7.1200"
+        }
+      },
+      {
+        "nodeid": "benchmarks.ops.bench_amin_fwd::test_amin_bench[3d-multidim-reduce-float16]",
+        "name": "test_amin_bench[3d-multidim-reduce-float16]",
+        "classname": "benchmarks.ops.bench_amin_fwd",
+        "time_s": 21.77,
+        "outcome": "passed",
+        "message": null,
+        "properties": {
+          "op": "AminFwdOp",
+          "op_module": "tileops.ops.reduction.amin_fwd",
+          "tileops_latency_us": "5.6800"
+        }
+      }
+    ]
+  },
+  "performance": {
+    "source": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/benchmark.json",
+    "requested_prof_mode": "msprof",
+    "cases": [
+      {
+        "operator": "AminFwdOp",
+        "case_id": "AminFwdOp-d5050a3c4cca",
+        "label": "hidden-state-reduce",
+        "params": {
+          "dtype": "float16",
+          "op_params": {
+            "dim": -1
+          },
+          "shape": [
+            2048,
+            4096
+          ]
+        },
+        "config": {
+          "block_m": 4,
+          "tile_n": 0
+        },
+        "tag": "tileops",
+        "latency_us": 14.06,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 68.1867,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.5060080885887146,
+        "performance_tops": 0.6038030982017517,
+        "computility_tops": 8.89881706237793,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/artifacts/msprof/main_lzhx5v4z",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 14.06,
+          "max_latency_us": 14.06,
+          "min_latency_us": 14.06,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "AminFwdOp",
+        "case_id": "AminFwdOp-e72fbf1d554a",
+        "label": "hidden-state-reduce",
+        "params": {
+          "dtype": "bfloat16",
+          "op_params": {
+            "dim": -1
+          },
+          "shape": [
+            2048,
+            4096
+          ]
+        },
+        "config": {
+          "block_m": 4,
+          "tile_n": 0
+        },
+        "tag": "tileops",
+        "latency_us": 15.02,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 63.8286,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 1.0151976346969604,
+        "performance_tops": 1.1339759826660156,
+        "computility_tops": 4.551223278045654,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/artifacts/msprof/main_1qdbgi_q",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 15.02,
+          "max_latency_us": 15.02,
+          "min_latency_us": 15.02,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "AminFwdOp",
+        "case_id": "AminFwdOp-5524ce71b00c",
+        "label": "long-seq-reduce",
+        "params": {
+          "dtype": "bfloat16",
+          "op_params": {
+            "dim": -1
+          },
+          "shape": [
+            64,
+            32768
+          ]
+        },
+        "config": {
+          "block_m": 1,
+          "tile_n": 16384
+        },
+        "tag": "tileops",
+        "latency_us": 7.12,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 33.663199999999996,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 1.0103451013565063,
+        "performance_tops": 0.5952000021934509,
+        "computility_tops": 4.574288368225098,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/artifacts/msprof/main_tnku73t6",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            null
+          ],
+          "kernel_name_requested": null,
+          "kernel_name_resolved": null,
+          "latency_us": 7.12,
+          "max_latency_us": 7.12,
+          "min_latency_us": 7.12,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      },
+      {
+        "operator": "AminFwdOp",
+        "case_id": "AminFwdOp-6b30e6773334",
+        "label": "3d-multidim-reduce",
+        "params": {
+          "dtype": "float16",
+          "op_params": {
+            "dim": [
+              0,
+              2
+            ]
+          },
+          "shape": [
+            4,
+            128,
+            4096
+          ]
+        },
+        "config": {
+          "block_m": 1,
+          "tile_n": 0
+        },
+        "tag": "tileops",
+        "latency_us": 5.68,
+        "prof_mode": "msprof",
+        "profiler_valid": true,
+        "invalid_reason": null,
+        "roofline_utilization_percent": 42.1975,
+        "bandwidth_tb_s": 1.75,
+        "arithmetic_intensity_ops_per_byte": 0.5084073543548584,
+        "performance_tops": 0.37543660402297974,
+        "computility_tops": 8.77965259552002,
+        "artifact_dir": "/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/artifacts/msprof/main_i5s_8l5i",
+        "msprof": {
+          "captured_op_count": 1,
+          "captured_op_names": [
+            "main"
+          ],
+          "kernel_name_attempts": [
+            "main"
+          ],
+          "kernel_name_requested": "main",
+          "kernel_name_resolved": "main",
+          "latency_us": 5.68,
+          "max_latency_us": 5.68,
+          "min_latency_us": 5.68,
+          "op_name": "main",
+          "sample_count": 1
+        }
+      }
+    ]
+  },
+  "operators": [
+    {
+      "operator": "AminFwdOp",
+      "family": "reduction",
+      "cases": 14,
+      "passed": 14,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "avg_max_abs_err": 0.0,
+      "max_abs_err": 0.0,
+      "performance_cases": 4,
+      "ratio_range": {
+        "min": 33.663199999999996,
+        "max": 68.1867
+      }
+    }
+  ],
+  "warnings": []
+}

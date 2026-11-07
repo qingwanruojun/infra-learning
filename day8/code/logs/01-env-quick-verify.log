@@ -1,0 +1,11 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+error: module 'tilelang.language' has no attribute 'barrier_all'
+ --> /mnt/workspace/learn/cannbot-skills/ops/tilelang-env-check/Ascend910/scripts/quick_verify.py:42:17
+    |  
+ 42 |                  T.barrier_all()
+    |                  ^^^^^^^^^^^^^  
+2026-11-04 08:44:56  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 08:44:56  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 08:44:56  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+note: run with `TVM_BACKTRACE=1` environment variable to display a backtrace.

@@ -1,0 +1,64 @@
+op                           label            dtype      shape                            lat_us  ratio%
+--------------------------------------------------------------------------------------------------------
+LeakyReluFwdOp               smoke-1m         float32    [1048576]                         17.38   13.79
+LeakyReluFwdOp               smoke-1m         float16    [1048576]                         11.42   10.49
+LeakyReluFwdOp               smoke-1m         bfloat16   [1048576]                         11.18   10.72
+LeakyReluFwdOp               gan-feat         float16    [16, 256, 64, 64]                141.46   13.55
+LeakyReluFwdOp               gan-feat         bfloat16   [16, 256, 64, 64]                144.84   13.24
+LeakyReluFwdOp               gan-feat-deep    float16    [16, 512, 32, 32]                 71.36   13.43
+LeakyReluFwdOp               gan-feat-deep    bfloat16   [16, 512, 32, 32]                 72.08   13.30
+LeakyReluFwdOp               fc-wide          float16    [2048, 4096]                      71.10   13.48
+LeakyReluFwdOp               fc-wide          bfloat16   [2048, 4096]                      73.42   13.06
+EluFwdOp                     smoke-1m         float32    [1048576]                         18.94   12.65
+EluFwdOp                     smoke-1m         float16    [1048576]                         12.34   13.28
+EluFwdOp                     smoke-1m         bfloat16   [1048576]                         12.12   15.40
+EluFwdOp                     mlp-hidden       float16    [2048, 4096]                      78.76   16.30
+EluFwdOp                     mlp-hidden       bfloat16   [2048, 4096]                      80.56   18.20
+EluFwdOp                     mlp-hidden-wide  float16    [2048, 8192]                     156.30   16.40
+EluFwdOp                     mlp-hidden-wide  bfloat16   [2048, 8192]                     158.70   18.45
+EluFwdOp                     gan-feat         float16    [16, 256, 64, 64]                155.90   16.45
+EluFwdOp                     gan-feat         bfloat16   [16, 256, 64, 64]                157.98   18.53
+Expm1FwdOp                   smoke-1m         float32    [1048576]                         16.46   14.56
+Expm1FwdOp                   smoke-1m         float16    [1048576]                         10.26   11.68
+Expm1FwdOp                   smoke-1m         bfloat16   [1048576]                         10.38   11.55
+Expm1FwdOp                   elementwise-16m  float16    [4096, 4096]                     128.12   14.97
+Expm1FwdOp                   elementwise-16m  bfloat16   [4096, 4096]                     130.32   14.71
+Expm1FwdOp                   elementwise-16m  float32    [4096, 4096]                     219.70   17.45
+Expm1FwdOp                   elementwise-64m  float16    [8192, 8192]                     507.19   18.90
+Expm1FwdOp                   elementwise-64m  bfloat16   [8192, 8192]                     515.87   18.47
+Expm1FwdOp                   elementwise-256m float16    [16384, 16384]                  2053.02   27.08
+Expm1FwdOp                   elementwise-256m bfloat16   [16384, 16384]                  2090.64   26.60
+Expm1FwdOp                   smoke-1m         float32    [1048576]                         15.76   15.21
+Expm1FwdOp                   smoke-1m         float16    [1048576]                         10.18   11.77
+Expm1FwdOp                   smoke-1m         bfloat16   [1048576]                         10.64   11.26
+Expm1FwdOp                   elementwise-16m  float16    [4096, 4096]                     128.14   14.96
+Expm1FwdOp                   elementwise-16m  bfloat16   [4096, 4096]                     130.60   14.68
+Expm1FwdOp                   elementwise-16m  float32    [4096, 4096]                     217.34   17.64
+Expm1FwdOp                   elementwise-64m  float16    [8192, 8192]                     505.37   18.63
+Expm1FwdOp                   elementwise-64m  bfloat16   [8192, 8192]                     521.17   18.83
+Expm1FwdOp                   elementwise-256m float16    [16384, 16384]                  2044.44   27.20
+Expm1FwdOp                   elementwise-256m bfloat16   [16384, 16384]                  2099.74   26.48
+ErfFwdOp                     smoke-1m         float32    [1048576]                         30.10   18.66
+ErfFwdOp                     smoke-1m         float16    [1048576]                         20.54   28.28
+ErfFwdOp                     smoke-1m         bfloat16   [1048576]                         21.14   28.55
+ErfFwdOp                     elementwise-16m  float16    [4096, 4096]                     294.81   31.24
+ErfFwdOp                     elementwise-16m  bfloat16   [4096, 4096]                     298.45   32.08
+ErfFwdOp                     elementwise-16m  float32    [4096, 4096]                     442.67   20.21
+ErfFwdOp                     elementwise-64m  float16    [8192, 8192]                    1176.08   31.31
+ErfFwdOp                     elementwise-64m  bfloat16   [8192, 8192]                    1187.96   32.22
+ErfFwdOp                     elementwise-256m float16    [16384, 16384]                  4702.47   31.32
+ErfFwdOp                     elementwise-256m bfloat16   [16384, 16384]                  4761.31   32.16
+BitwiseNotFwdOp              smoke-1m         bool       [1048576]                         29.24    1.02
+BitwiseNotFwdOp              smoke-1m         uint8      [1048576]                         26.36    1.14
+BitwiseNotFwdOp              smoke-1m         int32      [1048576]                         31.08    7.71
+BitwiseNotFwdOp              elementwise-16m  int32      [4096, 4096]                     455.51    8.42
+BitwiseNotFwdOp              elementwise-16m  int64      [4096, 4096]                     501.97   19.10
+BitwiseNotFwdOp              elementwise-64m  int16      [8192, 8192]                    1699.75    5.57
+BitwiseNotFwdOp              elementwise-64m  int32      [8192, 8192]                    1801.02   13.80
+BitwiseNotFwdOp              elementwise-256m int32      [16384, 16384]                  7220.36   16.20
+
+LeakyReluFwdOp: n=9 mean=12.79% min=10.49% max=13.79%
+EluFwdOp: n=9 mean=16.18% min=12.65% max=18.53%
+Expm1FwdOp: n=20 mean=17.63% min=11.26% max=27.20%
+ErfFwdOp: n=10 mean=28.60% min=18.66% max=32.22%
+BitwiseNotFwdOp: n=8 mean=9.12% min=1.02% max=19.10%

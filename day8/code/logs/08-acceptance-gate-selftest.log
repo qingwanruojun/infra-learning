@@ -1,0 +1,7 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+PASS all good: all_ok=True (want True), exit_code=0 (want 0)
+PASS one precision fail: all_ok=False (want False), exit_code=1 (want 1)
+PASS one negative control missed: all_ok=False (want False), exit_code=1 (want 1)
+GATE_SELFTEST_PASS
+EXIT_CODE=0

@@ -1,0 +1,18 @@
+# 原始故障记录：fp16 block_m / pass-config 编译探针
+# 来源：Stage 2 developer 子代理 transcript
+#   /home/developer/.claude/projects/-mnt-workspace-learn/28c0ec5d-fbdb-49d5-83b3-ee91b139775d/subagents/agent-aef1a5819d615aed7.jsonl
+#   记录行: 264 (命令) / 265 (输出)
+# 设备时间: 2026-11-04T01:27:57.727Z (UTC) = 2026-11-04 09:27:57 +08:00
+# 探针脚本: probes/rmsnorm_fp16_variants.py
+# 说明: compile-only；失败被脚本捕获并打印，因此进程 EXIT=0 表示
+#       “六个探针都执行完”，不代表六个都编译成功。
+# 原命令（verbatim）:
+TILELANG_ASCEND_MODE=Developer PYTHONPATH=/mnt/workspace/learn/tilelang-ascend:$PYTHONPATH python /tmp/rmsnorm_fp16_variants.py 2>&1 | grep -E "^PROBE|Traceback" ; echo "EXIT=${PIPESTATUS[0]}"
+--- stdout (verbatim) ---
+PROBE default bm=16: FAIL NPU IR opt failed: loc("/tmp/tmpyjh7d6hq/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline  loc("/tmp/tmpyjh7d6hq/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what
+PROBE default bm=8: COMPILE_OK
+PROBE default bm=10: COMPILE_OK
+PROBE default bm=12: FAIL NPU IR opt failed: loc("/tmp/tmp04khaz9w/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline  loc("/tmp/tmp04khaz9w/kernel.npuir":2:3): error: ub overflow, requires 1589760 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what
+PROBE nomultibuf bm=16: FAIL NPU IR opt failed: loc("/tmp/tmpdyzfhhh9/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline  loc("/tmp/tmpdyzfhhh9/kernel.npuir":2:3): error: ub overflow, requires 2113536 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what
+PROBE nomultibuf bm=12: FAIL NPU IR opt failed: loc("/tmp/tmp0e1nb5d_/kernel.npuir":1:1): error: Failed to run BiShengHIR pipeline  loc("/tmp/tmp0e1nb5d_/kernel.npuir":2:3): error: ub overflow, requires 1589760 bits while 1572864 bits available! (possible reason: tiling basic block is too large or block number is more than what
+EXIT=0--- stderr (verbatim) ---

@@ -1,0 +1,16 @@
+{
+  "kernel_name_requested": "main",
+  "kernel_name_resolved": "main",
+  "kernel_name_attempts": [
+    "main"
+  ],
+  "op_name": "main",
+  "captured_op_names": [
+    "main"
+  ],
+  "captured_op_count": 1,
+  "sample_count": 1,
+  "latency_us": 14.06,
+  "min_latency_us": 14.06,
+  "max_latency_us": 14.06
+}

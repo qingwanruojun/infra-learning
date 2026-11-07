@@ -1,0 +1,52 @@
+command: /opt/buildtools/Python-3.11.4/bin/python3 -m pytest tests/ops/test_amin_fwd.py -sv --junitxml=/mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/correctness.xml
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.4, pytest-8.3.2, pluggy-1.6.0 -- /opt/buildtools/Python-3.11.4/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs
+configfile: pyproject.toml
+plugins: xdist-3.6.1, forked-1.6.0
+collecting ... 2026-11-05 19:01:01  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-05 19:01:01  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-05 19:01:01  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+collected 14 items
+
+tests/ops/test_amin_fwd.py::test_amin_op[128-512-dtype0] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[128-512-dtype1] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[128-512-dtype2] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[256-4096-dtype3] AminFwdKernel initialized with config: {'block_m': 4, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[256-4096-dtype4] AminFwdKernel initialized with config: {'block_m': 4, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[128-300-dtype5] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[128-300-dtype6] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_op[129-512-dtype7] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_spec_dim[shape0--1-False-dtype0] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_spec_dim[shape1--1-False-dtype1] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_spec_dim[shape2--1-True-dtype2] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_spec_dim[shape3-0-False-dtype3] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_spec_dim[shape4-1-False-dtype4] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+AscendNPU IR compile success: 
+PASSED
+tests/ops/test_amin_fwd.py::test_amin_spec_dim[shape5--1-True-dtype5] AminFwdKernel initialized with config: {'block_m': 8, 'tile_n': 0}
+PASSED
+
+=============================== warnings summary ===============================
+../../../../../../../opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66
+  /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+    warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/reports/tileops/20261105_190051_728147_AminFwdOp/pytest/correctness.xml -
+======================== 14 passed, 1 warning in 10.63s ========================

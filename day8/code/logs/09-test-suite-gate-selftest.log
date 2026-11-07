@@ -1,0 +1,23 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-04 10:16:10  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 10:16:10  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 10:16:10  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+FORCED_BOUNDARY_FAIL_EXIT=1
+FORCED_boundary_SHELL_EXIT=1
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-04 10:16:26  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 10:16:26  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 10:16:26  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+FORCED_L2_FAIL_EXIT=1
+FORCED_l2_SHELL_EXIT=1
+--- positive control ---
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-04 10:16:42  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 10:16:42  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 10:16:42  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+Test Passed!
+PATCHED_L2_PASS_EXIT=0
+PATCHED_L2_PASS_SHELL_EXIT=0

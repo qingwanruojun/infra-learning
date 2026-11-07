@@ -1,0 +1,30 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-05 18:54:48  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-05 18:54:48  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-05 18:54:48  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+[L0] PASS: shape=(32,256) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(32,256) dtype=bfloat16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(32,256) dtype=float32 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(2048,4096) dtype=float16 block_m=4 max_diff=0.00e+00
+[L0] PASS: shape=(2048,4096) dtype=bfloat16 block_m=4 max_diff=0.00e+00
+[L0] PASS: shape=(128,16384) dtype=float16 block_m=1 max_diff=0.00e+00
+[L0] PASS: shape=(33,256) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(128,300) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(128,300) dtype=bfloat16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(129,512) dtype=float16 block_m=8 max_diff=0.00e+00
+[L0] PASS: shape=(1,256) dtype=float16 block_m=1 max_diff=0.00e+00
+[L0] PASS: shape=(2,1) dtype=float16 block_m=1 max_diff=0.00e+00
+[L0] ALL PASS: 12 cases, max_diff=0.00e+00
+[L0] PASS: shape=(64,32768) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L0] PASS: shape=(64,32768) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L0] PASS: shape=(64,32768) dtype=float32 tile_n=16384 tn_eff=10752 full/tail=3/512 max_diff=0.00e+00
+[L0] PASS: shape=(8,33000) dtype=bfloat16 tile_n=31232 tn_eff=16384 full/tail=2/232 max_diff=0.00e+00
+[L0] PASS: shape=(8,33000) dtype=float16 tile_n=16384 tn_eff=16384 full/tail=2/232 max_diff=0.00e+00
+[L0] PASS: shape=(128,40000) dtype=bfloat16 tile_n=8192 tn_eff=8192 full/tail=4/7232 max_diff=0.00e+00
+[L0] PASS: shape=(65,32768) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=2/0 max_diff=0.00e+00
+[L0] PASS: shape=(1,102400) dtype=float16 tile_n=25600 tn_eff=25600 full/tail=4/0 max_diff=0.00e+00
+[L0] PASS: shape=(33,65536) dtype=bfloat16 tile_n=16384 tn_eff=16384 full/tail=4/0 max_diff=0.00e+00
+[L0] PASS: shape=(4,32513) dtype=float16 tile_n=16384 tn_eff=16128 full/tail=2/257 max_diff=0.00e+00
+[L0] ALL PASS: 10 cases, max_diff=0.00e+00
+[92mAll check passed![0m

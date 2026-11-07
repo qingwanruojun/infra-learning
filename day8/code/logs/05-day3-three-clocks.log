@@ -1,0 +1,27 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-04 09:21:54  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 09:21:54  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 09:21:54  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+[2026-11-04 09:22:45] [WARNING] [29204] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 09:22:45] [INFO] [30717] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_4fdmuw4h/a6c98e6836c04614baed206dda1faa87_29204_20261104092244990_ascend_pt
+|/-\[2026-11-04 09:22:48] [INFO] [30726] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032254
+|[2026-11-04 09:22:50] [INFO] [30717] profiler.py: All profiling data parsed in a total time of 0:00:04.320784
+float32 1024 233.2695 236.97400093078613 {'available': True, 'median_us': 17.04, 'min_us': 15.9, 'max_us': 18.28, 'n_rows': 20, 'iters': 20, 'path': 'torch_npu.profiler kernel_details.csv'}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+[2026-11-04 09:23:33] [WARNING] [29204] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 09:23:34] [INFO] [31433] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_oys8oig2/a6c98e6836c04614baed206dda1faa87_29204_20261104092333488_ascend_pt
+|/-[2026-11-04 09:23:36] [INFO] [31442] profiler.py: CANN profiling data parsed in a total time of 0:00:02.029687
+\[2026-11-04 09:23:37] [INFO] [31433] profiler.py: All profiling data parsed in a total time of 0:00:03.315638
+float32 1023 262.841 267.30799674987793 {'available': True, 'median_us': 17.310000000000002, 'min_us': 16.04, 'max_us': 18.44, 'n_rows': 20, 'iters': 20, 'path': 'torch_npu.profiler kernel_details.csv'}
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+[2026-11-04 09:24:20] [WARNING] [29204] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 09:24:21] [INFO] [32350] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_5vcliron/a6c98e6836c04614baed206dda1faa87_29204_20261104092420350_ascend_pt
+|/-\[2026-11-04 09:24:24] [INFO] [32359] profiler.py: CANN profiling data parsed in a total time of 0:00:03.031926
+|[2026-11-04 09:24:25] [INFO] [32350] profiler.py: All profiling data parsed in a total time of 0:00:04.321879
+float16 1024 237.54500000000002 251.00700855255127 {'available': True, 'median_us': 12.82, 'min_us': 12.14, 'max_us': 16.2, 'n_rows': 20, 'iters': 20, 'path': 'torch_npu.profiler kernel_details.csv'}
+DONE

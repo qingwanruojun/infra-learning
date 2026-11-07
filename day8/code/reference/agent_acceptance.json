@@ -1,0 +1,167 @@
+[
+  {
+    "shape": [
+      1024,
+      1024
+    ],
+    "dtype": "float32",
+    "eps": 1e-05,
+    "metrics": {
+      "pass": true,
+      "max_abs": 1.3529522977506758e-06,
+      "max_rel": 2.2206907502047563e-07,
+      "max_rel_unmasked": 2.2206907502047563e-07,
+      "matched_ratio": 1.0,
+      "n_elements": 1048576,
+      "n_mismatch": 0,
+      "atol": 0.0001,
+      "rtol": 0.0001
+    },
+    "negative_control": {
+      "pass": false,
+      "n_mismatch": 1,
+      "max_abs": 0.013842296172697388
+    },
+    "host": {
+      "median_us": 326.947,
+      "min_us": 321.047,
+      "max_us": 365.438,
+      "iters": 50
+    },
+    "e2e": {
+      "median_us": 336.5770101547241,
+      "min_us": 333.663010597229,
+      "max_us": 340.72299003601074,
+      "samples_us": [
+        333.663010597229,
+        333.7169885635376,
+        335.8910083770752,
+        336.5770101547241,
+        337.80500888824463,
+        339.0690088272095,
+        340.72299003601074
+      ],
+      "iters": 20,
+      "rounds": 7
+    },
+    "device": {
+      "available": true,
+      "median_us": 17.11,
+      "min_us": 15.82,
+      "max_us": 17.8,
+      "n_rows": 20,
+      "iters": 20,
+      "path": "torch_npu.profiler kernel_details.csv"
+    }
+  },
+  {
+    "shape": [
+      1023,
+      1024
+    ],
+    "dtype": "float32",
+    "eps": 1e-05,
+    "metrics": {
+      "pass": true,
+      "max_abs": 1.149073552753066e-06,
+      "max_rel": 2.3545950391485227e-07,
+      "max_rel_unmasked": 2.3545950391485227e-07,
+      "matched_ratio": 1.0,
+      "n_elements": 1047552,
+      "n_mismatch": 0,
+      "atol": 0.0001,
+      "rtol": 0.0001
+    },
+    "negative_control": {
+      "pass": false,
+      "n_mismatch": 1,
+      "max_abs": 0.014174371928312723
+    },
+    "host": {
+      "median_us": 360.14750000000004,
+      "min_us": 345.177,
+      "max_us": 454.679,
+      "iters": 50
+    },
+    "e2e": {
+      "median_us": 375.6500005722046,
+      "min_us": 349.0530014038086,
+      "max_us": 446.88401222229004,
+      "samples_us": [
+        349.0530014038086,
+        350.6850004196167,
+        363.5090112686157,
+        375.6500005722046,
+        376.1780023574829,
+        378.9050102233887,
+        446.88401222229004
+      ],
+      "iters": 20,
+      "rounds": 7
+    },
+    "device": {
+      "available": true,
+      "median_us": 16.84,
+      "min_us": 15.8,
+      "max_us": 18.12,
+      "n_rows": 20,
+      "iters": 20,
+      "path": "torch_npu.profiler kernel_details.csv"
+    }
+  },
+  {
+    "shape": [
+      1024,
+      1024
+    ],
+    "dtype": "float16",
+    "eps": 1e-05,
+    "metrics": {
+      "pass": true,
+      "max_abs": 0.003901151572490491,
+      "max_rel": 0.0021125469439714157,
+      "max_rel_unmasked": 0.07570307273384502,
+      "matched_ratio": 1.0,
+      "n_elements": 1048576,
+      "n_mismatch": 0,
+      "atol": 0.01,
+      "rtol": 0.01
+    },
+    "negative_control": {
+      "pass": false,
+      "n_mismatch": 1,
+      "max_abs": 1.2974977868757893
+    },
+    "host": {
+      "median_us": 352.682,
+      "min_us": 329.867,
+      "max_us": 452.479,
+      "iters": 50
+    },
+    "e2e": {
+      "median_us": 351.11100673675537,
+      "min_us": 347.99299240112305,
+      "max_us": 357.6159954071045,
+      "samples_us": [
+        347.99299240112305,
+        349.95100498199463,
+        350.4319906234741,
+        351.11100673675537,
+        352.08001136779785,
+        352.19500064849854,
+        357.6159954071045
+      ],
+      "iters": 20,
+      "rounds": 7
+    },
+    "device": {
+      "available": true,
+      "median_us": 12.059999999999999,
+      "min_us": 11.48,
+      "max_us": 13.3,
+      "n_rows": 20,
+      "iters": 20,
+      "path": "torch_npu.profiler kernel_details.csv"
+    }
+  }
+]

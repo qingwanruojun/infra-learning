@@ -1,0 +1,575 @@
+# msprof op --kernel-name=main --output=ab_round1_3d/pair1B --launch-count=20 --warm-up=5 --dump=off --aic-metrics=BasicInfo,PipeUtilization,ArithmeticUtilization,Memory,MemoryUB,MemoryL0,L2Cache,ResourceConflictRatio python3 bench_driver.py --impl _amin_round1a_reshared.py --workload 3d-multidim-reduce-float16 --warmup 5 --iters 25
+2026-11-05 15:37:50 [INFO]  Op profiling analysis start.
+2026-11-05 15:37:50 [INFO]  Running device task: DeviceProf
+2026-11-05 15:38:03 [INFO]  Kernel Cast_15ccf3aee15572ed7572778d4afbef60_high_performance_210010000 skipped: not selected via --kernel-name.
+2026-11-05 15:38:03 [INFO]  Kernel Transpose_be837fe498fad076d01c0ce8dfd3d014_high_performance_9 skipped: not selected via --kernel-name.
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+[INFO] <ProfData> Start profiling on device 0, kernel: main
+[INFO] <WarmUp> Warm Up enabled. times:5
+2026-11-05 15:38:01  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-05 15:38:01  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-05 15:38:01  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AminFwdKernel initialized with config: {'block_m': 1, 'tile_n': 0}
+2026-11-05 15:38:21 [INFO]  Profiling running finished. All task success.
+2026-11-05 15:38:21 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 0
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:21 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:22 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:22 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.480000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:22 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 1
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:22 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:22 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.780000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:22 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 10
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:22 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:22 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.640000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:22 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 11
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:22 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:23 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:23 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.640000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:23 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 12
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:23 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:23 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.700000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:23 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 13
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:23 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:23 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.640000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:23 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 14
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:23 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:24 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:24 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.760000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:24 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 15
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:24 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:24 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.700000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:24 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 16
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:24 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:24 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 8.300000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:24 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 17
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:24 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:25 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:25 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.460000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:25 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 18
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:25 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:25 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.680000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:25 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 19
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:25 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:25 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.500000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:25 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 2
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:25 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:26 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:26 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.760000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:26 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 3
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:26 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:26 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.460000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:26 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 4
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:26 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:26 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.560000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:26 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 5
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:26 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:27 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:27 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.400000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:27 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 6
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:27 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:27 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.580000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:27 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 7
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:27 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:27 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.560000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:27 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 8
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:27 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:28 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:28 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.560000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:28 [INFO]  Start analyze kernel on device: device0, kernel: main, name is: 9
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [PipeUtilization] success.
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [ArithmeticUtilization] success.
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [L2Cache] success.
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [Memory] success.
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [ResourceConflictRatio] success.
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [MemoryL0] success.
+2026-11-05 15:38:28 [INFO]  Save profiling data with metric [MemoryUB] success.
+2026-11-05 15:38:28 [INFO]  Performance Summary Report:
+
+	1) MTE2 bandwidth utilization lower than 80% when active.
+	2) MTE3 bandwidth utilization lower than 80% when active.
+	3) aivector compute usage lower than 20%.
+
+2026-11-05 15:38:28 [INFO]  Operator Basic Information:
+
+	Op Name: main
+	Op Type: vector
+	Task Duration(us): 7.880000
+	Block Dim: 40
+	Mix Block Dim: 
+	Device Id: 0
+	Pid: 156632
+	Current Freq: 1800
+	Rated Freq: 1800
+
+2026-11-05 15:38:28 [INFO]  Profiling results saved in /mnt/workspace/learn/refs/tilelang-mlir-ascend/examples/TileOPs/tileops/kernels/reduction/amin_fwd/amin_fwd_kernel/perf_opt/ab_round1_3d/pair1B/OPPROF_20261105153750_KXDGGETFCCTMMFZN
+2026-11-05 15:38:28 [INFO]  Profiling data parse finished.
+2026-11-05 15:38:28 [INFO]  Op profiling finish. Welcome to next use.
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")

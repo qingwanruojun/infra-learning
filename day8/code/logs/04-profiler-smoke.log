@@ -1,0 +1,17 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-04 08:50:23  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 08:50:23  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 08:50:23  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+AscendNPU IR compile success: 
+Precompiling NPU launcher header...
+[2026-11-04 08:51:11] [WARNING] [26576] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 08:51:11] [INFO] [27002] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_8l3cp0z3/a6c98e6836c04614baed206dda1faa87_26576_20261104085111209_ascend_pt
+|/-\[2026-11-04 08:51:15] [INFO] [27011] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032262
+|[2026-11-04 08:51:16] [INFO] [27002] profiler.py: All profiling data parsed in a total time of 0:00:04.379605
+{'available': False, 'reason': "no row matching 'rmsnorm'", 'kernel_names': ['main']}
+[2026-11-04 08:51:17] [WARNING] [26576] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 08:51:17] [INFO] [27321] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_xq2lf_vc/a6c98e6836c04614baed206dda1faa87_26576_20261104085117081_ascend_pt
+|/-\[2026-11-04 08:51:20] [INFO] [27330] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032061
+|[2026-11-04 08:51:22] [INFO] [27321] profiler.py: All profiling data parsed in a total time of 0:00:04.320316
+{'available': True, 'median_us': 15.85, 'min_us': 14.24, 'max_us': 16.54, 'n_rows': 10, 'iters': 10, 'path': 'torch_npu.profiler kernel_details.csv'}

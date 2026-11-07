@@ -1,0 +1,15 @@
+op_requirements:
+  op_name: rmsnorm
+  math_formula: "Y = X * rsqrt(mean(X^2, dim=-1, keepdim=True) + 1e-5) * W"
+  input_spec:
+    x: {shape: [1024, 1024], dtype: float32}
+    w: {shape: [1024], dtype: float32}
+  output_spec:
+    y: {shape: [1024, 1024], dtype: float32}
+  programming_mode: developer
+  required_extra_cases:
+    - "boundary: X [1023, 1024] float32, W [1024] float32, Y [1023, 1024] float32"
+    - "dtype: X/W/Y float16 at [1024, 1024] / [1024]"
+  tolerance:
+    float32: {atol: 1e-4, rtol: 1e-4}
+    float16: {atol: 1e-2, rtol: 1e-2}

@@ -1,0 +1,25 @@
+/opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/utils/_path_manager.py:66: UserWarning: Permission mismatch: The owner of /opt/buildtools/Python-3.11.4/lib/python3.11/site-packages/torch_npu/lib/libop_plugin_atb.so does not match.
+  warnings.warn(f"Permission mismatch: The owner of {path} does not match.")
+2026-11-04 09:32:24  [TileLang:tilelang.env:WARNING]: Loading tilelang libs from dev root: /mnt/workspace/learn/tilelang-ascend/build
+2026-11-04 09:32:24  [TileLang:tilelang.env:WARNING]: CUTLASS is not installed or found in the expected path
+2026-11-04 09:32:24  [TileLang:tilelang.env:WARNING]: Composable Kernel is not installed or found in the expected path
+running {'M': 1024, 'N': 1024, 'dtype': 'float32', 'atol': 0.0001, 'rtol': 0.0001, 'seed': 0}
+[2026-11-04 09:32:28] [WARNING] [41374] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 09:32:28] [INFO] [41854] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_oa9y61nh/a6c98e6836c04614baed206dda1faa87_41374_20261104093228173_ascend_pt
+|/-\[2026-11-04 09:32:32] [INFO] [41863] profiler.py: CANN profiling data parsed in a total time of 0:00:03.032684
+|[2026-11-04 09:32:33] [INFO] [41854] profiler.py: All profiling data parsed in a total time of 0:00:04.311970
+running {'M': 1023, 'N': 1024, 'dtype': 'float32', 'atol': 0.0001, 'rtol': 0.0001, 'seed': 1}
+[2026-11-04 09:32:34] [WARNING] [41374] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 09:32:34] [INFO] [42266] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_8pn5385q/a6c98e6836c04614baed206dda1faa87_41374_20261104093234272_ascend_pt
+|/-\[2026-11-04 09:32:37] [INFO] [42275] profiler.py: CANN profiling data parsed in a total time of 0:00:03.031787
+|[2026-11-04 09:32:39] [INFO] [42266] profiler.py: All profiling data parsed in a total time of 0:00:04.309363
+running {'M': 1024, 'N': 1024, 'dtype': 'float16', 'atol': 0.01, 'rtol': 0.01, 'seed': 2}
+[2026-11-04 09:32:40] [WARNING] [41374] profiler.py: Incorrect schedule: Stop profiler while current state is RECORD which may result in incomplete parsed data.
+[2026-11-04 09:32:40] [INFO] [42745] profiler.py: Start parsing profiling data in sync mode at: /tmp/day8_prof_r1pts9uu/a6c98e6836c04614baed206dda1faa87_41374_20261104093240231_ascend_pt
+|/-\[2026-11-04 09:32:44] [INFO] [42754] profiler.py: CANN profiling data parsed in a total time of 0:00:03.033749
+|[2026-11-04 09:32:45] [INFO] [42745] profiler.py: All profiling data parsed in a total time of 0:00:04.322175
+float32 M=1024 pass=True max_abs=1.353e-06 max_rel=2.221e-07 mismatch=0 device=15.31 us e2e=352.73098945617676 us
+float32 M=1023 pass=True max_abs=1.149e-06 max_rel=2.355e-07 mismatch=0 device=15.31 us e2e=364.26000595092773 us
+float16 M=1024 pass=True max_abs=3.901e-03 max_rel=2.113e-03 mismatch=0 device=13.1 us e2e=354.6180009841919 us
+WROTE /mnt/workspace/learn/infra-learning/day8/code/reference/agent_acceptance.json
+EXIT_CODE=0
